@@ -1,17 +1,126 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mạng lưới dịch vụ cộng đồng</title>
+    <title>Mạng Lưới Dịch Vụ Cộng Đồng</title>
     <!-- Tải Pi SDK -->
     <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f4f6f9; color: #333; padding-bottom: 30px; }
+        
+        /* Header */
+        header { background: linear-gradient(135deg, #7a3291, #4a154b); color: white; padding: 20px 15px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        header h1 { font-size: 20px; font-weight: 600; margin-bottom: 5px; }
+        header p { font-size: 13px; opacity: 0.9; }
+
+        /* User Profile Bar */
+        .user-card { background: white; margin: 15px; padding: 15px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .user-info { display: flex; align-items: center; gap: 10px; }
+        .avatar { width: 40px; height: 40px; background-color: #e1d5e7; color: #7a3291; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px; }
+        .user-name { font-weight: 600; font-size: 15px; }
+        .user-status { font-size: 12px; color: #28a745; }
+
+        .btn-login { background-color: #7a3291; color: white; border: none; padding: 8px 16px; border-radius: 20px; font-weight: 600; cursor: pointer; }
+
+        /* Categories Section */
+        .section-title { font-size: 16px; font-weight: 600; margin: 20px 15px 10px; color: #4a154b; }
+        .grid-categories { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 15px; }
+        .cat-card { background: white; padding: 15px; border-radius: 12px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); cursor: pointer; border: 1px solid #eee; }
+        .cat-icon { font-size: 28px; margin-bottom: 8px; }
+        .cat-name { font-size: 14px; font-weight: 600; color: #333; }
+
+        /* Feed Section */
+        .feed-list { padding: 0 15px; }
+        .post-card { background: white; border-radius: 12px; padding: 15px; margin-bottom: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .post-header { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 12px; color: #666; }
+        .post-author { font-weight: 600; color: #7a3291; }
+        .post-title { font-size: 14px; font-weight: 600; margin-bottom: 5px; }
+        .post-desc { font-size: 13px; color: #555; line-height: 1.4; margin-bottom: 10px; }
+        .post-footer { display: flex; justify-content: space-between; align-items: center; font-size: 12px; border-top: 1px solid #f0f0f0; padding-top: 8px; }
+        .badge { background: #e8f5e9; color: #2e7d32; padding: 3px 8px; border-radius: 4px; font-weight: 600; }
+
+        /* Floating Button */
+        .fab { position: fixed; bottom: 20px; right: 20px; background-color: #7a3291; color: white; border: none; padding: 12px 20px; border-radius: 30px; font-weight: 600; box-shadow: 0 4px 10px rgba(0,0,0,0.2); cursor: pointer; display: flex; align-items: center; gap: 8px; }
+    </style>
 </head>
-<body style="font-family: sans-serif; text-align: center; padding: 40px 20px;">
-    <h2>Mạng lưới dịch vụ cộng đồng</h2>
-    <p id="status">Đang kết nối Pi Network...</p>
-    <button id="auth-btn" style="padding: 12px 24px; font-size: 16px; background-color: #7a3291; color: white; border: none; border-radius: 8px; cursor: pointer; display: none;">
-        Đăng nhập với Pi
+<body>
+
+    <!-- Header Header -->
+    <header>
+        <h1>Mạng Lưới Dịch Vụ Cộng Đồng</h1>
+        <p>Kết nối & Chia sẻ giá trị trong hệ sinh thái Pi</p>
+    </header>
+
+    <!-- Thẻ thông tin tài khoản -->
+    <div class="user-card">
+        <div class="user-info">
+            <div class="avatar" id="user-avatar">?</div>
+            <div>
+                <div class="user-name" id="user-name">Đang kết nối...</div>
+                <div class="user-status" id="user-status">Chưa xác thực</div>
+            </div>
+        </div>
+        <button class="btn-login" id="auth-btn" onclick="authenticatePi()">Đăng Nhập</button>
+    </div>
+
+    <!-- Danh mục dịch vụ -->
+    <div class="section-title">Danh Mục Dịch Vụ</div>
+    <div class="grid-categories">
+        <div class="cat-card">
+            <div class="cat-icon">🛠️</div>
+            <div class="cat-name">Hỗ Trợ Kỹ Thuật</div>
+        </div>
+        <div class="cat-card">
+            <div class="cat-icon">🌾</div>
+            <div class="cat-name">Nông Sản & Hàng Hóa</div>
+        </div>
+        <div class="cat-card">
+            <div class="cat-icon">🚚</div>
+            <div class="cat-name">Vận Chuyển & Giao Hàng</div>
+        </div>
+        <div class="cat-card">
+            <div class="cat-icon">📚</div>
+            <div class="cat-name">Chia Sẻ Tri Thức</div>
+        </div>
+    </div>
+
+    <!-- Bảng tin cộng đồng -->
+    <div class="section-title">Cần Hỗ Trợ Mới Nhất</div>
+    <div class="feed-list">
+        
+        <div class="post-card">
+            <div class="post-header">
+                <span class="post-author">@NgocBao</span>
+                <span>10 phút trước</span>
+            </div>
+            <div class="post-title">Cần hỗ trợ vận chuyển vật tư tại Cần Thơ</div>
+            <div class="post-desc">Cần kết nối với anh em cộng đồng có xe tải nhỏ hỗ trợ di chuyển đồ đạc khu vực Ninh Kiều.</div>
+            <div class="post-footer">
+                <span class="badge">Đang tìm trợ giúp</span>
+                <span style="color: #7a3291; font-weight: 600;">Xem chi tiết &rarr;</span>
+            </div>
+        </div>
+
+        <div class="post-card">
+            <div class="post-header">
+                <span class="post-author">@CommunityPi</span>
+                <span>1 giờ trước</span>
+            </div>
+            <div class="post-title">Trao đổi nông sản sạch miền Tây</div>
+            <div class="post-desc">Cung cấp trái cây vườn nhà sạch 100%, ưu tiên kết nối trao đổi dịch vụ cùng cộng đồng Pi.</div>
+            <div class="post-footer">
+                <span class="badge" style="background: #e3f2fd; color: #1565c0;">Dịch vụ sẵn có</span>
+                <span style="color: #7a3291; font-weight: 600;">Xem chi tiết &rarr;</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Nút Đăng bài mới -->
+    <button class="fab" onclick="alert('Tính năng đăng bài đang được kết nối dữ liệu!')">
+        <span>✏️</span> Tạo Yêu Cầu
     </button>
 
     <script>
@@ -26,22 +135,29 @@
             try {
                 const auth = await Pi.authenticate(["username"], onIncompletePaymentFound);
                 
+                // Gửi accessToken tới backend
                 await fetch("https://backend.appstudio-u7cm9zhmha0ruwv8.piappengine.com/pi/auth/v1/login", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ accessToken: auth.accessToken })
                 });
 
-                document.getElementById("status").innerText = "Đăng nhập thành công: " + auth.user.username;
+                // Cập nhật giao diện khi đăng nhập thành công
+                const username = auth.user.username;
+                document.getElementById("user-name").innerText = username;
+                document.getElementById("user-status").innerText = "● Đã kết nối Pi Auth";
+                document.getElementById("user-avatar").innerText = username.charAt(0).toUpperCase();
+                document.getElementById("auth-btn").style.display = "none";
             } catch (err) {
                 console.error("Lỗi đăng nhập:", err);
-                document.getElementById("status").innerText = "Đăng nhập thất bại, vui lòng thử lại.";
+                document.getElementById("user-name").innerText = "Chưa đăng nhập";
+                document.getElementById("user-status").innerText = "Vui lòng bấm đăng nhập";
+                document.getElementById("user-status").style.color = "#dc3545";
             }
         }
 
+        // Tự động kích hoạt khi mở trang
         window.addEventListener("DOMContentLoaded", () => {
-            document.getElementById("auth-btn").style.display = "inline-block";
-            document.getElementById("auth-btn").addEventListener("click", authenticatePi);
             authenticatePi();
         });
     </script>
