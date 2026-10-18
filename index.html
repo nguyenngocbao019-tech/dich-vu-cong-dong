@@ -3,123 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mạng Lưới Dịch Vụ Cộng Đồng</title>
+    <title>Pi Community Hub</title>
     <!-- Tải Pi SDK -->
     <script src="https://sdk.minepi.com/pi-sdk.js"></script>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f4f6f9; color: #333; padding-bottom: 30px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        body { background-color: #f8f9fa; color: #212529; padding-bottom: 80px; }
         
-        /* Header */
-        header { background: linear-gradient(135deg, #7a3291, #4a154b); color: white; padding: 20px 15px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        header h1 { font-size: 20px; font-weight: 600; margin-bottom: 5px; }
-        header p { font-size: 13px; opacity: 0.9; }
+        /* Header cao cấp */
+        header { background: linear-gradient(135deg, #4a154b 0%, #611f69 50%, #7a3291 100%); color: white; padding: 24px 18px 20px; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; box-shadow: 0 4px 12px rgba(74, 21, 75, 0.15); }
+        .app-brand { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+        .logo-title { font-size: 22px; font-weight: 800; letter-spacing: -0.3px; display: flex; align-items: center; gap: 8px; }
+        .logo-badge { background: rgba(255,255,255,0.2); font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 500; }
+        .tagline { font-size: 13px; opacity: 0.9; font-weight: 400; line-height: 1.3; }
+
+        /* Khung tìm kiếm */
+        .search-box { margin-top: 15px; position: relative; }
+        .search-box input { width: 100%; padding: 12px 16px 12px 40px; border-radius: 25px; border: none; font-size: 13px; background: rgba(255,255,255,0.95); box-shadow: 0 2px 6px rgba(0,0,0,0.08); outline: none; }
+        .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); opacity: 0.5; font-size: 14px; }
 
         /* User Profile Bar */
-        .user-card { background: white; margin: 15px; padding: 15px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .user-info { display: flex; align-items: center; gap: 10px; }
-        .avatar { width: 40px; height: 40px; background-color: #e1d5e7; color: #7a3291; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px; }
-        .user-name { font-weight: 600; font-size: 15px; }
-        .user-status { font-size: 12px; color: #28a745; }
+        .user-card { background: white; margin: 15px 15px 0; padding: 14px 16px; border-radius: 16px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #f0f0f0; }
+        .user-info { display: flex; align-items: center; gap: 12px; }
+        .avatar { width: 44px; height: 44px; background: linear-gradient(135deg, #e1d5e7, #cbb4d5); color: #4a154b; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; box-shadow: inset 0 0 0 2px rgba(122, 50, 145, 0.2); }
+        .user-name { font-weight: 700; font-size: 15px; color: #1a1a1a; }
+        .user-status { font-size: 12px; color: #2e7d32; font-weight: 500; display: flex; align-items: center; gap: 4px; }
+        .btn-login { background: #7a3291; color: white; border: none; padding: 9px 18px; border-radius: 20px; font-weight: 600; font-size: 13px; cursor: pointer; transition: 0.2s; }
 
-        .btn-login { background-color: #7a3291; color: white; border: none; padding: 8px 16px; border-radius: 20px; font-weight: 600; cursor: pointer; }
+        /* Thống kê nhanh */
+        .stats-bar { display: flex; justify-content: space-around; background: white; margin: 12px 15px; padding: 12px; border-radius: 12px; border: 1px solid #f0f0f0; text-align: center; }
+        .stat-item { flex: 1; }
+        .stat-val { font-weight: 700; font-size: 16px; color: #4a154b; }
+        .stat-lbl { font-size: 11px; color: #6c757d; margin-top: 2px; }
+        .stat-divider { width: 1px; background: #eee; }
 
-        /* Categories Section */
-        .section-title { font-size: 16px; font-weight: 600; margin: 20px 15px 10px; color: #4a154b; }
-        .grid-categories { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 15px; }
-        .cat-card { background: white; padding: 15px; border-radius: 12px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); cursor: pointer; border: 1px solid #eee; }
-        .cat-icon { font-size: 28px; margin-bottom: 8px; }
-        .cat-name { font-size: 14px; font-weight: 600; color: #333; }
+        /* Section Header */
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin: 20px 15px 12px; }
+        .section-title { font-size: 16px; font-weight: 700; color: #1a1a1a; }
+        .see-all { font-size: 12px; color: #7a3291; font-weight: 600; text-decoration: none; }
 
-        /* Feed Section */
-        .feed-list { padding: 0 15px; }
-        .post-card { background: white; border-radius: 12px; padding: 15px; margin-bottom: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .post-header { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 12px; color: #666; }
-        .post-author { font-weight: 600; color: #7a3291; }
-        .post-title { font-size: 14px; font-weight: 600; margin-bottom: 5px; }
-        .post-desc { font-size: 13px; color: #555; line-height: 1.4; margin-bottom: 10px; }
-        .post-footer { display: flex; justify-content: space-between; align-items: center; font-size: 12px; border-top: 1px solid #f0f0f0; padding-top: 8px; }
-        .badge { background: #e8f5e9; color: #2e7d32; padding: 3px 8px; border-radius: 4px; font-weight: 600; }
+        /* Grid Categories */
+        .grid-categories { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 0 15px; }
+        .cat-card { background: white; padding: 12px 8px; border-radius: 14px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.03); border: 1px solid #f0f0f0; transition: transform 0.1s; }
+        .cat-icon-wrapper { width: 42px; height: 42px; background: #f5eef8; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; font-size: 20px; }
+        .cat-name { font-size: 11px; font-weight: 600; color: #333; line-height: 1.2; }
+
+        /* Tabs Filter */
+        .tabs { display: flex; gap: 8px; padding: 0 15px; margin-top: 15px; overflow-x: auto; }
+        .tab { padding: 6px 14px; background: #e9ecef; border-radius: 20px; font-size: 12px; font-weight: 600; color: #495057; white-space: nowrap; cursor: pointer; }
+        .tab.active { background: #7a3291; color: white; }
+
+        /* Feed List */
+        .feed-list { padding: 12px 15px 0; }
+        .post-card { background: white; border-radius: 16px; padding: 16px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #f0f0f0; }
+        .post-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .author-box { display: flex; align-items: center; gap: 8px; }
+        .mini-avatar { width: 28px; height: 28px; background: #7a3291; color: white; border-radius: 50%; font-size: 12px; display: flex; align-items: center; justify-content: center; font-weight: 600; }
+        .post-author { font-weight: 600; font-size: 13px; color: #333; }
+        .post-time { font-size: 11px; color: #888; }
+        .post-title { font-size: 15px; font-weight: 700; color: #1a1a1a; margin-bottom: 6px; }
+        .post-desc { font-size: 13px; color: #555; line-height: 1.45; margin-bottom: 12px; }
+        .post-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #f5f5f5; padding-top: 10px; }
+        .badge { font-size: 11px; padding: 4px 10px; border-radius: 6px; font-weight: 600; }
+        .badge-need { background: #fff3cd; color: #856404; }
+        .badge-offer { background: #d4edda; color: #155724; }
+        .btn-connect { background: #f3e8f8; color: #7a3291; border: none; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; }
 
         /* Floating Button */
-        .fab { position: fixed; bottom: 20px; right: 20px; background-color: #7a3291; color: white; border: none; padding: 12px 20px; border-radius: 30px; font-weight: 600; box-shadow: 0 4px 10px rgba(0,0,0,0.2); cursor: pointer; display: flex; align-items: center; gap: 8px; }
+        .fab { position: fixed; bottom: 20px; right: 20px; background: linear-gradient(135deg, #7a3291, #4a154b); color: white; border: none; padding: 14px 22px; border-radius: 30px; font-weight: 700; font-size: 14px; box-shadow: 0 6px 16px rgba(74, 21, 75, 0.3); cursor: pointer; display: flex; align-items: center; gap: 8px; z-index: 100; }
     </style>
 </head>
 <body>
 
-    <!-- Header Header -->
+    <!-- Header -->
     <header>
-        <h1>Mạng Lưới Dịch Vụ Cộng Đồng</h1>
-        <p>Kết nối & Chia sẻ giá trị trong hệ sinh thái Pi</p>
+        <div class="app-brand">
+            <div class="logo-title">🌐 Pi Community Hub <span class="logo-badge">v2.0</span></div>
+        </div>
+        <div class="tagline">Mạng lưới kết nối dịch vụ & tiện ích cộng đồng toàn cầu</div>
+        
+        <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" placeholder="Tìm kiếm dịch vụ, công việc, hỗ trợ...">
+        </div>
     </header>
 
-    <!-- Thẻ thông tin tài khoản -->
+    <!-- Thông tin người dùng -->
     <div class="user-card">
         <div class="user-info">
             <div class="avatar" id="user-avatar">?</div>
             <div>
                 <div class="user-name" id="user-name">Đang kết nối...</div>
-                <div class="user-status" id="user-status">Chưa xác thực</div>
+                <div class="user-status" id="user-status">Chưa xác thực Pi Auth</div>
             </div>
         </div>
         <button class="btn-login" id="auth-btn" onclick="authenticatePi()">Đăng Nhập</button>
     </div>
 
-    <!-- Danh mục dịch vụ -->
-    <div class="section-title">Danh Mục Dịch Vụ</div>
-    <div class="grid-categories">
-        <div class="cat-card">
-            <div class="cat-icon">🛠️</div>
-            <div class="cat-name">Hỗ Trợ Kỹ Thuật</div>
+    <!-- Thống kê nhanh -->
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-val">120+</div>
+            <div class="stat-lbl">Dịch vụ</div>
         </div>
-        <div class="cat-card">
-            <div class="cat-icon">🌾</div>
-            <div class="cat-name">Nông Sản & Hàng Hóa</div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <div class="stat-val">350+</div>
+            <div class="stat-lbl">Kết nối</div>
         </div>
-        <div class="cat-card">
-            <div class="cat-icon">🚚</div>
-            <div class="cat-name">Vận Chuyển & Giao Hàng</div>
-        </div>
-        <div class="cat-card">
-            <div class="cat-icon">📚</div>
-            <div class="cat-name">Chia Sẻ Tri Thức</div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <div class="stat-val">100%</div>
+            <div class="stat-lbl">Uy tín Pi</div>
         </div>
     </div>
 
-    <!-- Bảng tin cộng đồng -->
-    <div class="section-title">Cần Hỗ Trợ Mới Nhất</div>
+    <!-- Danh mục dịch vụ -->
+    <div class="section-header">
+        <div class="section-title">Danh Mục Dịch Vụ</div>
+        <a href="#" class="see-all">Tất cả &rarr;</a>
+    </div>
+    <div class="grid-categories">
+        <div class="cat-card">
+            <div class="cat-icon-wrapper">🛠️</div>
+            <div class="cat-name">Kỹ Thuật</div>
+        </div>
+        <div class="cat-card">
+            <div class="cat-icon-wrapper">🌾</div>
+            <div class="cat-name">Nông Sản</div>
+        </div>
+        <div class="cat-card">
+            <div class="cat-icon-wrapper">🚚</div>
+            <div class="cat-name">Vận Chuyển</div>
+        </div>
+        <div class="cat-card">
+            <div class="cat-icon-wrapper">📚</div>
+            <div class="cat-name">Tri Thức</div>
+        </div>
+    </div>
+
+    <!-- Bộ lọc bài đăng -->
+    <div class="tabs">
+        <div class="tab active">Mới nhất</div>
+        <div class="tab">Cần giúp đỡ</div>
+        <div class="tab">Dịch vụ sẵn có</div>
+    </div>
+
+    <!-- Bảng tin bài đăng -->
     <div class="feed-list">
         
         <div class="post-card">
             <div class="post-header">
-                <span class="post-author">@NgocBao</span>
-                <span>10 phút trước</span>
+                <div class="author-box">
+                    <div class="mini-avatar">N</div>
+                    <span class="post-author">@NgocBao</span>
+                </div>
+                <span class="post-time">10 phút trước</span>
             </div>
             <div class="post-title">Cần hỗ trợ vận chuyển vật tư tại Cần Thơ</div>
             <div class="post-desc">Cần kết nối với anh em cộng đồng có xe tải nhỏ hỗ trợ di chuyển đồ đạc khu vực Ninh Kiều.</div>
             <div class="post-footer">
-                <span class="badge">Đang tìm trợ giúp</span>
-                <span style="color: #7a3291; font-weight: 600;">Xem chi tiết &rarr;</span>
+                <span class="badge badge-need">Cần trợ giúp</span>
+                <button class="btn-connect" onclick="alert('Đang kết nối người đăng bài...')">Liên hệ ngay</button>
             </div>
         </div>
 
         <div class="post-card">
             <div class="post-header">
-                <span class="post-author">@CommunityPi</span>
-                <span>1 giờ trước</span>
+                <div class="author-box">
+                    <div class="mini-avatar" style="background:#28a745;">C</div>
+                    <span class="post-author">@CommunityPi</span>
+                </div>
+                <span class="post-time">1 giờ trước</span>
             </div>
             <div class="post-title">Trao đổi nông sản sạch miền Tây</div>
             <div class="post-desc">Cung cấp trái cây vườn nhà sạch 100%, ưu tiên kết nối trao đổi dịch vụ cùng cộng đồng Pi.</div>
             <div class="post-footer">
-                <span class="badge" style="background: #e3f2fd; color: #1565c0;">Dịch vụ sẵn có</span>
-                <span style="color: #7a3291; font-weight: 600;">Xem chi tiết &rarr;</span>
+                <span class="badge badge-offer">Dịch vụ sẵn có</span>
+                <button class="btn-connect" onclick="alert('Đang kết nối người đăng bài...')">Liên hệ ngay</button>
             </div>
         </div>
 
     </div>
 
     <!-- Nút Đăng bài mới -->
-    <button class="fab" onclick="alert('Tính năng đăng bài đang được kết nối dữ liệu!')">
+    <button class="fab" onclick="alert('Tính năng đang kết nối hệ thống!')">
         <span>✏️</span> Tạo Yêu Cầu
     </button>
 
@@ -135,14 +203,12 @@
             try {
                 const auth = await Pi.authenticate(["username"], onIncompletePaymentFound);
                 
-                // Gửi accessToken tới backend
                 await fetch("https://backend.appstudio-u7cm9zhmha0ruwv8.piappengine.com/pi/auth/v1/login", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ accessToken: auth.accessToken })
                 });
 
-                // Cập nhật giao diện khi đăng nhập thành công
                 const username = auth.user.username;
                 document.getElementById("user-name").innerText = username;
                 document.getElementById("user-status").innerText = "● Đã kết nối Pi Auth";
@@ -156,7 +222,6 @@
             }
         }
 
-        // Tự động kích hoạt khi mở trang
         window.addEventListener("DOMContentLoaded", () => {
             authenticatePi();
         });
