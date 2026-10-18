@@ -1,1 +1,49 @@
-<h1>Mang luoi dich vu cong dong</h1>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mạng lưới dịch vụ cộng đồng</title>
+    <!-- Tải Pi SDK -->
+    <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+</head>
+<body style="font-family: sans-serif; text-align: center; padding: 40px 20px;">
+    <h2>Mạng lưới dịch vụ cộng đồng</h2>
+    <p id="status">Đang kết nối Pi Network...</p>
+    <button id="auth-btn" style="padding: 12px 24px; font-size: 16px; background-color: #7a3291; color: white; border: none; border-radius: 8px; cursor: pointer; display: none;">
+        Đăng nhập với Pi
+    </button>
+
+    <script>
+        const Pi = window.Pi;
+        Pi.init({ version: "2.0" });
+
+        function onIncompletePaymentFound(payment) {
+            console.log("Incomplete payment:", payment);
+        }
+
+        async function authenticatePi() {
+            try {
+                const auth = await Pi.authenticate(["username"], onIncompletePaymentFound);
+                
+                await fetch("https://backend.appstudio-u7cm9zhmha0ruwv8.piappengine.com/pi/auth/v1/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ accessToken: auth.accessToken })
+                });
+
+                document.getElementById("status").innerText = "Đăng nhập thành công: " + auth.user.username;
+            } catch (err) {
+                console.error("Lỗi đăng nhập:", err);
+                document.getElementById("status").innerText = "Đăng nhập thất bại, vui lòng thử lại.";
+            }
+        }
+
+        window.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("auth-btn").style.display = "inline-block";
+            document.getElementById("auth-btn").addEventListener("click", authenticatePi);
+            authenticatePi();
+        });
+    </script>
+</body>
+</html>
