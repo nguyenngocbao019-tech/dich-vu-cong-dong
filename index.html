@@ -178,4 +178,119 @@
                 <div id="folderSub" class="hidden grid grid-cols-2 sm:grid-cols-4 gap-2 mt-2 bg-trade-bg p-2 rounded-lg border border-trade-border text-xs">
                     <button onclick="filterCat('ALL')" class="p-2 bg-pi-600 text-white rounded font-medium text-left">Tất Cả Tài Sản</button>
                     <button onclick="filterCat('BĐS Cần Thơ')" class="p-2 bg-trade-card hover:bg-trade-border text-slate-300 rounded font-medium text-left">BĐS Cần Thơ</button>
-                    <button onclick="filterCat('Cổ Vật Gốm Sứ')" class="p-2 bg-trade-card hover:bg-trade-border text-slate-300 rounded
+                    <button onclick="filterCat('Cổ Vật Gốm Sứ')" class="p-2 bg-trade-card hover:bg-trade-border text-slate-300 rounded font-medium text-left">Cổ Vật Gốm Sứ</button>
+                    <button onclick="filterCat('Ngọc & Kim Bảo')" class="p-2 bg-trade-card hover:bg-trade-border text-slate-300 rounded font-medium text-left">Ngọc & Kim Bảo</button>
+                </div>
+            </div>
+
+            <!-- Assets Grid -->
+            <div id="assetsList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-trade-card border-t border-trade-border py-4 text-center text-[10px] text-slate-500">
+        <p>&copy; 2026 Pi Digital DEX Terminal. Connected to Pi Network Mainnet Sandbox.</p>
+    </footer>
+
+    <!-- Modals -->
+    <div id="fundModal" class="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-trade-card border border-trade-border rounded-xl max-w-md w-full p-5 text-center relative text-xs">
+            <button onclick="closeModal('fundModal')" class="absolute top-3 right-3 text-slate-400"><i class="fa-solid fa-xmark"></i></button>
+            <div class="w-10 h-10 bg-amber-500/20 text-amber-500 rounded-full flex items-center justify-center mx-auto mb-2 text-lg"><i class="fa-solid fa-vault"></i></div>
+            <h3 class="font-bold text-white text-sm mb-1">Quỹ Ký Quỹ Reserve Vault</h3>
+            <p class="text-slate-400 mb-3">Quỹ bảo chứng thanh khoản 500,000 Pi khoá tự động trong Smart Contract.</p>
+            <button onclick="closeModal('fundModal')" class="w-full bg-pi-600 text-white py-2 rounded font-semibold">Đóng Window</button>
+        </div>
+    </div>
+
+    <!-- Script Chart & Logic -->
+    <script>
+        const ctx = document.getElementById('candlestickChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['15:00', '15:05', '15:10', '15:15', '15:20', '15:25', '15:30'],
+                datasets: [{
+                    label: 'Giá Pi (USD)',
+                    data: [305000, 310000, 308000, 312500, 309000, 315000, 314159],
+                    borderColor: '#0ecb81',
+                    backgroundColor: 'rgba(14, 203, 129, 0.1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.3,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#0ecb81'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { grid: { color: '#2b313a' }, ticks: { color: '#848e9c', font: { size: 10 } } },
+                    y: { grid: { color: '#2b313a' }, ticks: { color: '#848e9c', font: { size: 10 } } }
+                }
+            }
+        });
+
+        const assets = [
+            { title: "Bán Đất Thổ Cư 100m² Ninh Kiều", cat: "BĐS Cần Thơ", price: "10 Pi", img: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=400&q=80" },
+            { title: "Bình Gốm Sứ Cổ Khắc Ấn Khang Hi", cat: "Cổ Vật Gốm Sứ", price: "180 Pi", img: "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=400&q=80" },
+            { title: "Mặt Ngọc Hoàng Gia & Dzi Bead", cat: "Ngọc & Kim Bảo", price: "320 Pi", img: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=400&q=80" }
+        ];
+
+        function renderAssets(list) {
+            const container = document.getElementById('assetsList');
+            container.innerHTML = '';
+            list.forEach(a => {
+                container.innerHTML += `
+                    <div class="bg-trade-bg border border-trade-border rounded-lg overflow-hidden flex flex-col justify-between p-2">
+                        <img src="${a.img}" class="h-28 w-full object-cover rounded mb-2">
+                        <div>
+                            <span class="text-[9px] bg-pi-600/30 text-pi-500 px-1.5 py-0.5 rounded">${a.cat}</span>
+                            <h4 class="font-bold text-white text-xs mt-1 leading-tight">${a.title}</h4>
+                        </div>
+                        <div class="flex justify-between items-center mt-3 pt-2 border-t border-trade-border">
+                            <span class="text-trade-green font-bold text-xs font-mono">${a.price}</span>
+                            <button onclick="alert('Đã gửi yêu cầu mua tới chủ sở hữu qua Escrow!')" class="bg-pi-600 hover:bg-pi-700 text-white text-[10px] px-2.5 py-1 rounded font-semibold">Giao Dịch</button>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        renderAssets(assets);
+
+        function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('hidden'); }
+        function toggleFolders() { document.getElementById('folderSub').classList.toggle('hidden'); }
+        function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+        function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+
+        function filterCat(cat) {
+            if(cat === 'ALL') renderAssets(assets);
+            else renderAssets(assets.filter(a => a.cat === cat));
+            toggleFolders();
+        }
+
+        let walletConnected = false;
+        function toggleWallet() {
+            walletConnected = !walletConnected;
+            document.getElementById('walletText').innerText = walletConnected ? "@Abao1985 (KYC)" : "Kết Nối Ví";
+            document.getElementById('connectWalletBtn').className = walletConnected 
+                ? "bg-trade-green text-slate-900 font-bold px-3 py-1.5 rounded-lg text-xs transition flex items-center gap-1.5"
+                : "bg-pi-600 text-white font-semibold px-3 py-1.5 rounded-lg text-xs transition flex items-center gap-1.5";
+        }
+
+        function calcTotal() {
+            const amt = parseFloat(document.getElementById('tradeAmount').value) || 0;
+            document.getElementById('tradeTotal').innerText = `$${(amt * 314159).toLocaleString()}`;
+        }
+
+        function executeTrade() {
+            const amt = document.getElementById('tradeAmount').value;
+            if(!amt || amt <= 0) { alert('Vui lòng nhập số lượng Pi muốn giao dịch!'); return; }
+            alert(`Lệnh Mua ${amt} Pi đã được gửi lên hệ thống khớp lệnh!`);
+        }
+    </script>
+</body>
+</html>
