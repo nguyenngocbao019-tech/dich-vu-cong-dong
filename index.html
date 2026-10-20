@@ -13,10 +13,6 @@
         ::-webkit-scrollbar { width: 4px; height: 4px; }
         ::-webkit-scrollbar-track { background: #f1f5f9; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
-        .flash-green { animation: flashG 0.8s ease-out; }
-        .flash-red { animation: flashR 0.8s ease-out; }
-        @keyframes flashG { 0% { background-color: rgba(16, 185, 129, 0.25); } 100% { background-color: transparent; } }
-        @keyframes flashR { 0% { background-color: rgba(244, 63, 94, 0.25); } 100% { background-color: transparent; } }
     </style>
 </head>
 <body class="min-h-screen bg-slate-50 pb-12">
@@ -31,36 +27,40 @@
                 <div>
                     <h1 class="font-extrabold text-xs uppercase text-slate-900 leading-tight">MẠNG LƯỚI GIAO DỊCH TOÀN CẦU</h1>
                     <p class="text-[10px] text-amber-600 font-bold flex items-center gap-1">
-                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> Live Realtime Mainnet
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> SidraChain & Pi Ecosystem DEX
                     </p>
                 </div>
             </div>
             
             <button onclick="openModal('walletModal')" class="bg-emerald-600 text-white font-bold text-xs px-3 py-2 rounded-xl shadow-xs flex items-center gap-1.5 hover:bg-emerald-700 transition">
                 <i class="fa-solid fa-wallet"></i>
-                <span>Ví & Tài Khoản</span>
+                <span>Ví ($680,000 USD)</span>
             </button>
         </div>
     </header>
 
     <main class="max-w-xl mx-auto p-4 space-y-4">
 
-        <!-- CARD PRICE HEADER (TỶ GIÁ DỮ LIỆU SỐNG NHẢY THEO GIÂY) -->
+        <!-- CARD PRICE HEADER (Y HỆT BỨC ẢNH MẪU - HIỂN THỊ SỐ DƯ $680,000 USD) -->
         <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-amber-950 text-white rounded-3xl p-5 shadow-lg relative overflow-hidden">
             <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl"></div>
             
             <div class="flex justify-between items-start mb-1">
-                <span class="text-xs font-bold text-slate-300">1 SDA (Realtime Pool)</span>
-                <span class="text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-full font-bold">● LIVE STREAM</span>
+                <span class="text-xs font-bold text-slate-300">1 SDA (SidraChain Live)</span>
+                <span class="text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-full font-bold">● REALTIME POOL</span>
             </div>
 
             <div class="flex items-baseline gap-2 mb-1">
                 <div id="mainSdaPrice" class="text-3xl font-black font-mono tracking-tight text-amber-400">$409.17</div>
                 <span id="mainSdaChange" class="text-xs font-bold text-emerald-400">+1.25% ↑</span>
             </div>
-            <p class="text-[11px] text-slate-400 font-medium mb-3">Live Feed: Tự động cập nhật mỗi 1.5 giây</p>
+            
+            <div class="flex justify-between items-center my-2 p-2.5 bg-slate-800/60 rounded-xl border border-slate-700/80">
+                <span class="text-xs font-bold text-slate-300">Số dư khả dụng / Bảo chứng:</span>
+                <strong class="text-emerald-400 font-mono text-sm font-extrabold">$680,000.00 USD</strong>
+            </div>
 
-            <div class="flex items-center gap-2 mb-3">
+            <div class="flex items-center gap-2 mb-2">
                 <span class="text-xs font-bold text-slate-300">Base pair:</span>
                 <select id="basePairSelect" class="bg-slate-800/80 border border-slate-700 text-amber-400 text-xs font-bold rounded-xl px-2.5 py-1 outline-none">
                     <option value="SDA">SDA ▾</option>
@@ -69,13 +69,13 @@
                 </select>
             </div>
 
-            <p class="text-[10px] text-slate-400 leading-relaxed border-t border-slate-700/60 pt-2.5">
+            <p class="text-[10px] text-slate-400 leading-relaxed border-t border-slate-700/60 pt-2">
                 <i class="fa-solid fa-circle-info text-amber-400 mr-1"></i>
-                SDA/USD is calculated live from a curated stablecoin pool (currently sUSDT). Live ticker connection active.
+                SDA/USD is calculated live from a curated stablecoin pool (currently sUSDT). Live ecosystem connection active.
             </p>
         </div>
 
-        <!-- KHUNG BIỂU ĐỒ NẾN THỜI GIAN THỰC -->
+        <!-- KHUNG BIỂU ĐỒ NẾN SỐNG TRỰC QUAN -->
         <div id="chartPanel" class="bg-white p-4 rounded-3xl border-2 border-amber-500 shadow-md space-y-3">
             <div class="flex justify-between items-center border-b pb-2">
                 <div class="flex items-center gap-2">
@@ -83,8 +83,8 @@
                     <h3 class="font-extrabold text-xs text-slate-900 uppercase">BIỂU ĐỒ SỐNG: <span id="chartTokenPair" class="text-amber-600">REGS / SDA</span></h3>
                 </div>
                 <div class="flex items-center gap-1.5">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span class="text-[10px] font-bold text-slate-500">REALTIME</span>
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    <span class="text-[10px] font-bold text-slate-500">REALTIME DATA</span>
                 </div>
             </div>
             
@@ -115,27 +115,27 @@
         <!-- SEARCH BAR -->
         <div class="relative">
             <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-slate-400 text-xs"></i>
-            <input type="text" id="tokenSearch" onkeyup="searchTokens()" placeholder="Search token, e.g. REGS, GLNs, FREET..." class="w-full bg-white border border-slate-200 rounded-2xl pl-9 pr-4 py-2.5 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500 shadow-2xs">
+            <input type="text" id="tokenSearch" onkeyup="searchTokens()" placeholder="Search token, e.g. SDA, REGS, PI, TKC..." class="w-full bg-white border border-slate-200 rounded-2xl pl-9 pr-4 py-2.5 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500 shadow-2xs">
         </div>
 
         <!-- VIBRANT COLOR BUTTONS -->
         <div class="flex gap-2 overflow-x-auto pb-1 text-xs font-extrabold whitespace-nowrap">
-            <button onclick="filterTokens('ALL')" class="bg-amber-500 text-white px-4 py-2 rounded-xl shadow-xs">All</button>
-            <button onclick="filterTokens('GAINERS')" class="bg-emerald-600 text-white px-4 py-2 rounded-xl shadow-xs">Gainers</button>
-            <button onclick="filterTokens('LOSERS')" class="bg-rose-600 text-white px-4 py-2 rounded-xl shadow-xs">Losers</button>
-            <button onclick="filterTokens('FAV')" class="bg-purple-600 text-white px-4 py-2 rounded-xl shadow-xs"><i class="fa-solid fa-star mr-1"></i> Yêu Thích</button>
-            <button onclick="filterTokens('RWA')" class="bg-blue-600 text-white px-4 py-2 rounded-xl shadow-xs"><i class="fa-solid fa-globe mr-1"></i> Global RWA</button>
+            <button onclick="filterTokens('ALL')" class="bg-amber-500 text-white px-4 py-2 rounded-xl shadow-xs">Tất Cả Token</button>
+            <button onclick="filterTokens('SIDRA')" class="bg-emerald-600 text-white px-4 py-2 rounded-xl shadow-xs">SidraChain</button>
+            <button onclick="filterTokens('PI')" class="bg-purple-600 text-white px-4 py-2 rounded-xl shadow-xs">Pi Network</button>
+            <button onclick="filterTokens('GAINERS')" class="bg-blue-600 text-white px-4 py-2 rounded-xl shadow-xs">Gainers</button>
+            <button onclick="filterTokens('RWA')" class="bg-rose-600 text-white px-4 py-2 rounded-xl shadow-xs"><i class="fa-solid fa-globe mr-1"></i> Global RWA</button>
         </div>
 
-        <!-- TOKEN LISTINGS (DANH SÁCH GIÁ THỰC CHẠY THEO THỜI GIAN THỰC) -->
+        <!-- TOKEN LISTINGS (ĐẦY ĐỦ TOKEN CẢ 2 HỆ - TĨNH DỊU MẮT KHÔNG CHỚP MÀU) -->
         <div class="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden">
             <div class="flex justify-between items-center p-3 text-[11px] font-bold text-slate-400 border-b border-slate-100">
-                <span>Token (Nhấp chọn để xem sóng)</span>
+                <span>Token SidraChain & Pi Ecosystem</span>
                 <span>Price Realtime ↓</span>
             </div>
 
             <div id="tokenContainer" class="divide-y divide-slate-100 text-xs">
-                <!-- Data Rendered by Realtime JS -->
+                <!-- Data Rendered via JavaScript -->
             </div>
         </div>
     </main>
@@ -159,13 +159,13 @@
                 <div class="text-[10px] text-slate-400 font-sans font-bold">ĐỊA CHỈ VÍ ĐÃ LIÊN KẾT:</div>
                 <div class="text-[11px] font-bold text-slate-800 break-all">0xa6Bb6...97ED1</div>
                 <div class="text-[10px] text-amber-600 font-sans font-bold pt-1 border-t border-slate-200 flex justify-between">
-                    <span>Quỹ Bảo Chứng Escrow:</span>
-                    <strong>500,000 Pi</strong>
+                    <span>Số Dư Tài Khoản:</span>
+                    <strong class="text-emerald-700 font-extrabold text-sm">$680,000.00 USD</strong>
                 </div>
             </div>
 
             <div class="grid grid-cols-2 gap-2 font-bold">
-                <button onclick="showToast('Đang mở cổng Nạp Pi Mainnet...')" class="bg-emerald-600 text-white py-2.5 rounded-xl">NẠP PI / TOKEN</button>
+                <button onclick="showToast('Đang mở cổng Nạp...')" class="bg-emerald-600 text-white py-2.5 rounded-xl">NẠP PI / COIN</button>
                 <button onclick="showToast('Đang kết nối cổng Rút...')" class="bg-slate-900 text-white py-2.5 rounded-xl">RÚT COIN</button>
             </div>
         </div>
@@ -176,21 +176,26 @@
         <span id="toastMsg">Thành công</span>
     </div>
 
-    <!-- REALTIME PRICE ENGINE SỐNG 100% -->
+    <!-- SCRIPT ENGINE CORE -->
     <script>
         let currentActiveSymbol = "REGS";
 
+        // DANH SÁCH TẤT CẢ TOKEN TỪ 2 HỆ SINH THÁI SIDRACHAIN & PI NETWORK
         let tokens = [
-            { id: 1, symbol: "REGS", pair: "SDA", name: "REGs Global", price: 2.5103, usd: 1006.67, icon: "https://cryptologos.cc/logos/bnb-bnb-logo.png?v=032", status: "gain", flash: "", chartData: [2.10, 2.25, 2.18, 2.35, 2.42, 2.5103] },
-            { id: 2, symbol: "GLNs", pair: "SDA", name: "Global Logistics Net...", price: 1.9997, usd: 801.93, icon: "https://cryptologos.cc/logos/chainlink-link-logo.png?v=032", status: "gain", flash: "", chartData: [1.80, 1.85, 1.90, 1.88, 1.95, 1.9997] },
-            { id: 3, symbol: "FREET", pair: "SDA", name: "Freelancium", price: 1.5990, usd: 641.22, icon: "https://cryptologos.cc/logos/polygon-matic-logo.png?v=032", status: "lose", flash: "", chartData: [1.75, 1.70, 1.68, 1.62, 1.60, 1.5990] },
-            { id: 4, symbol: "AIR", pair: "SDA", name: "AirLand Global", price: 1.5272, usd: 612.44, icon: "https://cryptologos.cc/logos/cardano-ada-logo.png?v=032", status: "gain", flash: "", chartData: [1.30, 1.38, 1.42, 1.45, 1.50, 1.5272] },
-            { id: 5, symbol: "WSDA", pair: "SDA", name: "Wrapped SDA", price: 1.0000, usd: 409.17, icon: "https://cryptologos.cc/logos/tether-usdt-logo.png?v=032", status: "stable", flash: "", chartData: [1.00, 1.00, 1.00, 1.00, 1.00, 1.0000] },
-            { id: 6, symbol: "PI", pair: "USD", name: "Pi Network Global", price: 767.79, usd: 314159.00, icon: "https://cryptologos.cc/logos/ethereum-eth-logo.png?v=032", status: "gain", flash: "", chartData: [300000, 305000, 310000, 308000, 312000, 314159] },
-            { id: 7, symbol: "TKC", pair: "USD", name: "Tikcoin Global", price: 0.0020, usd: 0.85, icon: "https://cryptologos.cc/logos/solana-sol-logo.png?v=032", status: "gain", flash: "", chartData: [0.70, 0.72, 0.78, 0.80, 0.82, 0.85] }
+            { id: 1, symbol: "REGS", pair: "SDA", eco: "SIDRA", name: "REGs Global", price: 2.5103, usd: 1006.67, icon: "https://cryptologos.cc/logos/bnb-bnb-logo.png?v=032", status: "gain", chartData: [2.10, 2.25, 2.18, 2.35, 2.42, 2.5103] },
+            { id: 2, symbol: "GLNs", pair: "SDA", eco: "SIDRA", name: "Global Logistics Net...", price: 1.9997, usd: 801.93, icon: "https://cryptologos.cc/logos/chainlink-link-logo.png?v=032", status: "gain", chartData: [1.80, 1.85, 1.90, 1.88, 1.95, 1.9997] },
+            { id: 3, symbol: "FREET", pair: "SDA", eco: "SIDRA", name: "Freelancium", price: 1.5990, usd: 641.22, icon: "https://cryptologos.cc/logos/polygon-matic-logo.png?v=032", status: "lose", chartData: [1.75, 1.70, 1.68, 1.62, 1.60, 1.5990] },
+            { id: 4, symbol: "AIR", pair: "SDA", eco: "SIDRA", name: "AirLand Global", price: 1.5272, usd: 612.44, icon: "https://cryptologos.cc/logos/cardano-ada-logo.png?v=032", status: "gain", chartData: [1.30, 1.38, 1.42, 1.45, 1.50, 1.5272] },
+            { id: 5, symbol: "WSDA", pair: "SDA", eco: "SIDRA", name: "Wrapped SDA", price: 1.0000, usd: 409.17, icon: "https://cryptologos.cc/logos/tether-usdt-logo.png?v=032", status: "stable", chartData: [1.00, 1.00, 1.00, 1.00, 1.00, 1.0000] },
+            { id: 6, symbol: "SDA", pair: "USD", eco: "SIDRA", name: "Sidra Coin Native", price: 1.0000, usd: 409.17, icon: "https://cryptologos.cc/logos/xrp-xrp-logo.png?v=032", status: "gain", chartData: [400, 402, 405, 407, 408, 409.17] },
+            { id: 7, symbol: "PI", pair: "USD", eco: "PI", name: "Pi Network Global", price: 767.79, usd: 314159.00, icon: "https://cryptologos.cc/logos/ethereum-eth-logo.png?v=032", status: "gain", chartData: [300000, 305000, 310000, 308000, 312000, 314159] },
+            { id: 8, symbol: "TKC", pair: "USD", eco: "PI", name: "Tikcoin Global", price: 0.0020, usd: 0.85, icon: "https://cryptologos.cc/logos/solana-sol-logo.png?v=032", status: "gain", chartData: [0.70, 0.72, 0.78, 0.80, 0.82, 0.85] },
+            { id: 9, symbol: "G$", pair: "USD", eco: "PI", name: "GoodDollar Global", price: 0.000005, usd: 0.0021, icon: "https://cryptologos.cc/logos/uniswap-uni-logo.png?v=032", status: "gain", chartData: [0.0018, 0.0019, 0.0020, 0.0021, 0.0021, 0.0021] },
+            { id: 10, symbol: "BTC", pair: "USD", eco: "GLOBAL", name: "Bitcoin Global", price: 167.28, usd: 68450.00, icon: "https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=032", status: "gain", chartData: [67000, 67500, 68000, 68200, 68300, 68450] },
+            { id: 11, symbol: "ETH", pair: "USD", eco: "GLOBAL", name: "Ethereum Global", price: 8.60, usd: 3520.00, icon: "https://cryptologos.cc/logos/ethereum-eth-logo.png?v=032", status: "gain", chartData: [3400, 3450, 3480, 3500, 3510, 3520] }
         ];
 
-        // CHART INITIALIZATION
+        // KHỞI TẠO BIỂU ĐỒ
         const ctx = document.getElementById('liveChart').getContext('2d');
         let myChart = new Chart(ctx, {
             type: 'line',
@@ -218,13 +223,14 @@
             }
         });
 
+        // HÀM RENDER TĨNH - KHÔNG BỊ CHỚP GIẬT MÀU
         function renderTokens(data) {
             const container = document.getElementById('tokenContainer');
             container.innerHTML = '';
             data.forEach((t, index) => {
                 const isGain = t.status === 'gain';
                 container.innerHTML += `
-                    <div class="p-3 flex justify-between items-center transition cursor-pointer ${t.flash}" onclick="selectTokenChart('${t.symbol}')">
+                    <div class="p-3 flex justify-between items-center hover:bg-slate-50 transition cursor-pointer" onclick="selectTokenChart('${t.symbol}')">
                         <div class="flex items-center gap-3">
                             <span class="text-slate-400 font-bold text-[10px] w-3">${index + 1}</span>
                             <img src="${t.icon}" class="w-8 h-8 rounded-full border border-slate-200 p-0.5 object-contain bg-white shadow-xs">
@@ -234,8 +240,8 @@
                             </div>
                         </div>
                         <div class="text-right">
-                            <div class="font-extrabold font-mono text-xs ${isGain ? 'text-emerald-600' : 'text-rose-600'}">${t.price.toFixed(4)} ${t.pair}</div>
-                            <div class="text-[10px] ${isGain ? 'text-emerald-600 font-bold' : 'text-rose-500 font-medium'}">$${t.usd.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} ${isGain ? '↑' : '↓'}</div>
+                            <div class="font-extrabold font-mono text-xs text-slate-900">${t.price.toFixed(4)} ${t.pair}</div>
+                            <div class="text-[10px] ${isGain ? 'text-emerald-600 font-bold' : 'text-slate-500 font-medium'}">$${t.usd.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</div>
                         </div>
                     </div>`;
             });
@@ -243,41 +249,28 @@
 
         renderTokens(tokens);
 
-        // VÒNG LẶP CẬP NHẬT GIÁ VÀ SÓNG NẾN THỜI GIAN THỰC (REALTIME TICKER LOOP - 1.5 GIÂY)
+        // REALTIME TICKER (SỐ GIÁ NHẢY MƯỢT ÊM ÁM, KHÔNG BỊ CHỚP CHỚP)
         setInterval(() => {
-            // Cập nhật giá SDA thẻ đầu trang
-            let sdaDelta = (Math.random() - 0.48) * 0.8;
+            let sdaDelta = (Math.random() - 0.48) * 0.4;
             let currentSda = 409.17 + sdaDelta;
             document.getElementById('mainSdaPrice').innerText = `$${currentSda.toFixed(2)}`;
 
             tokens.forEach(t => {
-                let changePercent = (Math.random() - 0.48) * 0.008; // Biến động giá
-                let oldPrice = t.price;
+                let changePercent = (Math.random() - 0.48) * 0.005;
                 t.price = Math.max(0.0001, t.price * (1 + changePercent));
                 t.usd = t.symbol === 'PI' ? 314159 * (t.price / 767.79) : t.price * currentSda;
-
-                if (t.price >= oldPrice) {
-                    t.status = 'gain';
-                    t.flash = 'flash-green';
-                } else {
-                    t.status = 'lose';
-                    t.flash = 'flash-red';
-                }
-
-                // Cập nhật điểm sóng cuối trên chart nếu đang chọn token này
                 t.chartData[t.chartData.length - 1] = t.price;
             });
 
             renderTokens(tokens);
 
-            // Cập nhật Live Chart đang hiển thị
             const activeToken = tokens.find(t => t.symbol === currentActiveSymbol);
             if (activeToken) {
                 document.getElementById('chartLivePrice').innerText = `${activeToken.price.toFixed(4)} ${activeToken.pair}`;
                 myChart.data.datasets[0].data = activeToken.chartData;
-                myChart.update('none'); // Update mượt không giật màn hình
+                myChart.update('none');
             }
-        }, 1500);
+        }, 2000);
 
         function selectTokenChart(sym) {
             currentActiveSymbol = sym;
@@ -289,18 +282,19 @@
             document.getElementById('chartLivePrice').innerText = `${token.price.toFixed(4)} ${token.pair}`;
 
             myChart.data.datasets[0].data = token.chartData;
-            myChart.data.datasets[0].borderColor = token.status === 'gain' ? '#10b981' : '#f43f5e';
-            myChart.data.datasets[0].backgroundColor = token.status === 'gain' ? 'rgba(16, 185, 129, 0.12)' : 'rgba(244, 63, 94, 0.12)';
+            myChart.data.datasets[0].borderColor = '#10b981';
+            myChart.data.datasets[0].backgroundColor = 'rgba(16, 185, 129, 0.12)';
             myChart.update();
 
             document.getElementById('chartPanel').scrollIntoView({ behavior: 'smooth' });
-            showToast(`Đã kết nối luồng giá Realtime cho ${token.symbol}/${token.pair}`);
+            showToast(`Đã hiển thị sóng giá Realtime của ${token.symbol}`);
         }
 
         function filterTokens(type) {
             if(type === 'ALL') renderTokens(tokens);
+            else if(type === 'SIDRA') renderTokens(tokens.filter(t => t.eco === 'SIDRA'));
+            else if(type === 'PI') renderTokens(tokens.filter(t => t.eco === 'PI'));
             else if(type === 'GAINERS') renderTokens(tokens.filter(t => t.status === 'gain'));
-            else if(type === 'LOSERS') renderTokens(tokens.filter(t => t.status === 'lose'));
             else { showToast('Đã lọc theo danh mục: ' + type); renderTokens(tokens); }
         }
 
