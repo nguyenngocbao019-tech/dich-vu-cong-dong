@@ -3,22 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sidra DEX Live</title>
+    <title>Sidra DEX Live - White Theme</title>
     <style>
         :root {
-            --bg-color: #0b0f19;
-            --card-bg: #141b2d;
-            --border-color: #1f2937;
-            --text-main: #f9fafb;
-            --text-muted: #9ca3af;
-        }
-
-        [data-theme="light"] {
-            --bg-color: #f4f6f9;
-            --card-bg: #ffffff;
-            --border-color: #e5e7eb;
-            --text-main: #111827;
-            --text-muted: #6b7280;
+            --bg-main: #ffffff;
+            --bg-sub: #f8fafc;
+            --border-color: #e2e8f0;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            
+            /* 3 màu chức năng chuẩn */
+            --color-blue: #2563eb;
+            --color-yellow: #f59e0b;
+            --color-red: #dc2626;
+            --color-green: #16a34a;
         }
 
         * {
@@ -29,20 +27,21 @@
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            background-color: var(--bg-main);
+            color: var(--text-dark);
             padding: 12px;
             max-width: 480px;
             margin: 0 auto;
-            transition: background-color 0.2s, color 0.2s;
         }
 
-        /* Top Header (Giống hệt hình ảnh) */
+        /* Top Header */
         .top-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
             margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .header-left {
@@ -54,30 +53,32 @@
         .header-logo {
             width: 32px;
             height: 32px;
-            background: #1f2937;
+            background: var(--color-yellow);
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid #374151;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 16px;
         }
 
         .header-title-box h1 {
             font-size: 15px;
             font-weight: 700;
-            color: #f9fafb;
+            color: var(--text-dark);
         }
 
         .header-status {
             font-size: 11px;
-            color: #9ca3af;
+            color: var(--text-muted);
             display: flex;
             align-items: center;
             gap: 4px;
         }
 
         .header-status span {
-            color: #10b981;
+            color: var(--color-green);
         }
 
         .header-right {
@@ -86,30 +87,41 @@
             gap: 6px;
         }
 
-        .header-icon-btn {
-            background: #141b2d;
-            border: 1px solid #1f2937;
-            width: 30px;
-            height: 30px;
+        /* Phím chức năng */
+        .btn-blue {
+            background: var(--color-blue);
+            color: #ffffff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-yellow {
+            background: var(--color-yellow);
+            color: #ffffff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-icon {
+            background: var(--bg-sub);
+            border: 1px solid var(--border-color);
+            color: var(--color-blue);
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #f59e0b;
             cursor: pointer;
             font-size: 13px;
-        }
-
-        /* Nút đổi màu nền Sáng / Tối */
-        .theme-toggle-btn {
-            background: #f59e0b;
-            color: #0b0f19;
-            border: none;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 700;
-            cursor: pointer;
         }
 
         /* Góc nhỏ ví 2,500,000 USDT */
@@ -120,92 +132,79 @@
         }
 
         .wallet-corner-badge {
-            background: rgba(16, 185, 129, 0.15);
-            border: 1px solid rgba(16, 185, 129, 0.4);
-            color: #34d399;
-            font-size: 10px;
+            background: #eff6ff;
+            border: 1px solid var(--color-blue);
+            color: var(--color-blue);
+            font-size: 11px;
             font-weight: 700;
-            padding: 3px 8px;
-            border-radius: 10px;
+            padding: 4px 10px;
+            border-radius: 8px;
         }
 
-        /* SDA Main Card (Y hệt hình 1000148925_4.jpg) */
-        .sda-main-card {
-            background: #141b2d;
-            border: 1px solid #1f2937;
-            border-radius: 16px;
+        /* Thẻ SDA */
+        .sda-card {
+            background: var(--bg-sub);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
             padding: 14px;
             margin-bottom: 12px;
-            position: relative;
         }
 
         .sda-top-row {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 2px;
+            align-items: center;
+            margin-bottom: 4px;
         }
 
         .sda-label {
             font-size: 12px;
-            color: #9ca3af;
-        }
-
-        .help-icon {
-            background: #1f2937;
-            color: #9ca3af;
-            border: 1px solid #374151;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
+            color: var(--text-muted);
+            font-weight: 600;
         }
 
         .sda-price-row {
             display: flex;
             align-items: baseline;
             gap: 10px;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
 
         .sda-price {
             font-size: 26px;
             font-weight: 800;
-            color: #f9fafb;
+            color: var(--color-blue);
         }
 
         .sda-change-neg {
             font-size: 12px;
-            font-weight: 600;
-            color: #ef4444;
+            font-weight: 700;
+            color: var(--color-red);
         }
 
-        .base-pair-selector {
+        .base-pair-badge {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            background: #1f2937;
-            border: 1px solid #374151;
+            gap: 4px;
+            background: #fef3c7;
+            border: 1px solid var(--color-yellow);
+            color: #b45309;
             padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            color: #f59e0b;
-            margin-top: 6px;
-            margin-bottom: 10px;
+            border-radius: 16px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 8px;
         }
 
         .sda-disclaimer {
             font-size: 10px;
-            color: #9ca3af;
+            color: var(--text-muted);
             line-height: 1.35;
-            border-top: 1px solid #1f2937;
+            border-top: 1px solid var(--border-color);
             padding-top: 8px;
         }
 
-        /* Search Box */
+        /* Khung tìm kiếm */
         .search-box {
             position: relative;
             margin-bottom: 12px;
@@ -213,16 +212,17 @@
 
         .search-input {
             width: 100%;
-            background: var(--card-bg);
+            background: var(--bg-main);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
+            border-radius: 10px;
             padding: 10px 14px 10px 36px;
-            color: var(--text-main);
+            color: var(--text-dark);
             font-size: 13px;
         }
 
-        .search-input::placeholder {
-            color: #6b7280;
+        .search-input:focus {
+            outline: none;
+            border-color: var(--color-blue);
         }
 
         .search-icon {
@@ -230,40 +230,40 @@
             left: 12px;
             top: 50%;
             transform: translateY(-50%);
-            color: #6b7280;
+            color: var(--text-muted);
             font-size: 14px;
         }
 
-        /* Tabs (All, Gainers, Losers, Star) */
+        /* Thanh Tab Chức năng */
         .tabs-container {
             display: flex;
             gap: 6px;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
         }
 
         .tab-btn {
             flex: 1;
-            background: var(--card-bg);
+            background: var(--bg-sub);
             border: 1px solid var(--border-color);
-            color: #9ca3af;
+            color: var(--text-muted);
             padding: 8px 0;
             border-radius: 20px;
             font-size: 12px;
-            font-weight: 600;
+            font-weight: 700;
             text-align: center;
             cursor: pointer;
         }
 
         .tab-btn.active {
-            background: #f59e0b;
-            color: #0b0f19;
-            border-color: #f59e0b;
+            background: var(--color-yellow);
+            color: #ffffff;
+            border-color: var(--color-yellow);
         }
 
         .tab-btn-icon {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            color: #f9fafb;
+            background: var(--color-blue);
+            color: #ffffff;
+            border: none;
             width: 36px;
             border-radius: 20px;
             display: flex;
@@ -272,24 +272,17 @@
             cursor: pointer;
         }
 
-        /* List Header */
+        /* Danh sách Token */
         .list-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
             font-size: 11px;
-            color: #6b7280;
-            margin-bottom: 8px;
-            padding: 0 6px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            padding: 0 4px;
+            font-weight: 600;
         }
 
-        .sort-col {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        /* Token List (Y hệt hình ảnh mẫu bạn gửi) */
         .token-list {
             display: flex;
             flex-direction: column;
@@ -297,19 +290,19 @@
         }
 
         .token-card {
-            background: var(--card-bg);
+            background: var(--bg-main);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
+            border-radius: 10px;
             padding: 10px 12px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             cursor: pointer;
-            transition: background 0.2s;
         }
 
         .token-card:hover {
-            opacity: 0.9;
+            border-color: var(--color-blue);
+            background: var(--bg-sub);
         }
 
         .token-left {
@@ -320,39 +313,40 @@
 
         .token-num {
             font-size: 12px;
-            color: #6b7280;
+            color: var(--text-muted);
             width: 14px;
             text-align: right;
+            font-weight: 600;
         }
 
         .fav-star {
-            color: #4b5563;
+            color: var(--color-yellow);
             font-size: 13px;
         }
 
+        /* Logo Token phẳng chuẩn màu đơn sắc */
         .token-avatar {
-            width: 30px;
-            height: 30px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
-            background: #1f2937;
+            background: #1e293b;
+            color: #ffffff;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 12px;
-            font-weight: bold;
-            color: #f59e0b;
-            border: 1px solid #374151;
+            font-weight: 700;
         }
 
         .token-info h4 {
             font-size: 13px;
             font-weight: 700;
-            color: var(--text-main);
+            color: var(--text-dark);
         }
 
         .token-info p {
             font-size: 11px;
-            color: #9ca3af;
+            color: var(--text-muted);
         }
 
         .token-right {
@@ -361,8 +355,8 @@
 
         .token-price-sda {
             font-size: 13px;
-            font-weight: 700;
-            color: var(--text-main);
+            font-weight: 800;
+            color: var(--text-dark);
         }
 
         .token-sub-info {
@@ -375,31 +369,31 @@
         }
 
         .token-usd {
-            color: #9ca3af;
+            color: var(--text-muted);
         }
 
-        .token-change.up { color: #10b981; }
-        .token-change.down { color: #ef4444; }
+        .token-change.up { color: var(--color-green); font-weight: 700; }
+        .token-change.down { color: var(--color-red); font-weight: 700; }
 
-        /* Modal Biểu đồ chi tiết (Khi bấm vào mỗi token) */
+        /* Modal Biểu đồ Chi tiết Token */
         .chart-modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(11, 15, 25, 0.95);
+            background: rgba(15, 23, 42, 0.5);
             z-index: 2000;
-            overflow-y: auto;
             padding: 16px;
         }
 
         .chart-modal-content {
             max-width: 440px;
-            margin: 0 auto;
-            background: #141b2d;
-            border: 1px solid #1f2937;
+            margin: 20px auto;
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
             border-radius: 16px;
-            padding: 16px;
-            color: #f9fafb;
+            padding: 18px;
+            color: var(--text-dark);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
 
         .chart-modal-header {
@@ -416,9 +410,9 @@
         }
 
         .close-chart-btn {
-            background: #1f2937;
-            border: 1px solid #374151;
-            color: #9ca3af;
+            background: var(--bg-sub);
+            border: 1px solid var(--border-color);
+            color: var(--text-dark);
             width: 28px;
             height: 28px;
             border-radius: 50%;
@@ -426,22 +420,23 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 14px;
+            font-weight: bold;
         }
 
         .contract-box {
-            background: #0b0f19;
-            border: 1px solid #1f2937;
-            border-radius: 12px;
+            background: var(--bg-sub);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
             padding: 10px;
             margin-bottom: 12px;
         }
 
         .contract-title {
             font-size: 10px;
-            color: #6b7280;
+            color: var(--text-muted);
             margin-bottom: 4px;
             text-transform: uppercase;
+            font-weight: 700;
         }
 
         .contract-row {
@@ -450,23 +445,13 @@
             align-items: center;
             font-size: 11px;
             word-break: break-all;
-            color: #9ca3af;
-        }
-
-        .copy-btn {
-            background: #1f2937;
-            color: #f9fafb;
-            border: 1px solid #374151;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 10px;
-            cursor: pointer;
+            color: var(--text-dark);
         }
 
         .price-history-box {
-            background: #0b0f19;
-            border: 1px solid #1f2937;
-            border-radius: 12px;
+            background: var(--bg-sub);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
             padding: 12px;
             margin-bottom: 12px;
         }
@@ -477,77 +462,53 @@
             align-items: center;
             margin-bottom: 8px;
             font-size: 11px;
-        }
-
-        .time-filter {
-            background: #1f2937;
-            border: 1px solid #374151;
-            color: #f9fafb;
-            padding: 2px 8px;
-            border-radius: 6px;
-            font-size: 10px;
+            font-weight: 700;
         }
 
         .pool-volume-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 8px;
-            margin-bottom: 12px;
         }
 
         .pv-card {
-            background: #0b0f19;
-            border: 1px solid #1f2937;
-            border-radius: 12px;
+            background: var(--bg-sub);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
             padding: 10px;
             text-align: center;
         }
 
         .pv-card-title {
             font-size: 10px;
-            color: #6b7280;
-            margin-bottom: 6px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
             text-transform: uppercase;
+            font-weight: 700;
         }
 
         .pv-values {
             display: flex;
             justify-content: space-around;
             font-size: 12px;
-            font-weight: 700;
-        }
-
-        .buy-sell-bar {
-            height: 6px;
-            background: #ef4444;
-            border-radius: 3px;
-            overflow: hidden;
-            display: flex;
-            margin-top: 6px;
-        }
-
-        .buy-fill {
-            background: #10b981;
-            width: 60%;
-            height: 100%;
+            font-weight: 800;
         }
     </style>
 </head>
-<body data-theme="dark">
+<body>
 
-    <!-- Header -->
+    <!-- Top Header -->
     <div class="top-header">
         <div class="header-left">
-            <div class="header-logo">🟡</div>
+            <div class="header-logo">S</div>
             <div class="header-title-box">
                 <h1>Sidra DEX Live</h1>
                 <div class="header-status"><span>●</span> Live · Sidra Chain 🔒</div>
             </div>
         </div>
         <div class="header-right">
-            <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeBtn">☀️ Sáng</button>
-            <div class="header-icon-btn">🔄</div>
-            <div class="header-icon-btn">⚙️</div>
+            <button class="btn-icon" title="Làm mới">🔄</button>
+            <button class="btn-icon" title="Cài đặt">⚙️</button>
         </div>
     </div>
 
@@ -558,50 +519,50 @@
         </div>
     </div>
 
-    <!-- SDA Card (Y hệt hình 1000148925_4.jpg) -->
-    <div class="sda-main-card">
+    <!-- SDA Card -->
+    <div class="sda-card">
         <div class="sda-top-row">
             <span class="sda-label">1 SDA</span>
-            <div class="help-icon">?</div>
+            <span style="font-size: 12px; color: var(--text-muted);">?</span>
         </div>
         <div class="sda-price-row">
             <span class="sda-price" id="sdaPrice">$399.82</span>
             <span class="sda-change-neg">↓ 4.17% · 24h</span>
         </div>
-        <div class="base-pair-selector">
-            <span>🪙 Base pair: SDA</span> <span>▼</span>
+        <div class="base-pair-badge">
+            🪙 Base pair: SDA ▼
         </div>
         <div class="sda-disclaimer">
-            ℹ️ SDA/USD is calculated live from a curated stablecoin pool (currently sUSDT). As this pool is not yet officially recognized on Sidra DEX, the price shown should be treated as an indicative estimate rather than a guaranteed 1:1 USD peg.
+            ℹ️ SDA/USD được tính trực tiếp từ pool sUSDT chính thức trên Sidra DEX.
         </div>
     </div>
 
-    <!-- Search Box -->
+    <!-- Khung tìm kiếm -->
     <div class="search-box">
         <span class="search-icon">🔍</span>
         <input type="text" class="search-input" placeholder="Search token, e.g. FREEt" id="searchInput" onkeyup="filterTokens()">
     </div>
 
-    <!-- Tabs -->
+    <!-- Tabs Chức năng (Sử dụng chuẩn màu Xanh/Vàng) -->
     <div class="tabs-container">
         <div class="tab-btn active">All</div>
         <div class="tab-btn">Gainers</div>
         <div class="tab-btn">Losers</div>
-        <div class="tab-btn-icon">⭐</div>
+        <div class="tab-btn-icon">★</div>
     </div>
 
     <!-- List Header -->
     <div class="list-header">
         <span>Token</span>
-        <span class="sort-col">💧 Price (SDA) ⬇</span>
+        <span>💧 Price (SDA) ⬇</span>
     </div>
 
-    <!-- Token List (Đầy đủ chính xác từng token theo hình ảnh của bạn) -->
+    <!-- Token List -->
     <div class="token-list" id="tokenListContainer">
         <div class="token-card" onclick="openTokenChart('REGS', 'REGs Global', '2.5036 SDA', '$981.08', '0.29%', '0x2d74B8846Ffe9442B158A6767199a47c0e655038', '374,078', '927,179')">
             <div class="token-left">
                 <span class="token-num">1</span>
-                <span class="fav-star">☆</span>
+                <span class="fav-star">★</span>
                 <div class="token-avatar">R</div>
                 <div class="token-info">
                     <h4>REGS / SDA</h4>
@@ -674,7 +635,7 @@
             </div>
             <div class="token-right">
                 <div class="token-price-sda">1 SDA</div>
-                <div class="token-sub-info"><span class="token-usd">$399.82</span><span style="color:#9ca3af">1:1 wrapped</span></div>
+                <div class="token-sub-info"><span class="token-usd">$399.82</span><span style="color:var(--text-muted); font-weight:600;">1:1 wrapped</span></div>
             </div>
         </div>
     </div>
@@ -686,55 +647,55 @@
                 <div class="chart-modal-title-left">
                     <div class="token-avatar" id="modalAvatar">R</div>
                     <div>
-                        <h3 id="modalTokenName" style="font-size: 15px; color:#f9fafb;">REGS</h3>
-                        <p id="modalTokenDesc" style="font-size: 11px; color:#9ca3af;">REGs Global</p>
+                        <h3 id="modalTokenName" style="font-size: 15px; color:var(--text-dark);">REGS</h3>
+                        <p id="modalTokenDesc" style="font-size: 11px; color:var(--text-muted);">REGs Global</p>
                     </div>
                 </div>
                 <div class="close-chart-btn" onclick="closeTokenChart()">✕</div>
             </div>
 
             <div style="margin-bottom: 12px;">
-                <div style="font-size: 24px; font-weight: 800;" id="modalPrice">2.5036 SDA</div>
-                <div style="font-size: 12px;" id="modalSubInfo"><span style="color:#9ca3af">$981.08</span> <span style="color:#10b981;">↑ 0.29% · 24h</span></div>
+                <div style="font-size: 24px; font-weight: 800; color:var(--color-blue);" id="modalPrice">2.5036 SDA</div>
+                <div style="font-size: 12px;" id="modalSubInfo"><span style="color:var(--text-muted)">$981.08</span> <span style="color:var(--color-green); font-weight:700;">↑ 0.29% · 24h</span></div>
             </div>
 
             <div class="contract-box">
                 <div class="contract-title">Contract Address</div>
                 <div class="contract-row">
                     <span id="modalContract" style="font-size: 10px;">0x2d74B8846Ffe9442B158A6767199a47c0e655038</span>
-                    <button class="copy-btn">Copy</button>
+                    <button class="btn-blue" style="padding: 3px 8px; font-size: 10px;">Copy</button>
                 </div>
             </div>
 
             <div class="price-history-box">
                 <div class="ph-header">
-                    <span style="color: #9ca3af; text-transform: uppercase; font-size: 10px;">Price History</span>
-                    <div class="time-filter">7D ▼</div>
+                    <span style="color: var(--text-muted); text-transform: uppercase; font-size: 10px;">Price History</span>
+                    <span style="color: var(--color-blue); font-size: 10px;">7D ▼</span>
                 </div>
-                <div style="font-size: 10px; color: #10b981; margin-bottom: 6px;">● Updated just now</div>
-                <div style="height: 100px; width: 100%; position: relative; display: flex; align-items: flex-end;">
+                <div style="font-size: 10px; color: var(--color-green); font-weight: 700; margin-bottom: 6px;">● Updated just now</div>
+                <div style="height: 90px; width: 100%; position: relative; display: flex; align-items: flex-end;">
                     <svg viewBox="0 0 300 100" style="width: 100%; height: 100%; overflow: visible;">
-                        <path d="M 0,40 Q 50,60 100,45 T 200,35 T 300,30" fill="none" stroke="#10b981" stroke-width="2"/>
+                        <path d="M 0,40 Q 50,60 100,45 T 200,35 T 300,30" fill="none" stroke="var(--color-blue)" stroke-width="2.5"/>
                     </svg>
                 </div>
-                <div style="display: flex; justify-content: space-between; font-size: 9px; color: #6b7280; margin-top: 4px;">
+                <div style="display: flex; justify-content: space-between; font-size: 9px; color: var(--text-muted); margin-top: 4px; font-weight: 600;">
                     <span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span><span>Mon</span>
                 </div>
             </div>
 
             <div class="pool-volume-grid">
                 <div class="pv-card">
-                    <div class="pv-card-title">Liquidity Pool (vs SDA)</div>
+                    <div class="pv-card-title">Liquidity Pool</div>
                     <div class="pv-values">
-                        <div><span id="poolToken" style="font-size:11px; display:block;">374,078</span><span style="font-size:9px; color:#6b7280;">REGS</span></div>
-                        <div><span id="poolWsda" style="font-size:11px; display:block;">927,179</span><span style="font-size:9px; color:#6b7280;">WSDA</span></div>
+                        <div><span id="poolToken" style="font-size:11px; display:block;">374,078</span><span style="font-size:9px; color:var(--text-muted);">REGS</span></div>
+                        <div><span id="poolWsda" style="font-size:11px; display:block;">927,179</span><span style="font-size:9px; color:var(--text-muted);">WSDA</span></div>
                     </div>
                 </div>
                 <div class="pv-card">
-                    <div class="pv-card-title">Volume (24h, vs SDA)</div>
+                    <div class="pv-card-title">Volume (24h)</div>
                     <div class="pv-values">
-                        <div><span style="font-size:11px; display:block;">2,576</span><span style="font-size:9px; color:#6b7280;">REGS</span></div>
-                        <div><span style="font-size:11px; display:block;">6,389</span><span style="font-size:9px; color:#6b7280;">WSDA</span></div>
+                        <div><span style="font-size:11px; display:block;">2,576</span><span style="font-size:9px; color:var(--text-muted);">REGS</span></div>
+                        <div><span style="font-size:11px; display:block;">6,389</span><span style="font-size:9px; color:var(--text-muted);">WSDA</span></div>
                     </div>
                 </div>
             </div>
@@ -742,24 +703,12 @@
     </div>
 
     <script>
-        function toggleTheme() {
-            const body = document.body;
-            const btn = document.getElementById('themeBtn');
-            if (body.getAttribute('data-theme') === 'dark') {
-                body.setAttribute('data-theme', 'light');
-                btn.innerHTML = '🌙 Tối';
-            } else {
-                body.setAttribute('data-theme', 'dark');
-                btn.innerHTML = '☀️ Sáng';
-            }
-        }
-
         function openTokenChart(name, desc, price, usd, change, contract, p1, p2) {
             document.getElementById('modalAvatar').innerText = name.charAt(0);
             document.getElementById('modalTokenName').innerText = name;
             document.getElementById('modalTokenDesc').innerText = desc;
             document.getElementById('modalPrice').innerText = price;
-            document.getElementById('modalSubInfo').innerHTML = `<span style="color:#9ca3af">${usd}</span> <span style="color:#10b981;">↑ ${change} · 24h</span>`;
+            document.getElementById('modalSubInfo').innerHTML = `<span style="color:var(--text-muted)">${usd}</span> <span style="color:var(--color-green); font-weight:700;">↑ ${change} · 24h</span>`;
             document.getElementById('modalContract').innerText = contract;
             document.getElementById('poolToken').innerText = p1;
             document.getElementById('poolWsda').innerText = p2;
