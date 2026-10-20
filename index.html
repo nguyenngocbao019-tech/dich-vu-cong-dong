@@ -3,8 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sidra DEX Live - Light Mode</title>
+    <title>Sidra DEX Live</title>
     <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #141b2d;
+            --border-color: #1f2937;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --icon-bg: #1f2937;
+            --modal-bg: #141b2d;
+            --sub-bg: #0b0f19;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --border-color: #e5e7eb;
+            --text-main: #111827;
+            --text-muted: #6b7280;
+            --icon-bg: #f3f4f6;
+            --modal-bg: #ffffff;
+            --sub-bg: #f9fafb;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -13,11 +35,12 @@
         }
 
         body {
-            background-color: #f4f6f9;
-            color: #1f2937;
+            background-color: var(--bg-color);
+            color: var(--text-main);
             padding: 12px;
             max-width: 480px;
             margin: 0 auto;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         /* Top Header */
@@ -25,7 +48,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .header-left {
@@ -37,24 +60,23 @@
         .header-logo {
             width: 32px;
             height: 32px;
-            background: #ffffff;
+            background: var(--card-bg);
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid #e5e7eb;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
         }
 
         .header-title-box h1 {
             font-size: 15px;
             font-weight: 700;
-            color: #111827;
+            color: var(--text-main);
         }
 
         .header-status {
             font-size: 11px;
-            color: #6b7280;
+            color: var(--text-muted);
             display: flex;
             align-items: center;
             gap: 4px;
@@ -67,92 +89,108 @@
         .header-right {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
 
         .header-icon-btn {
-            background: #ffffff;
-            border: 1px solid #e5e7eb;
-            width: 30px;
-            height: 30px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #d97706;
+            color: #f59e0b;
             cursor: pointer;
-            font-size: 13px;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            font-size: 14px;
         }
 
-        /* Góc nhỏ ví 2,500,000 USDT */
-        .wallet-corner-container {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 8px;
-        }
-
-        .wallet-corner-badge {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            color: #059669;
-            font-size: 10px;
+        /* Nút thích đổi màu nền */
+        .theme-toggle-btn {
+            background: #f59e0b;
+            color: #0b0f19;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 11px;
             font-weight: 700;
-            padding: 3px 8px;
-            border-radius: 10px;
+            cursor: pointer;
             display: inline-flex;
             align-items: center;
             gap: 4px;
         }
 
+        /* Góc nhỏ hiển thị ví 2,500,000 USDT */
+        .wallet-corner-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 10px;
+        }
+
+        .wallet-corner-badge {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: #34d399;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+
         /* SDA Main Card */
         .sda-main-card {
-            background: #ffffff;
-            border: 1px solid #e5e7eb;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
             border-radius: 16px;
-            padding: 14px;
-            margin-bottom: 12px;
+            padding: 16px;
+            margin-bottom: 14px;
             position: relative;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            overflow: hidden;
+            transition: background-color 0.3s, border-color 0.3s;
         }
 
         .sda-top-row {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 2px;
+            margin-bottom: 4px;
         }
 
         .sda-label {
             font-size: 12px;
-            color: #6b7280;
+            color: var(--text-muted);
         }
 
         .help-icon {
-            background: #f3f4f6;
-            color: #6b7280;
-            border: 1px solid #e5e7eb;
-            width: 20px;
-            height: 20px;
+            background: var(--icon-bg);
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            width: 22px;
+            height: 22px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 10px;
+            font-size: 11px;
             cursor: pointer;
         }
 
         .sda-price-row {
             display: flex;
             align-items: baseline;
-            gap: 10px;
+            gap: 12px;
             margin-bottom: 4px;
         }
 
         .sda-price {
-            font-size: 26px;
+            font-size: 28px;
             font-weight: 800;
-            color: #111827;
+            color: var(--text-main);
         }
 
         .sda-change-neg {
@@ -165,44 +203,43 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: #fdf6ed;
-            border: 1px solid #fde68a;
+            background: var(--icon-bg);
+            border: 1px solid var(--border-color);
             padding: 4px 10px;
             border-radius: 20px;
             font-size: 12px;
-            color: #d97706;
-            margin-top: 6px;
-            margin-bottom: 10px;
+            color: #f59e0b;
+            margin-top: 8px;
+            margin-bottom: 12px;
             cursor: pointer;
         }
 
         .sda-disclaimer {
             font-size: 10px;
-            color: #6b7280;
-            line-height: 1.35;
-            border-top: 1px solid #f3f4f6;
-            padding-top: 8px;
+            color: var(--text-muted);
+            line-height: 1.4;
+            border-top: 1px solid var(--border-color);
+            padding-top: 10px;
         }
 
         /* Search Box */
         .search-box {
             position: relative;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
 
         .search-input {
             width: 100%;
-            background: #ffffff;
-            border: 1px solid #e5e7eb;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 10px 14px 10px 36px;
-            color: #111827;
+            color: var(--text-main);
             font-size: 13px;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
         }
 
         .search-input::placeholder {
-            color: #9ca3af;
+            color: var(--text-muted);
         }
 
         .search-icon {
@@ -210,57 +247,55 @@
             left: 12px;
             top: 50%;
             transform: translateY(-50%);
-            color: #9ca3af;
+            color: var(--text-muted);
             font-size: 14px;
         }
 
         /* Tabs */
         .tabs-container {
             display: flex;
-            gap: 6px;
-            margin-bottom: 14px;
+            gap: 8px;
+            margin-bottom: 16px;
         }
 
         .tab-btn {
             flex: 1;
-            background: #ffffff;
-            border: 1px solid #e5e7eb;
-            color: #4b5563;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
             padding: 8px 0;
             border-radius: 20px;
             font-size: 12px;
             font-weight: 600;
             cursor: pointer;
             text-align: center;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
         }
 
         .tab-btn.active {
             background: #f59e0b;
-            color: #ffffff;
+            color: #0b0f19;
             border-color: #f59e0b;
         }
 
         .tab-btn-icon {
-            background: #ffffff;
-            border: 1px solid #e5e7eb;
-            color: #111827;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
             width: 36px;
             border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
         }
 
-        /* Table Header Row */
+        /* List Header */
         .list-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 11px;
-            color: #6b7280;
+            color: var(--text-muted);
             margin-bottom: 8px;
             padding: 0 6px;
         }
@@ -279,8 +314,8 @@
         }
 
         .token-card {
-            background: #ffffff;
-            border: 1px solid #e5e7eb;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 10px 12px;
             display: flex;
@@ -288,11 +323,10 @@
             justify-content: space-between;
             cursor: pointer;
             transition: background 0.2s;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
         }
 
         .token-card:hover {
-            background: #f9fafb;
+            opacity: 0.9;
         }
 
         .token-left {
@@ -303,13 +337,13 @@
 
         .token-num {
             font-size: 12px;
-            color: #9ca3af;
+            color: var(--text-muted);
             width: 14px;
             text-align: right;
         }
 
         .fav-star {
-            color: #9ca3af;
+            color: var(--text-muted);
             font-size: 13px;
         }
 
@@ -317,25 +351,25 @@
             width: 30px;
             height: 30px;
             border-radius: 50%;
-            background: #fef3c7;
+            background: var(--icon-bg);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 12px;
             font-weight: bold;
-            color: #d97706;
-            border: 1px solid #fde68a;
+            color: #f59e0b;
+            border: 1px solid var(--border-color);
         }
 
         .token-info h4 {
             font-size: 13px;
             font-weight: 700;
-            color: #111827;
+            color: var(--text-main);
         }
 
         .token-info p {
             font-size: 11px;
-            color: #6b7280;
+            color: var(--text-muted);
         }
 
         .token-right {
@@ -345,7 +379,7 @@
         .token-price-sda {
             font-size: 13px;
             font-weight: 700;
-            color: #111827;
+            color: var(--text-main);
         }
 
         .token-sub-info {
@@ -358,18 +392,18 @@
         }
 
         .token-usd {
-            color: #6b7280;
+            color: var(--text-muted);
         }
 
         .token-change.up { color: #10b981; }
         .token-change.down { color: #ef4444; }
 
-        /* Modal Biểu đồ chi tiết (Y hệt hình cuối) */
+        /* Modal Biểu đồ chi tiết */
         .chart-modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.96);
+            background: rgba(0, 0, 0, 0.85);
             z-index: 2000;
             overflow-y: auto;
             padding: 16px;
@@ -378,12 +412,11 @@
         .chart-modal-content {
             max-width: 440px;
             margin: 0 auto;
-            background: #ffffff;
-            border: 1px solid #e5e7eb;
+            background: var(--modal-bg);
+            border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 16px;
-            color: #111827;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            color: var(--text-main);
         }
 
         .chart-modal-header {
@@ -400,9 +433,9 @@
         }
 
         .close-chart-btn {
-            background: #f3f4f6;
-            border: 1px solid #e5e7eb;
-            color: #4b5563;
+            background: var(--icon-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
             width: 28px;
             height: 28px;
             border-radius: 50%;
@@ -414,8 +447,8 @@
         }
 
         .contract-box {
-            background: #f9fafb;
-            border: 1px solid #e5e7eb;
+            background: var(--sub-bg);
+            border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 10px;
             margin-bottom: 12px;
@@ -423,7 +456,7 @@
 
         .contract-title {
             font-size: 10px;
-            color: #6b7280;
+            color: var(--text-muted);
             margin-bottom: 4px;
             text-transform: uppercase;
         }
@@ -434,13 +467,13 @@
             align-items: center;
             font-size: 11px;
             word-break: break-all;
-            color: #4b5563;
+            color: var(--text-muted);
         }
 
         .copy-btn {
-            background: #ffffff;
-            color: #111827;
-            border: 1px solid #e5e7eb;
+            background: var(--icon-bg);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
             padding: 4px 10px;
             border-radius: 6px;
             font-size: 10px;
@@ -449,8 +482,8 @@
         }
 
         .price-history-box {
-            background: #f9fafb;
-            border: 1px solid #e5e7eb;
+            background: var(--sub-bg);
+            border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 12px;
             margin-bottom: 12px;
@@ -465,9 +498,9 @@
         }
 
         .time-filter {
-            background: #ffffff;
-            border: 1px solid #e5e7eb;
-            color: #111827;
+            background: var(--icon-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
             padding: 2px 8px;
             border-radius: 6px;
             font-size: 10px;
@@ -481,8 +514,8 @@
         }
 
         .pv-card {
-            background: #f9fafb;
-            border: 1px solid #e5e7eb;
+            background: var(--sub-bg);
+            border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 10px;
             text-align: center;
@@ -490,7 +523,7 @@
 
         .pv-card-title {
             font-size: 10px;
-            color: #6b7280;
+            color: var(--text-muted);
             margin-bottom: 6px;
             text-transform: uppercase;
         }
@@ -518,7 +551,7 @@
         }
     </style>
 </head>
-<body>
+<body data-theme="dark">
 
     <!-- Header -->
     <div class="top-header">
@@ -530,7 +563,8 @@
             </div>
         </div>
         <div class="header-right">
-            <div class="header-icon-btn">🔗</div>
+            <!-- Nút đổi màu nền -->
+            <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeBtn">☀️ Sáng</button>
             <div class="header-icon-btn">🔄</div>
             <div class="header-icon-btn">⚙️</div>
         </div>
@@ -581,7 +615,7 @@
         <span class="sort-col">💧 Price (SDA) ⬇</span>
     </div>
 
-    <!-- Token List (Bấm vào mỗi token hiển thị biểu đồ chi tiết) -->
+    <!-- Token List -->
     <div class="token-list" id="tokenListContainer">
         <div class="token-card" onclick="openTokenChart('REGS', 'REGs Global', '2.5036 SDA', '$981.08', '0.29%', '0x2d74B8846Ffe9442B158A6767199a47c0e655038', '374,078', '927,179')">
             <div class="token-left">
@@ -589,13 +623,13 @@
                 <span class="fav-star">☆</span>
                 <div class="token-avatar">R</div>
                 <div class="token-info">
-                    <h4>REGS / SDA[span_7](start_span)[span_7](end_span)</h4>
-                    <p>REGs Global[span_8](start_span)[span_8](end_span)</p>
+                    <h4>REGS / SDA[span_2](start_span)[span_2](end_span)</h4>
+                    <p>REGs Global[span_3](start_span)[span_3](end_span)</p>
                 </div>
             </div>
             <div class="token-right">
-                <div class="token-price-sda">2.5036 SDA[span_9](start_span)[span_9](end_span)</div>
-                <div class="token-sub-info"><span class="token-usd">$981.08[span_10](start_span)[span_10](end_span)</span><span class="token-change up">↑ 0.3%[span_11](start_span)[span_11](end_span)</span></div>
+                <div class="token-price-sda">2.5036 SDA[span_4](start_span)[span_4](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$981.08[span_5](start_span)[span_5](end_span)</span><span class="token-change up">↑ 0.3%[span_6](start_span)[span_6](end_span)</span></div>
             </div>
         </div>
 
@@ -605,13 +639,13 @@
                 <span class="fav-star">☆</span>
                 <div class="token-avatar">G</div>
                 <div class="token-info">
-                    <h4>GLNs / SDA[span_12](start_span)[span_12](end_span)</h4>
-                    <p>Global Logistics Network[span_13](start_span)[span_13](end_span)</p>
+                    <h4>GLNs / SDA[span_7](start_span)[span_7](end_span)</h4>
+                    <p>Global Logistics Network[span_8](start_span)[span_8](end_span)</p>
                 </div>
             </div>
             <div class="token-right">
-                <div class="token-price-sda">1.9998 SDA[span_14](start_span)[span_14](end_span)</div>
-                <div class="token-sub-info"><span class="token-usd">$783.65[span_15](start_span)[span_15](end_span)</span><span class="token-change down">↓ 0.6%[span_16](start_span)[span_16](end_span)</span></div>
+                <div class="token-price-sda">1.9998 SDA[span_9](start_span)[span_9](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$783.65[span_10](start_span)[span_10](end_span)</span><span class="token-change down">↓ 0.6%[span_11](start_span)[span_11](end_span)</span></div>
             </div>
         </div>
 
@@ -621,13 +655,13 @@
                 <span class="fav-star">☆</span>
                 <div class="token-avatar">F</div>
                 <div class="token-info">
-                    <h4>FREEt / SDA[span_17](start_span)[span_17](end_span)</h4>
-                    <p>Freelancium[span_18](start_span)[span_18](end_span)</p>
+                    <h4>FREEt / SDA[span_12](start_span)[span_12](end_span)</h4>
+                    <p>Freelancium[span_13](start_span)[span_13](end_span)</p>
                 </div>
             </div>
             <div class="token-right">
-                <div class="token-price-sda">1.5986 SDA[span_19](start_span)[span_19](end_span)</div>
-                <div class="token-sub-info"><span class="token-usd">$626.42[span_20](start_span)[span_20](end_span)</span><span class="token-change down">↓ 1.4%[span_21](start_span)[span_21](end_span)</span></div>
+                <div class="token-price-sda">1.5986 SDA[span_14](start_span)[span_14](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$626.42[span_15](start_span)[span_15](end_span)</span><span class="token-change down">↓ 1.4%[span_16](start_span)[span_16](end_span)</span></div>
             </div>
         </div>
 
@@ -637,13 +671,13 @@
                 <span class="fav-star">☆</span>
                 <div class="token-avatar">A</div>
                 <div class="token-info">
-                    <h4>AIR / SDA[span_22](start_span)[span_22](end_span)</h4>
-                    <p>AirLand[span_23](start_span)[span_23](end_span)</p>
+                    <h4>AIR / SDA[span_17](start_span)[span_17](end_span)</h4>
+                    <p>AirLand[span_18](start_span)[span_18](end_span)</p>
                 </div>
             </div>
             <div class="token-right">
-                <div class="token-price-sda">1.5271 SDA[span_24](start_span)[span_24](end_span)</div>
-                <div class="token-sub-info"><span class="token-usd">$598.43[span_25](start_span)[span_25](end_span)</span><span class="token-change up">↑ 0.3%[span_26](start_span)[span_26](end_span)</span></div>
+                <div class="token-price-sda">1.5271 SDA[span_19](start_span)[span_19](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$598.43[span_20](start_span)[span_20](end_span)</span><span class="token-change up">↑ 0.3%[span_21](start_span)[span_21](end_span)</span></div>
             </div>
         </div>
 
@@ -653,13 +687,61 @@
                 <span class="fav-star">☆</span>
                 <div class="token-avatar">W</div>
                 <div class="token-info">
-                    <h4>WSDA / SDA[span_27](start_span)[span_27](end_span)</h4>
-                    <p>Wrapped SDA[span_28](start_span)[span_28](end_span)</p>
+                    <h4>WSDA / SDA[span_22](start_span)[span_22](end_span)</h4>
+                    <p>Wrapped SDA[span_23](start_span)[span_23](end_span)</p>
                 </div>
             </div>
             <div class="token-right">
-                <div class="token-price-sda">1 SDA[span_29](start_span)[span_29](end_span)</div>
-                <div class="token-sub-info"><span class="token-usd">$399.82[span_30](start_span)[span_30](end_span)</span><span style="color:#6b7280">1:1 wrapped[span_31](start_span)[span_31](end_span)</span></div>
+                <div class="token-price-sda">1 SDA[span_24](start_span)[span_24](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$399.82[span_25](start_span)[span_25](end_span)</span><span style="color:#9ca3af">1:1 wrapped[span_26](start_span)[span_26](end_span)</span></div>
+            </div>
+        </div>
+
+        <div class="token-card" onclick="openTokenChart('DBI', 'Digital Banking Initiative', '0.999531 SDA', '$400.84', '+0.1%', '0x55b1281c7461c5929d821361c4731a59218d722222', '80,000', '215,000')">
+            <div class="token-left">
+                <span class="token-num">6</span>
+                <span class="fav-star">☆</span>
+                <div class="token-avatar">D</div>
+                <div class="token-info">
+                    <h4>DBI / SDA[span_27](start_span)[span_27](end_span)</h4>
+                    <p>Digital Banking Initiative[span_28](start_span)[span_28](end_span)</p>
+                </div>
+            </div>
+            <div class="token-right">
+                <div class="token-price-sda">0.999531 SDA[span_29](start_span)[span_29](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$400.84[span_30](start_span)[span_30](end_span)</span><span class="token-change up">↑ 0.1%[span_31](start_span)[span_31](end_span)</span></div>
+            </div>
+        </div>
+
+        <div class="token-card" onclick="openTokenChart('VPM', 'VPM ecosystem', '0.925299 SDA', '$362.59', '-2.8%', '0x77c1281c7461c5929d821361c4731a59218d733333', '65,000', '180,000')">
+            <div class="token-left">
+                <span class="token-num">7</span>
+                <span class="fav-star">☆</span>
+                <div class="token-avatar">V</div>
+                <div class="token-info">
+                    <h4>VPM / SDA[span_32](start_span)[span_32](end_span)[span_33](start_span)[span_33](end_span)</h4>
+                    <p>VPM ecosystem[span_34](start_span)[span_34](end_span)[span_35](start_span)[span_35](end_span)</p>
+                </div>
+            </div>
+            <div class="token-right">
+                <div class="token-price-sda">0.925299 SDA[span_36](start_span)[span_36](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$362.59[span_37](start_span)[span_37](end_span)</span><span class="token-change down">↓ 2.8%[span_38](start_span)[span_38](end_span)</span></div>
+            </div>
+        </div>
+
+        <div class="token-card" onclick="openTokenChart('FBAY', 'FALCONBAY', '0.81082 SDA', '$322.24', '+3.3%', '0x88d1281c7461c5929d821361c4731a59218d744444', '50,000', '140,000')">
+            <div class="token-left">
+                <span class="token-num">8</span>
+                <span class="fav-star">☆</span>
+                <div class="token-avatar">FB</div>
+                <div class="token-info">
+                    <h4>FBAY / SDA[span_39](start_span)[span_39](end_span)[span_40](start_span)[span_40](end_span)</h4>
+                    <p>FALCONBAY[span_41](start_span)[span_41](end_span)[span_42](start_span)[span_42](end_span)</p>
+                </div>
+            </div>
+            <div class="token-right">
+                <div class="token-price-sda">0.81082 SDA[span_43](start_span)[span_43](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$322.24[span_44](start_span)[span_44](end_span)</span><span class="token-change up">↑ 3.3%[span_45](start_span)[span_45](end_span)</span></div>
             </div>
         </div>
     </div>
@@ -671,19 +753,19 @@
                 <div class="chart-modal-title-left">
                     <div class="token-avatar" id="modalAvatar">R</div>
                     <div>
-                        <h3 id="modalTokenName" style="font-size: 15px; color:#111827;">REGS</h3>
-                        <p id="modalTokenDesc" style="font-size: 11px; color:#6b7280;">REGs Global</p>
+                        <h3 id="modalTokenName" style="font-size: 15px; color:var(--text-main);">REGS</h3>
+                        <p id="modalTokenDesc" style="font-size: 11px; color:var(--text-muted);">REGs Global</p>
                     </div>
                 </div>
                 <div style="display: flex; gap: 8px; align-items: center;">
-                    <span style="font-size: 16px; color: #9ca3af;">☆</span>
+                    <span style="font-size: 16px; color: var(--text-muted);">☆</span>
                     <div class="close-chart-btn" onclick="closeTokenChart()">✕</div>
                 </div>
             </div>
 
             <div style="margin-bottom: 12px;">
                 <div style="font-size: 24px; font-weight: 800;" id="modalPrice">2.5036 SDA</div>
-                <div style="font-size: 12px;" id="modalSubInfo"><span style="color:#6b7280">$981.08</span> <span style="color:#10b981;">↑ 0.29% · 24h</span></div>
+                <div style="font-size: 12px;" id="modalSubInfo"><span style="color:var(--text-muted)">$981.08</span> <span style="color:#10b981;">↑ 0.29% · 24h</span></div>
             </div>
 
             <div class="contract-box">
@@ -696,7 +778,7 @@
 
             <div class="price-history-box">
                 <div class="ph-header">
-                    <span style="color: #6b7280; text-transform: uppercase; font-size: 10px;">Price History</span>
+                    <span style="color: var(--text-muted); text-transform: uppercase; font-size: 10px;">Price History</span>
                     <div class="time-filter">7D ▼</div>
                 </div>
                 <div style="font-size: 10px; color: #10b981; margin-bottom: 6px;">● Updated just now</div>
@@ -705,7 +787,7 @@
                         <path d="M 0,40 Q 50,60 100,45 T 200,35 T 300,30" fill="none" stroke="#10b981" stroke-width="2"/>
                     </svg>
                 </div>
-                <div style="display: flex; justify-content: space-between; font-size: 9px; color: #9ca3af; margin-top: 4px;">
+                <div style="display: flex; justify-content: space-between; font-size: 9px; color: var(--text-muted); margin-top: 4px;">
                     <span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span><span>Mon</span>
                 </div>
             </div>
@@ -714,24 +796,24 @@
                 <div class="pv-card">
                     <div class="pv-card-title">Liquidity Pool (vs SDA)</div>
                     <div class="pv-values">
-                        <div><span id="poolToken" style="font-size:11px; display:block;">374,078</span><span style="font-size:9px; color:#6b7280;">REGS</span></div>
-                        <div><span id="poolWsda" style="font-size:11px; display:block;">927,179</span><span style="font-size:9px; color:#6b7280;">WSDA</span></div>
+                        <div><span id="poolToken" style="font-size:11px; display:block;">374,078</span><span style="font-size:9px; color:var(--text-muted);">REGS</span></div>
+                        <div><span id="poolWsda" style="font-size:11px; display:block;">927,179</span><span style="font-size:9px; color:var(--text-muted);">WSDA</span></div>
                     </div>
                 </div>
                 <div class="pv-card">
                     <div class="pv-card-title">Volume (24h, vs SDA)</div>
                     <div class="pv-values">
-                        <div><span style="font-size:11px; display:block;">2,576</span><span style="font-size:9px; color:#6b7280;">REGS</span></div>
-                        <div><span style="font-size:11px; display:block;">6,389</span><span style="font-size:9px; color:#6b7280;">WSDA</span></div>
+                        <div><span style="font-size:11px; display:block;">2,576</span><span style="font-size:9px; color:var(--text-muted);">REGS</span></div>
+                        <div><span style="font-size:11px; display:block;">6,389</span><span style="font-size:9px; color:var(--text-muted);">WSDA</span></div>
                     </div>
                 </div>
             </div>
 
-            <div style="font-size: 10px; color: #6b7280; text-align: center; margin-top: 8px;">
+            <div style="font-size: 10px; color: var(--text-muted); text-align: center; margin-top: 8px;">
                 25 swaps in ~24h · $2,527,594.53
             </div>
             <div style="margin-top: 8px;">
-                <div style="display: flex; justify-content: space-between; font-size: 10px; color: #6b7280; margin-bottom: 2px;">
+                <div style="display: flex; justify-content: space-between; font-size: 10px; color: var(--text-muted); margin-bottom: 2px;">
                     <span>Buy: 1,552 REGS (60%)</span>
                     <span>Sell: 1,025 REGS (40%)</span>
                 </div>
@@ -743,12 +825,25 @@
     </div>
 
     <script>
+        // Hàm chuyển đổi màu nền Sáng / Tối
+        function toggleTheme() {
+            const body = document.body;
+            const btn = document.getElementById('themeBtn');
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.setAttribute('data-theme', 'light');
+                btn.innerHTML = '🌙 Tối';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                btn.innerHTML = '☀️ Sáng';
+            }
+        }
+
         function openTokenChart(name, desc, price, usd, change, contract, p1, p2) {
             document.getElementById('modalAvatar').innerText = name.charAt(0);
             document.getElementById('modalTokenName').innerText = name;
             document.getElementById('modalTokenDesc').innerText = desc;
             document.getElementById('modalPrice').innerText = price;
-            document.getElementById('modalSubInfo').innerHTML = `<span style="color:#6b7280">${usd}</span> <span style="color:#10b981;">↑ ${change} · 24h</span>`;
+            document.getElementById('modalSubInfo').innerHTML = `<span style="color:var(--text-muted)">${usd}</span> <span style="color:#10b981;">↑ ${change} · 24h</span>`;
             document.getElementById('modalContract').innerText = contract;
             document.getElementById('poolToken').innerText = p1;
             document.getElementById('poolWsda').innerText = p2;
