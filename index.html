@@ -1,416 +1,245 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mạng Lưới Giao Dịch Kỹ Thuật Số Toàn Cầu</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        emerald: { 50: '#ecfdf5', 100: '#d1fae5', 600: '#059669', 700: '#047857', 900: '#064e3b' },
-                        gold: { 500: '#d97706', 600: '#b45309' }
-                    }
-                }
-            }
-        }
-    </script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; color: #0f172a; }
         ::-webkit-scrollbar { width: 4px; height: 4px; }
-        ::-webkit-scrollbar-track { background: #f8fafc; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
     </style>
 </head>
-<body class="min-h-screen bg-slate-50 flex flex-col lg:flex-row">
+<body class="min-h-screen bg-slate-50 pb-12">
 
-    <!-- LEFT SIDEBAR CONTROL PANEL (THANH ĐIỀU HƯỚNG MỚI BÊN TRÁI) -->
-    <aside class="w-full lg:w-72 bg-white border-r border-slate-200 p-4 flex flex-col justify-between shrink-0 shadow-sm">
-        <div class="space-y-6">
-            <!-- Logo Header -->
-            <div class="flex items-center gap-3 border-b border-slate-100 pb-4">
-                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-800 text-amber-400 flex items-center justify-center font-extrabold text-xl shadow-md">
+    <!-- TOP HEADER BAR -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-xs">
+        <div class="max-w-xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-2.5">
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-500 to-amber-600 text-white flex items-center justify-center font-extrabold text-lg shadow-sm">
                     <i class="fa-solid fa-globe"></i>
                 </div>
                 <div>
-                    <h1 class="font-extrabold text-xs text-slate-900 leading-tight uppercase tracking-tight">
-                        MẠNG LƯỚI GIAO DỊCH<br><span class="text-emerald-700">TOÀN CẦU</span>
-                    </h1>
-                    <span class="text-[9px] bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded font-bold mt-1 inline-block">Web3 DEX Mainnet</span>
+                    <h1 class="font-extrabold text-xs uppercase text-slate-900 leading-tight">MẠNG LƯỚI GIAO DỊCH TOÀN CẦU</h1>
+                    <p class="text-[10px] text-amber-600 font-bold">Global Digital Asset DEX</p>
                 </div>
             </div>
-
-            <!-- User Verified Profile Card -->
-            <div class="bg-gradient-to-r from-emerald-50 to-teal-50 p-3 rounded-2xl border border-emerald-200/60">
-                <div class="flex items-center gap-2.5 mb-2">
-                    <div class="w-9 h-9 rounded-full bg-emerald-600 text-white font-extrabold flex items-center justify-center text-xs shadow-xs">
-                        BP
-                    </div>
-                    <div>
-                        <h2 class="font-bold text-xs text-slate-900">Bảo Pi (@Abao1985)</h2>
-                        <span class="text-[10px] text-emerald-700 font-bold flex items-center gap-1">
-                            <i class="fa-solid fa-shield-check"></i> Xác Thựck KYC Mainnet
-                        </span>
-                    </div>
-                </div>
-                <div class="text-[10px] text-slate-600 font-medium pt-1 border-t border-emerald-200/50 flex justify-between">
-                    <span>Quỹ Bảo Chứng:</span>
-                    <strong class="text-amber-700 font-bold">500,000 Pi</strong>
-                </div>
-            </div>
-
-            <!-- Sidebar Navigation Folder Links -->
-            <nav class="space-y-1.5 text-xs font-bold">
-                <div class="text-[10px] uppercase text-slate-400 px-2 font-bold tracking-wider mb-1">Menu Bảng Điều Khiển</div>
-                <a href="#market" class="flex items-center gap-2.5 p-2.5 text-emerald-800 bg-emerald-50 rounded-xl border border-emerald-200"><i class="fa-solid fa-chart-line text-emerald-600"></i> Bảng Tỷ Giá Coin Realtime</a>
-                <a href="#trading" class="flex items-center gap-2.5 p-2.5 text-slate-700 hover:bg-slate-100 rounded-xl transition"><i class="fa-solid fa-chart-candlestick text-amber-500"></i> Biểu Đồ Nến Sàn Giao Dịch</a>
-                <a href="#rwa" class="flex items-center gap-2.5 p-2.5 text-slate-700 hover:bg-slate-100 rounded-xl transition"><i class="fa-solid fa-folder-tree text-blue-600"></i> Kho Thư Mục Tài Sản RWA</a>
-                <a href="#" onclick="openModal('swapModal')" class="flex items-center gap-2.5 p-2.5 text-slate-700 hover:bg-slate-100 rounded-xl transition"><i class="fa-solid fa-arrows-rotate text-purple-600"></i> Cổng Chuyển Đổi Token</a>
-            </nav>
-        </div>
-
-        <!-- Sidebar Footer Action -->
-        <div class="pt-4 border-t border-slate-100 space-y-2">
-            <button onclick="openModal('addAssetModal')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-3 rounded-xl text-xs transition shadow-sm flex items-center justify-center gap-2">
-                <i class="fa-solid fa-plus-circle"></i> ĐĂNG NIÊM YẾT TÀI SẢN
+            
+            <button onclick="openModal('walletModal')" class="bg-emerald-600 text-white font-bold text-xs px-3 py-2 rounded-xl shadow-xs flex items-center gap-1.5 hover:bg-emerald-700 transition">
+                <i class="fa-solid fa-wallet"></i>
+                <span>Ví & Tài Khoản</span>
             </button>
-            <p class="text-[10px] text-slate-400 text-center font-medium">&copy; 2026 Global Digital Network</p>
         </div>
-    </aside>
+    </header>
 
-    <!-- RIGHT MAIN CONTENT DASHBOARD -->
-    <main class="flex-1 p-4 lg:p-6 space-y-6 overflow-y-auto">
+    <main class="max-w-xl mx-auto p-4 space-y-4">
 
-        <!-- TOP TICKER STATS BAR -->
-        <section class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs flex flex-wrap justify-between items-center gap-4">
-            <div class="flex items-center gap-3">
-                <span class="w-3 h-3 rounded-full bg-emerald-500 animate-ping"></span>
-                <div>
-                    <span class="text-xs font-extrabold text-slate-900 uppercase">Mạng Lưới Kết Nối Trực Tiếp</span>
-                    <p class="text-[11px] text-slate-500 font-medium">Trạng thái: Hoạt động ổn định trên Pi Mainnet Sandbox</p>
-                </div>
-            </div>
-            <div class="flex gap-4 font-mono text-xs">
-                <div class="bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200">
-                    <span class="text-slate-400 text-[10px] block">GIÁ PI VẬN HÀNH</span>
-                    <strong class="text-emerald-600 font-extrabold">$314,159 USD</strong>
-                </div>
-                <div class="bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200">
-                    <span class="text-slate-400 text-[10px] block">QUỸ BẢO CHỨNG</span>
-                    <strong class="text-amber-600 font-extrabold">500,000 Pi</strong>
-                </div>
-            </div>
-        </section>
-
-        <!-- MULTI-COIN REALTIME MARKET (BẢNG GIÁ VẬN HÀNH ĐA ĐỒNG COIN) -->
-        <section id="market" class="space-y-3">
-            <h2 class="text-xs font-extrabold text-slate-500 uppercase tracking-wider flex items-center gap-2">
-                <i class="fa-solid fa-coins text-amber-500"></i> Tiền Mã Hóa & Token Đang Niêm Yết
-            </h2>
-            <div class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-3">
-                <!-- Pi Network -->
-                <div onclick="switchPair('PI')" class="bg-white p-3.5 rounded-2xl border-2 border-emerald-500 shadow-xs cursor-pointer hover:shadow-md transition">
-                    <div class="flex justify-between text-xs font-bold mb-1">
-                        <span class="text-slate-900"><i class="fa-solid fa-pi-symbol text-emerald-600 mr-1"></i> Pi</span>
-                        <span class="text-emerald-600 text-[10px]">+12.5%</span>
-                    </div>
-                    <div class="text-base font-extrabold text-slate-900 font-mono">$314,159</div>
-                    <span class="text-[10px] text-slate-400 font-medium">Vol: 1.48M Pi</span>
-                </div>
-                <!-- Bitcoin -->
-                <div onclick="switchPair('BTC')" class="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-xs cursor-pointer hover:border-emerald-500 transition">
-                    <div class="flex justify-between text-xs font-bold mb-1">
-                        <span class="text-slate-900"><i class="fa-brands fa-bitcoin text-amber-500 mr-1"></i> BTC</span>
-                        <span class="text-emerald-600 text-[10px]">+3.2%</span>
-                    </div>
-                    <div class="text-base font-extrabold text-slate-900 font-mono">$68,450</div>
-                    <span class="text-[10px] text-slate-400 font-medium">Vol: $45.2M</span>
-                </div>
-                <!-- Ethereum -->
-                <div onclick="switchPair('ETH')" class="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-xs cursor-pointer hover:border-emerald-500 transition">
-                    <div class="flex justify-between text-xs font-bold mb-1">
-                        <span class="text-slate-900"><i class="fa-brands fa-ethereum text-indigo-500 mr-1"></i> ETH</span>
-                        <span class="text-emerald-600 text-[10px]">+2.1%</span>
-                    </div>
-                    <div class="text-base font-extrabold text-slate-900 font-mono">$3,520</div>
-                    <span class="text-[10px] text-slate-400 font-medium">Vol: $18.5M</span>
-                </div>
-                <!-- Sidra Coin -->
-                <div onclick="switchPair('SDA')" class="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-xs cursor-pointer hover:border-emerald-500 transition">
-                    <div class="flex justify-between text-xs font-bold mb-1">
-                        <span class="text-slate-900"><i class="fa-solid fa-moon text-emerald-600 mr-1"></i> SDA</span>
-                        <span class="text-emerald-600 text-[10px]">+0.8%</span>
-                    </div>
-                    <div class="text-base font-extrabold text-slate-900 font-mono">$2.50</div>
-                    <span class="text-[10px] text-slate-400 font-medium">Vol: 250k SDA</span>
-                </div>
-                <!-- Tikcoin -->
-                <div onclick="switchPair('TKC')" class="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-xs cursor-pointer hover:border-emerald-500 transition">
-                    <div class="flex justify-between text-xs font-bold mb-1">
-                        <span class="text-slate-900"><i class="fa-solid fa-bolt text-blue-500 mr-1"></i> TKC</span>
-                        <span class="text-emerald-600 text-[10px]">+5.4%</span>
-                    </div>
-                    <div class="text-base font-extrabold text-slate-900 font-mono">$0.85</div>
-                    <span class="text-[10px] text-slate-400 font-medium">Vol: 10k TKC</span>
-                </div>
-                <!-- GoodDollar -->
-                <div onclick="switchPair('G$')" class="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-xs cursor-pointer hover:border-emerald-500 transition">
-                    <div class="flex justify-between text-xs font-bold mb-1">
-                        <span class="text-slate-900"><i class="fa-solid fa-hand-holding-heart text-pink-500 mr-1"></i> G$</span>
-                        <span class="text-emerald-600 text-[10px]">+1.1%</span>
-                    </div>
-                    <div class="text-base font-extrabold text-slate-900 font-mono">$0.0021</div>
-                    <span class="text-[10px] text-slate-400 font-medium">Vol: 1.2M G$</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- CHART & ORDERBOOK SPLIT -->
-        <section id="trading" class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-            <!-- Realtime Candlestick Chart -->
-            <div class="lg:col-span-2 bg-white p-4 rounded-2xl border border-slate-200 shadow-xs">
-                <div class="flex justify-between items-center mb-3">
-                    <h3 class="font-extrabold text-xs text-slate-900 uppercase flex items-center gap-2">
-                        <i class="fa-solid fa-chart-line text-emerald-600"></i> Biểu Đồ Sóng Nến: <span id="activePairTitle" class="text-emerald-700 font-black">PI / USD</span>
-                    </h3>
-                    <div class="flex gap-1 text-[10px] font-bold font-mono">
-                        <button class="px-2.5 py-1 bg-slate-900 text-white rounded-lg">1M</button>
-                        <button class="px-2.5 py-1 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-lg">15M</button>
-                        <button class="px-2.5 py-1 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-lg">1H</button>
-                    </div>
-                </div>
-                <div class="h-64 sm:h-72 w-full">
-                    <canvas id="candlestickChart"></canvas>
-                </div>
+        <!-- CARD PRICE HEADER (Y HỆT BỨC ẢNH MẪU - NỀN SÁNG VÀNG KIM) -->
+        <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-amber-950 text-white rounded-3xl p-5 shadow-lg relative overflow-hidden">
+            <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl"></div>
+            
+            <div class="flex justify-between items-start mb-1">
+                <span class="text-xs font-bold text-slate-300">1 SDA</span>
+                <button onclick="alert('Bảng chi tiết thông tin giá')" class="text-slate-400 hover:text-white"><i class="fa-regular fa-circle-question text-base"></i></button>
             </div>
 
-            <!-- Quick Trade Terminal -->
-            <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between">
-                <div>
-                    <h3 class="font-extrabold text-xs text-slate-900 uppercase border-b pb-2 mb-3">Đặt Lệnh Giao Dịch Nhanh</h3>
-                    <div class="space-y-3 text-xs">
+            <div class="text-3xl font-black font-mono tracking-tight text-white mb-1">$409.17</div>
+            <p class="text-[11px] text-slate-400 font-medium mb-3">waiting for price history</p>
+
+            <div class="flex items-center gap-2 mb-3">
+                <span class="text-xs font-bold text-slate-300">Base pair:</span>
+                <select class="bg-slate-800/80 border border-slate-700 text-amber-400 text-xs font-bold rounded-xl px-2.5 py-1 outline-none">
+                    <option>SDA ▾</option>
+                    <option>PI ▾</option>
+                    <option>USD ▾</option>
+                </select>
+            </div>
+
+            <p class="text-[10px] text-slate-400 leading-relaxed border-t border-slate-700/60 pt-2.5">
+                <i class="fa-solid fa-circle-info text-amber-400 mr-1"></i>
+                SDA/USD is calculated live from a curated stablecoin pool (currently sUSDT). As this pool is not yet officially recognized on Sidra DEX, the price shown should be treated as an indicative estimate.
+            </p>
+        </div>
+
+        <!-- PROGRESS SCANNER BAR -->
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs space-y-2">
+            <div class="flex justify-between text-xs font-bold text-slate-700 font-mono">
+                <span>Scanning 40 / 89</span>
+                <span class="text-amber-600">45%</span>
+            </div>
+            <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                <div class="bg-gradient-to-r from-amber-500 to-rose-500 h-full rounded-full transition-all duration-500" style="width: 45%"></div>
+            </div>
+            <button onclick="showToast('Đã dừng quét Token')" class="w-full mt-1 border border-rose-300 text-rose-600 hover:bg-rose-50 font-bold py-2 rounded-xl text-xs transition">
+                Stop scan
+            </button>
+        </div>
+
+        <!-- SEARCH BAR -->
+        <div class="relative">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-slate-400 text-xs"></i>
+            <input type="text" placeholder="Search token, e.g. PI, BTC, REGS..." class="w-full bg-white border border-slate-200 rounded-2xl pl-9 pr-4 py-2.5 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500 shadow-2xs">
+        </div>
+
+        <!-- VIBRANT COLOR BUTTONS (CÁC NÚT ĐỦ MÀU SẮC RỰC RỠ) -->
+        <div class="flex gap-2 overflow-x-auto pb-1 text-xs font-extrabold whitespace-nowrap">
+            <button class="bg-amber-500 text-white px-4 py-2 rounded-xl shadow-xs">All</button>
+            <button class="bg-emerald-600 text-white px-4 py-2 rounded-xl shadow-xs">Gainers</button>
+            <button class="bg-rose-600 text-white px-4 py-2 rounded-xl shadow-xs">Losers</button>
+            <button class="bg-purple-600 text-white px-4 py-2 rounded-xl shadow-xs"><i class="fa-solid fa-star mr-1"></i> Yêu Thích</button>
+            <button class="bg-blue-600 text-white px-4 py-2 rounded-xl shadow-xs"><i class="fa-solid fa-globe mr-1"></i> Global RWA</button>
+        </div>
+
+        <!-- TOKEN LISTINGS (DANH SÁCH TOKEN Y HỆT HÌNH) -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden">
+            <div class="flex justify-between items-center p-3 text-[11px] font-bold text-slate-400 border-b border-slate-100">
+                <span>Token</span>
+                <span>Price (SDA) ↓</span>
+            </div>
+
+            <div class="divide-y divide-slate-100 text-xs">
+                <!-- REGS -->
+                <div class="p-3 flex justify-between items-center hover:bg-slate-50 transition cursor-pointer">
+                    <div class="flex items-center gap-3">
+                        <span class="text-slate-400 font-bold text-[10px] w-3">1</span>
+                        <div class="w-8 h-8 rounded-full bg-slate-900 text-amber-400 font-bold flex items-center justify-center text-xs shadow-xs">R</div>
                         <div>
-                            <label class="text-slate-500 font-bold block mb-1">Mức Giá Khớp (USD)</label>
-                            <input type="text" id="tradePriceInput" value="314,159.00" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 font-mono font-bold text-slate-900 outline-none focus:ring-2 focus:ring-emerald-500">
-                        </div>
-                        <div>
-                            <label class="text-slate-500 font-bold block mb-1">Số Lượng Đặt Mua</label>
-                            <input type="number" placeholder="0.00" id="tradeAmount" oninput="calcTotal()" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 font-mono font-bold text-slate-900 outline-none focus:ring-2 focus:ring-emerald-500">
-                        </div>
-                        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 font-medium flex justify-between">
-                            <span class="text-slate-500">Thành tiền:</span>
-                            <strong id="tradeTotal" class="font-mono text-emerald-700">$0.00 USD</strong>
+                            <div class="font-extrabold text-slate-900">REGS <span class="text-slate-400 text-[10px]">/ SDA</span></div>
+                            <div class="text-[10px] text-slate-400 font-medium">REGs Global</div>
                         </div>
                     </div>
+                    <div class="text-right">
+                        <div class="font-bold text-slate-900 font-mono">2.5103 SDA</div>
+                        <div class="text-[10px] text-slate-400 font-medium">$1,006.67</div>
+                    </div>
                 </div>
-                <button onclick="executeTrade()" class="w-full mt-4 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-3 rounded-xl text-xs transition shadow-sm">
-                    GỬI LỆNH MUA LÊN MẠNG LƯỚI
-                </button>
-            </div>
-        </section>
 
-        <!-- NEW RWA ASSET FOLDERS (HỆ THỐNG THƯ MỤC TÀI SẢN RWA MỚI HOÀN TOÀN) -->
-        <section id="rwa" class="bg-white p-4 lg:p-5 rounded-2xl border border-slate-200 shadow-xs space-y-4">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b pb-3">
-                <div>
-                    <h3 class="font-extrabold text-xs sm:text-sm text-slate-900 uppercase flex items-center gap-2">
-                        <i class="fa-solid fa-folder-tree text-emerald-600"></i> HỆ THỐNG THƯ MỤC TÀI SẢN THỰC (RWA)
-                    </h3>
-                    <p class="text-[11px] text-slate-500 font-medium">Quản lý tài sản số hóa phân loại theo thư mục nghiệp vụ</p>
+                <!-- GLNs -->
+                <div class="p-3 flex justify-between items-center hover:bg-slate-50 transition cursor-pointer">
+                    <div class="flex items-center gap-3">
+                        <span class="text-slate-400 font-bold text-[10px] w-3">2</span>
+                        <div class="w-8 h-8 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-xs shadow-xs">G</div>
+                        <div>
+                            <div class="font-extrabold text-slate-900">GLNs <span class="text-slate-400 text-[10px]">/ SDA</span></div>
+                            <div class="text-[10px] text-slate-400 font-medium">Global Logistics Network</div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="font-bold text-slate-900 font-mono">1.9997 SDA</div>
+                        <div class="text-[10px] text-slate-400 font-medium">$801.93</div>
+                    </div>
                 </div>
-                <span class="bg-emerald-100 text-emerald-800 text-[10px] px-3 py-1 rounded-full font-bold border border-emerald-300">
-                    <i class="fa-solid fa-shield-check"></i> ESCROW CONTRACT VERIFIED
-                </span>
+
+                <!-- FREET -->
+                <div class="p-3 flex justify-between items-center hover:bg-slate-50 transition cursor-pointer">
+                    <div class="flex items-center gap-3">
+                        <span class="text-slate-400 font-bold text-[10px] w-3">3</span>
+                        <div class="w-8 h-8 rounded-full bg-cyan-600 text-white font-bold flex items-center justify-center text-xs shadow-xs">F</div>
+                        <div>
+                            <div class="font-extrabold text-slate-900">FREET <span class="text-slate-400 text-[10px]">/ SDA</span></div>
+                            <div class="text-[10px] text-slate-400 font-medium">Freelancium</div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="font-bold text-slate-900 font-mono">1.599 SDA</div>
+                        <div class="text-[10px] text-slate-400 font-medium">$641.22</div>
+                    </div>
+                </div>
+
+                <!-- AIR -->
+                <div class="p-3 flex justify-between items-center hover:bg-slate-50 transition cursor-pointer">
+                    <div class="flex items-center gap-3">
+                        <span class="text-slate-400 font-bold text-[10px] w-3">4</span>
+                        <div class="w-8 h-8 rounded-full bg-indigo-600 text-white font-bold flex items-center justify-center text-xs shadow-xs">A</div>
+                        <div>
+                            <div class="font-extrabold text-slate-900">AIR <span class="text-slate-400 text-[10px]">/ SDA</span></div>
+                            <div class="text-[10px] text-slate-400 font-medium">AirLand Global</div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="font-bold text-slate-900 font-mono">1.5272 SDA</div>
+                        <div class="text-[10px] text-slate-400 font-medium">$612.44</div>
+                    </div>
+                </div>
+
+                <!-- WSDA -->
+                <div class="p-3 flex justify-between items-center hover:bg-slate-50 transition cursor-pointer">
+                    <div class="flex items-center gap-3">
+                        <span class="text-slate-400 font-bold text-[10px] w-3">5</span>
+                        <div class="w-8 h-8 rounded-full bg-amber-600 text-white font-bold flex items-center justify-center text-xs shadow-xs">W</div>
+                        <div>
+                            <div class="font-extrabold text-slate-900">WSDA <span class="text-slate-400 text-[10px]">/ SDA</span></div>
+                            <div class="text-[10px] text-slate-400 font-medium">Wrapped SDA</div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="font-bold text-slate-900 font-mono">1 SDA</div>
+                        <div class="text-[10px] text-slate-400 font-medium">$409.17</div>
+                    </div>
+                </div>
+
+                <!-- PI MAINNET -->
+                <div class="p-3 flex justify-between items-center hover:bg-slate-50 transition cursor-pointer">
+                    <div class="flex items-center gap-3">
+                        <span class="text-slate-400 font-bold text-[10px] w-3">6</span>
+                        <div class="w-8 h-8 rounded-full bg-purple-600 text-white font-bold flex items-center justify-center text-xs shadow-xs"><i class="fa-solid fa-pi-symbol"></i></div>
+                        <div>
+                            <div class="font-extrabold text-slate-900">PI <span class="text-slate-400 text-[10px]">/ USD</span></div>
+                            <div class="text-[10px] text-slate-400 font-medium">Pi Network Global</div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="font-bold text-emerald-600 font-mono">$314,159</div>
+                        <div class="text-[10px] text-emerald-600 font-bold">+12.5%</div>
+                    </div>
+                </div>
             </div>
-
-            <!-- Folder Tabs Filter (Thư Mục Mới) -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-bold">
-                <button onclick="filterCat('ALL')" class="p-3 rounded-xl bg-slate-900 text-white text-left flex items-center gap-2 shadow-xs">
-                    <i class="fa-solid fa-folder-open text-amber-400"></i> Tất Cả Thư Mục
-                </button>
-                <button onclick="filterCat('BĐS Cần Thơ')" class="p-3 rounded-xl bg-slate-50 border border-slate-200 hover:bg-emerald-50 text-slate-800 text-left flex items-center gap-2 transition">
-                    <i class="fa-solid fa-building text-emerald-600"></i> BĐS Đô Thị Cần Thơ
-                </button>
-                <button onclick="filterCat('Gốm Sứ Cổ')" class="p-3 rounded-xl bg-slate-50 border border-slate-200 hover:bg-emerald-50 text-slate-800 text-left flex items-center gap-2 transition">
-                    <i class="fa-solid fa-vihara text-amber-600"></i> Bảo Vật Gốm Cổ
-                </button>
-                <button onclick="filterCat('Ngọc Hoàng Gia')" class="p-3 rounded-xl bg-slate-50 border border-slate-200 hover:bg-emerald-50 text-slate-800 text-left flex items-center gap-2 transition">
-                    <i class="fa-solid fa-gem text-purple-600"></i> Kim Bảo & Ngọc Quý
-                </button>
-            </div>
-
-            <!-- Assets Dynamic Cards Grid -->
-            <div id="assetsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-2"></div>
-        </section>
-
+        </div>
     </main>
 
-    <!-- Modal Swap Token -->
-    <div id="swapModal" class="fixed inset-0 bg-slate-900/60 z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-2xl max-w-md w-full p-6 relative shadow-2xl text-xs">
-            <button onclick="closeModal('swapModal')" class="absolute top-4 right-4 text-slate-400"><i class="fa-solid fa-xmark text-lg"></i></button>
-            <h3 class="font-extrabold text-slate-900 text-base mb-3 flex items-center gap-2"><i class="fa-solid fa-arrows-rotate text-emerald-600"></i> Swap Token Toàn Cầu</h3>
-            <div class="space-y-3 font-bold">
-                <div class="p-3 bg-slate-50 border rounded-xl">
-                    <span class="text-[10px] text-slate-400 block mb-1">TỪ ĐỒNG COIN</span>
-                    <div class="flex justify-between items-center">
-                        <input type="number" placeholder="100" class="bg-transparent text-base outline-none w-2/3">
-                        <span class="text-emerald-800 bg-emerald-100 px-2.5 py-1 rounded-lg">PI</span>
-                    </div>
+    <!-- WALLET MODAL (VÍ TÍCH HỢP TRỰC TIẾP TẬN GỐC) -->
+    <div id="walletModal" class="fixed inset-0 bg-slate-900/60 z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-5 relative shadow-2xl text-xs space-y-4">
+            <button onclick="closeModal('walletModal')" class="absolute top-4 right-4 text-slate-400"><i class="fa-solid fa-xmark text-lg"></i></button>
+            
+            <div class="flex items-center gap-3 border-b pb-3">
+                <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 font-black flex items-center justify-center text-sm border border-emerald-300">
+                    BP
                 </div>
-                <div class="text-center"><i class="fa-solid fa-arrow-down text-slate-400"></i></div>
-                <div class="p-3 bg-slate-50 border rounded-xl">
-                    <span class="text-[10px] text-slate-400 block mb-1">SANG ĐỒNG COIN</span>
-                    <div class="flex justify-between items-center">
-                        <input type="number" placeholder="12.5" class="bg-transparent text-base outline-none w-2/3" readonly>
-                        <span class="text-blue-800 bg-blue-100 px-2.5 py-1 rounded-lg">SDA</span>
-                    </div>
+                <div>
+                    <h3 class="font-extrabold text-slate-900 text-sm">Bảo Pi (@Abao1985)</h3>
+                    <span class="bg-emerald-100 text-emerald-800 text-[9px] px-2 py-0.5 rounded-full font-bold">✓ KYC MAINNET VERIFIED</span>
                 </div>
-                <button onclick="alert('Xác nhận Swap thành công!'); closeModal('swapModal');" class="w-full bg-emerald-600 text-white font-extrabold py-3 rounded-xl">Thực Hiện Swap</button>
+            </div>
+
+            <div class="bg-slate-50 p-3 rounded-2xl border border-slate-200 space-y-2 font-mono">
+                <div class="text-[10px] text-slate-400 font-sans font-bold">ĐỊA CHỈ VÍ ĐÃ LIÊN KẾT:</div>
+                <div class="text-[11px] font-bold text-slate-800 break-all">0xa6Bb6...97ED1</div>
+                <div class="text-[10px] text-amber-600 font-sans font-bold pt-1 border-t border-slate-200 flex justify-between">
+                    <span>Quỹ Bảo Chứng Escrow:</span>
+                    <strong>500,000 Pi</strong>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2 font-bold">
+                <button onclick="showToast('Đang mở cổng Nạp Pi Mainnet...')" class="bg-emerald-600 text-white py-2.5 rounded-xl">NẠP PI / TOKEN</button>
+                <button onclick="showToast('Đang kết nối cổng Rút...')" class="bg-slate-900 text-white py-2.5 rounded-xl">RÚT COIN</button>
             </div>
         </div>
     </div>
 
-    <!-- Modal Add Asset -->
-    <div id="addAssetModal" class="fixed inset-0 bg-slate-900/60 z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-2xl max-w-md w-full p-6 relative shadow-2xl text-xs font-medium">
-            <button onclick="closeModal('addAssetModal')" class="absolute top-4 right-4 text-slate-400"><i class="fa-solid fa-xmark text-lg"></i></button>
-            <h3 class="font-extrabold text-slate-900 text-base mb-3">Đăng Niêm Yết Tài Sản RWA Mới</h3>
-            <form onsubmit="submitAsset(event)" class="space-y-3">
-                <div><label class="block font-bold mb-1">Tên tài sản / Bất động sản</label><input type="text" id="newTitle" required placeholder="Lô đất thổ cư Ninh Kiều..." class="w-full p-2.5 bg-slate-50 border rounded-xl"></div>
-                <div class="grid grid-cols-2 gap-2">
-                    <div><label class="block font-bold mb-1">Thư mục danh mục</label>
-                        <select id="newCat" class="w-full p-2.5 bg-slate-50 border rounded-xl font-bold">
-                            <option value="BĐS Cần Thơ">BĐS Đô Thị Cần Thơ</option>
-                            <option value="Gốm Sứ Cổ">Bảo Vật Gốm Cổ</option>
-                            <option value="Ngọc Hoàng Gia">Kim Bảo & Ngọc Quý</option>
-                        </select>
-                    </div>
-                    <div><label class="block font-bold mb-1">Giá định giá (Pi)</label><input type="number" id="newPrice" required placeholder="10" class="w-full p-2.5 bg-slate-50 border rounded-xl font-bold"></div>
-                </div>
-                <div><label class="block font-bold mb-1">Mô tả hồ sơ tài sản</label><textarea id="newDesc" rows="2" required placeholder="Sổ hồng riêng, đầy đủ pháp lý..." class="w-full p-2.5 bg-slate-50 border rounded-xl"></textarea></div>
-                <button type="submit" class="w-full bg-emerald-600 text-white font-extrabold py-3 rounded-xl">Đăng Niêm Yết Ngay</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-4 right-4 bg-slate-900 text-white px-4 py-3 rounded-xl text-xs z-50 transform translate-y-20 opacity-0 transition-all duration-300 font-bold shadow-2xl">
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-4 right-4 bg-slate-900 text-white px-4 py-3 rounded-2xl text-xs z-50 transform translate-y-20 opacity-0 transition-all duration-300 font-bold shadow-2xl">
         <span id="toastMsg">Thành công</span>
     </div>
 
-    <!-- Script JavaScript Engine -->
     <script>
-        let currentSymbol = 'PI';
-        let currentPrice = 314159;
-
-        const ctx = document.getElementById('candlestickChart').getContext('2d');
-        const chart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['15:00', '15:05', '15:10', '15:15', '15:20', '15:25', '15:30'],
-                datasets: [{
-                    label: 'Giá (USD)',
-                    data: [305000, 310000, 308000, 312500, 309000, 315000, 314159],
-                    borderColor: '#059669',
-                    backgroundColor: 'rgba(5, 150, 105, 0.12)',
-                    borderWidth: 3,
-                    fill: true,
-                    tension: 0.3,
-                    pointRadius: 5,
-                    pointBackgroundColor: '#059669'
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: {
-                    x: { grid: { color: '#f1f5f9' }, ticks: { color: '#64748b', font: { size: 10, weight: 'bold' } } },
-                    y: { grid: { color: '#f1f5f9' }, ticks: { color: '#64748b', font: { size: 10, weight: 'bold' } } }
-                }
-            }
-        });
-
-        let assetsList = [
-            { id: 1, title: "Lô Đất Thổ Cư 100m² Trung Tâm Q. Ninh Kiều", cat: "BĐS Cần Thơ", price: 10, img: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=80", desc: "Sổ hồng riêng chính chủ, mặt tiền đường lớn, chấp nhận cọc bằng Pi." },
-            { id: 2, title: "Bình Gốm Sứ Khắc Ấn Khang Hi Cổ Chiều Đái (Thế Kỷ 17)", cat: "Gốm Sứ Cổ", price: 180, img: "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=600&q=80", desc: "Cổ vật sưu tầm nguyên bản, âm thanh kiểm tra đanh ngân chuẩn xác." },
-            { id: 3, title: "Mặt Ngọc Phỉ Thúy Hoàng Gia & Dzi Bead Thiên Châu", cat: "Ngọc Hoàng Gia", price: 320, img: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=600&q=80", desc: "Ngọc tự nhiên chất lượng cao kèm giấy chứng nhận kiểm định." }
-        ];
-
-        function renderRWA(list) {
-            const grid = document.getElementById('assetsGrid');
-            grid.innerHTML = '';
-            list.forEach(a => {
-                grid.innerHTML += `
-                    <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-2xs hover:shadow-md transition flex flex-col justify-between p-3.5">
-                        <img src="${a.img}" class="h-40 w-full object-cover rounded-xl mb-2.5">
-                        <div>
-                            <span class="text-[10px] bg-emerald-100 text-emerald-800 font-extrabold px-2.5 py-1 rounded-full">${a.cat}</span>
-                            <h4 class="font-extrabold text-slate-900 text-xs mt-2 line-clamp-2 leading-tight">${a.title}</h4>
-                            <p class="text-[11px] text-slate-500 mt-1 line-clamp-2 font-medium">${a.desc}</p>
-                        </div>
-                        <div class="flex justify-between items-center mt-3.5 pt-2.5 border-t border-slate-100">
-                            <span class="text-emerald-700 font-extrabold text-base font-mono">${a.price} Pi</span>
-                            <button onclick="showToast('Đã gửi yêu cầu Escrow cho tài sản này!')" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-3.5 py-1.5 rounded-xl transition">Giao Dịch Pi</button>
-                        </div>
-                    </div>`;
-            });
-        }
-
-        renderRWA(assetsList);
-
-        function switchPair(symbol) {
-            currentSymbol = symbol;
-            document.getElementById('activePairTitle').innerText = `${symbol} / USD`;
-            let priceMap = { 'PI': 314159, 'BTC': 68450, 'ETH': 3520, 'SDA': 2.50, 'TKC': 0.85, 'G$': 0.0021 };
-            currentPrice = priceMap[symbol] || 100;
-            document.getElementById('tradePriceInput').value = currentPrice.toLocaleString();
-            showToast(`Đã chuyển sang cặp ${symbol}/USD`);
-        }
-
-        function filterCat(cat) {
-            if(cat === 'ALL') renderRWA(assetsList);
-            else renderRWA(assetsList.filter(a => a.cat === cat));
-        }
-
         function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
         function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
-
-        function calcTotal() {
-            const amt = parseFloat(document.getElementById('tradeAmount').value) || 0;
-            document.getElementById('tradeTotal').innerText = `$${(amt * currentPrice).toLocaleString()} USD`;
-        }
-
-        function executeTrade() {
-            const amt = document.getElementById('tradeAmount').value;
-            if(!amt || amt <= 0) { showToast('Vui lòng nhập số lượng!'); return; }
-            showToast(`Lệnh Mua ${amt} ${currentSymbol} đã gửi lên Mạng Lưới Toàn Cầu!`);
-        }
-
-        function submitAsset(e) {
-            e.preventDefault();
-            const newObj = {
-                id: assetsList.length + 1,
-                title: document.getElementById('newTitle').value,
-                cat: document.getElementById('newCat').value,
-                price: parseFloat(document.getElementById('newPrice').value),
-                img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80",
-                desc: document.getElementById('newDesc').value
-            };
-            assetsList.unshift(newObj);
-            renderRWA(assetsList);
-            closeModal('addAssetModal');
-            showToast("Đã niêm yết lên Mạng Lưới Toàn Cầu thành công!");
-        }
-
-        function resetApp() { renderRWA(assetsList); showToast("Đã làm mới Mạng Lưới Giao Dịch Toàn Cầu"); }
-
         function showToast(msg) {
             const t = document.getElementById('toast');
             document.getElementById('toastMsg').innerText = msg;
