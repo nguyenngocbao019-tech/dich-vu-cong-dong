@@ -3,20 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sàn Kỹ Thuật Số & RWA - SidraChain & PI Ecosystem DEX</title>
+    <title>Sidra DEX Live</title>
     <style>
-        :root {
-            --bg-color: #0b0f19;
-            --card-bg: #111827;
-            --border-color: #1f2937;
-            --accent-blue: #3b82f6;
-            --accent-blue-light: #60a5fa;
-            --text-main: #f9fafb;
-            --text-muted: #9ca3af;
-            --green: #10b981;
-            --red: #ef4444;
-        }
-
         * {
             box-sizing: border-box;
             margin: 0;
@@ -25,8 +13,8 @@
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            background-color: #0b0f19;
+            color: #f9fafb;
             padding: 12px;
             max-width: 480px;
             margin: 0 auto;
@@ -37,367 +25,272 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 14px;
-            background: var(--card-bg);
-            padding: 10px 14px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
+            margin-bottom: 10px;
         }
 
         .header-left {
             display: flex;
             align-items: center;
-            gap: 8px;
-        }
-
-        .back-btn {
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            color: var(--text-main);
-        }
-
-        .header-title-box {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .header-avatar {
-            width: 28px;
-            height: 28px;
-            border-radius: 6px;
-            background: #1e3a8a;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-        }
-
-        .header-title {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--text-main);
-            white-space: nowrap;
-        }
-
-        .warning-icon {
-            color: #fbbf24;
-            font-size: 16px;
-        }
-
-        .dropdown-arrow {
-            font-size: 12px;
-            color: var(--text-muted);
-            cursor: pointer;
-        }
-
-        /* Network Banner */
-        .network-banner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 10px 14px;
-            margin-bottom: 14px;
-        }
-
-        .network-info {
-            display: flex;
-            align-items: center;
             gap: 10px;
         }
 
-        .network-globe {
-            width: 36px;
-            height: 36px;
-            background: rgba(59, 130, 246, 0.15);
+        .header-logo {
+            width: 32px;
+            height: 32px;
+            background: #1f2937;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #374151;
+        }
+
+        .header-title-box h1 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #f9fafb;
+        }
+
+        .header-status {
+            font-size: 11px;
+            color: #9ca3af;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .header-status span {
+            color: #10b981;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-icon-btn {
+            background: #1f2937;
+            border: 1px solid #374151;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
-        }
-
-        .network-text h3 {
-            font-size: 11px;
-            font-weight: 800;
-            color: var(--text-main);
-            letter-spacing: 0.3px;
-        }
-
-        .network-text p {
-            font-size: 10px;
-            color: var(--accent-blue-light);
-            margin-top: 2px;
-        }
-
-        .wallet-btn {
-            background: var(--accent-blue);
-            color: #ffffff;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 11px;
-            font-weight: 600;
+            color: #f59e0b;
             cursor: pointer;
-            white-space: nowrap;
-            box-shadow: 0 2px 6px rgba(59, 130, 246, 0.4);
-            transition: background 0.2s;
+            font-size: 14px;
         }
 
-        .wallet-btn:hover {
-            background: #2563eb;
+        /* Góc nhỏ hiển thị số dư ví 2,500,000 USDT */
+        .wallet-corner-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 10px;
         }
 
-        /* SDA Card */
-        .sda-card {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            color: #ffffff;
-            border: 1px solid rgba(59, 130, 246, 0.3);
+        .wallet-corner-badge {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(59, 130, 246, 0.15));
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: #34d399;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            cursor: pointer;
+        }
+
+        /* SDA Main Card */
+        .sda-main-card {
+            background: #141b2d;
+            border: 1px solid #1f2937;
             border-radius: 16px;
             padding: 16px;
             margin-bottom: 14px;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.1);
+            position: relative;
+            overflow: hidden;
         }
 
-        .sda-header {
+        .sda-top-row {
             display: flex;
             justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 4px;
+        }
+
+        .sda-label {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+        .help-icon {
+            background: #1f2937;
+            color: #9ca3af;
+            border: 1px solid #374151;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
             align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .sda-title {
-            font-size: 13px;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        .realtime-badge {
-            background: rgba(59, 130, 246, 0.2);
-            color: var(--accent-blue-light);
-            font-size: 10px;
-            padding: 3px 8px;
-            border-radius: 20px;
-            font-weight: 600;
-            border: 1px solid rgba(96, 165, 250, 0.4);
+            justify-content: center;
+            font-size: 11px;
+            cursor: pointer;
         }
 
         .sda-price-row {
             display: flex;
             align-items: baseline;
-            gap: 10px;
-            margin-bottom: 12px;
+            gap: 12px;
+            margin-bottom: 4px;
         }
 
         .sda-price {
-            font-size: 26px;
+            font-size: 28px;
             font-weight: 800;
-            color: var(--text-main);
+            color: #f9fafb;
         }
 
-        .sda-change {
-            font-size: 13px;
+        .sda-change-neg {
+            font-size: 12px;
             font-weight: 600;
-            color: var(--green);
+            color: #ef4444;
         }
 
-        .sda-balance-box {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 10px;
-            padding: 10px 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .sda-balance-label {
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-
-        .sda-balance-value {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--accent-blue-light);
-            text-align: right;
-        }
-
-        .sda-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            padding-top: 10px;
-        }
-
-        .base-pair-box {
-            display: flex;
+        .base-pair-selector {
+            display: inline-flex;
             align-items: center;
             gap: 6px;
+            background: #1f2937;
+            border: 1px solid #374151;
+            padding: 4px 10px;
+            border-radius: 20px;
             font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        .base-select {
-            background: #1e293b;
-            color: #ffffff;
-            border: 1px solid #334155;
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 12px;
+            color: #f59e0b;
+            margin-top: 8px;
+            margin-bottom: 12px;
             cursor: pointer;
         }
 
-        .sda-note {
+        .sda-disclaimer {
             font-size: 10px;
-            color: var(--text-muted);
+            color: #9ca3af;
             line-height: 1.4;
-            background: rgba(59, 130, 246, 0.1);
-            border-left: 2px solid var(--accent-blue);
-            padding: 6px 8px;
-            border-radius: 0 6px 6px 0;
-            margin-top: 10px;
+            border-top: 1px solid #1f2937;
+            padding-top: 10px;
         }
 
-        /* Live Chart Card */
-        .chart-card {
-            background: var(--card-bg);
-            border: 2px solid var(--accent-blue);
-            border-radius: 16px;
-            padding: 14px;
+        /* Search Box */
+        .search-box {
+            position: relative;
             margin-bottom: 14px;
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.15);
         }
 
-        .chart-header {
+        .search-input {
+            width: 100%;
+            background: #141b2d;
+            border: 1px solid #1f2937;
+            border-radius: 12px;
+            padding: 10px 14px 10px 36px;
+            color: #f9fafb;
+            font-size: 13px;
+        }
+
+        .search-input::placeholder {
+            color: #6b7280;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* Tabs */
+        .tabs-container {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            background: #141b2d;
+            border: 1px solid #1f2937;
+            color: #9ca3af;
+            padding: 8px 0;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background: #f59e0b;
+            color: #0b0f19;
+            border-color: #f59e0b;
+        }
+
+        .tab-btn-icon {
+            background: #141b2d;
+            border: 1px solid #1f2937;
+            color: #f9fafb;
+            width: 36px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        /* Table Header Row */
+        .list-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
+            font-size: 11px;
+            color: #6b7280;
+            margin-bottom: 8px;
+            padding: 0 6px;
         }
 
-        .chart-title-box {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .chart-title-box span {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        .realtime-data-badge {
+        .sort-col {
             display: flex;
             align-items: center;
             gap: 4px;
-            font-size: 10px;
-            color: var(--accent-blue-light);
-            font-weight: 600;
-        }
-
-        .dot-live {
-            width: 6px;
-            height: 6px;
-            background: var(--accent-blue);
-            border-radius: 50%;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.3; }
-            100% { opacity: 1; }
-        }
-
-        .chart-container {
-            position: relative;
-            height: 140px;
-            width: 100%;
-            margin-bottom: 10px;
-        }
-
-        .chart-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid var(--border-color);
-            padding-top: 10px;
-        }
-
-        .realtime-price-info span:first-child {
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-
-        .realtime-price-info span:last-child {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--accent-blue-light);
-            margin-left: 6px;
-        }
-
-        .trade-btn {
-            background: var(--accent-blue);
-            color: #ffffff;
-            border: none;
-            padding: 8px 14px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 2px 6px rgba(59, 130, 246, 0.4);
-            transition: background 0.2s;
         }
 
-        .trade-btn:hover {
-            background: #2563eb;
+        /* Token List */
+        .token-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
         }
 
-        /* Token List Section */
-        .token-section {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 14px;
-            margin-bottom: 14px;
-        }
-
-        .section-title {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 12px;
+        .token-card {
+            background: #141b2d;
+            border: 1px solid #1f2937;
+            border-radius: 12px;
+            padding: 10px 12px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-        }
-
-        .token-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 8px;
-            border-bottom: 1px solid var(--border-color);
             cursor: pointer;
             transition: background 0.2s;
-            border-radius: 8px;
         }
 
-        .token-item:last-child {
-            border-bottom: none;
-        }
-
-        .token-item:hover {
-            background: rgba(59, 130, 246, 0.08);
+        .token-card:hover {
+            background: #1f2937;
         }
 
         .token-left {
@@ -406,50 +299,63 @@
             gap: 10px;
         }
 
-        .token-icon {
+        .fav-star {
+            color: #4b5563;
+            font-size: 14px;
+        }
+
+        .token-avatar {
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            background: rgba(59, 130, 246, 0.15);
+            background: #1f2937;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 13px;
             font-weight: bold;
-            color: var(--accent-blue-light);
-            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #f59e0b;
+            border: 1px solid #374151;
         }
 
         .token-info h4 {
             font-size: 13px;
             font-weight: 700;
-            color: var(--text-main);
+            color: #f9fafb;
         }
 
         .token-info p {
             font-size: 11px;
-            color: var(--text-muted);
+            color: #9ca3af;
         }
 
         .token-right {
             text-align: right;
         }
 
-        .token-price {
+        .token-price-sda {
             font-size: 13px;
             font-weight: 700;
-            color: var(--text-main);
+            color: #f9fafb;
         }
 
-        .token-change {
+        .token-sub-info {
             font-size: 11px;
-            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 6px;
+            margin-top: 2px;
         }
 
-        .token-change.up { color: var(--green); }
-        .token-change.down { color: var(--red); }
+        .token-usd {
+            color: #9ca3af;
+        }
 
-        /* Modal Overlay */
+        .token-change.up { color: #10b981; }
+        .token-change.down { color: #ef4444; }
+
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -462,38 +368,37 @@
         }
 
         .modal-content {
-            background: var(--card-bg);
-            border: 1px solid var(--accent-blue);
+            background: #141b2d;
+            border: 1px solid #f59e0b;
             width: 100%;
-            max-width: 400px;
+            max-width: 380px;
             border-radius: 16px;
             padding: 20px;
             text-align: center;
-            color: var(--text-main);
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+            color: #f9fafb;
         }
 
         .modal-content h3 {
             font-size: 16px;
-            margin-bottom: 10px;
-            color: var(--accent-blue-light);
+            margin-bottom: 8px;
+            color: #f59e0b;
         }
 
         .modal-content p {
             font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 20px;
+            color: #9ca3af;
+            margin-bottom: 16px;
         }
 
         .close-modal {
-            background: var(--accent-blue);
-            color: #ffffff;
+            background: #f59e0b;
+            color: #0b0f19;
             border: none;
             padding: 8px 20px;
             border-radius: 8px;
             font-size: 12px;
+            font-weight: 700;
             cursor: pointer;
-            font-weight: 600;
         }
     </style>
 </head>
@@ -502,223 +407,503 @@
     <!-- Header -->
     <div class="top-header">
         <div class="header-left">
-            <button class="back-btn" onclick="openModal('Quay lại trang chủ')">←</button>
+            <div class="header-logo">🟡</div>
             <div class="header-title-box">
-                <div class="header-avatar">🏛️</div>
-                <span class="header-title">Sàn Kỹ Thuật Số & RWA</span>
-                <span class="warning-icon">⚠️</span>
+                <h1>Sidra DEX Live</h1>
+                <div class="header-status"><span>●</span> Live · Sidra Chain 🔒</div>
             </div>
         </div>
-        <span class="dropdown-arrow" onclick="openModal('Menu tùy chọn hệ thống')">▼</span>
+        <div class="header-right">
+            <div class="header-icon-btn" onclick="openModal('Chia sẻ phiên bản')">🔗</div>
+            <div class="header-icon-btn" onclick="openModal('Làm mới dữ liệu')">🔄</div>
+            <div class="header-icon-btn" onclick="openModal('Cài đặt hệ thống')">⚙️</div>
+        </div>
     </div>
 
-    <!-- Network Banner -->
-    <div class="network-banner">
-        <div class="network-info">
-            <div class="network-globe">🌐</div>
-            <div class="network-text">
-                <h3>MẠNG LƯỚI GIAO DỊCH TOÀN CẦU</h3>
-                <p>SidraChain & PI Ecosystem DEX</p>
-            </div>
+    <!-- Góc nhỏ hiển thị Ví 2,500,000 USDT -->
+    <div class="wallet-corner-container">
+        <div class="wallet-corner-badge" onclick="openModal('Ví tài sản cá nhân')">
+            💳 Ví: 2,500,000 USDT
         </div>
-        <button class="wallet-btn" onclick="openModal('Quản lý ví tài sản')">
-            💳 Ví($2,500,000 USDT)
-        </button>
     </div>
 
     <!-- SDA Card -->
-    <div class="sda-card">
-        <div class="sda-header">
-            <span class="sda-title">1 SDA (SidraChain Live)</span>
-            <span class="realtime-badge">● REALTIME POOL</span>
+    <div class="sda-main-card">
+        <div class="sda-top-row">
+            <span class="sda-label">1 SDA</span>
+            <div class="help-icon" onclick="openModal('Thông tin trợ giúp SDA')">?</div>
         </div>
         <div class="sda-price-row">
-            <span class="sda-price" id="sdaMainPrice">$409.03</span>
-            <span class="sda-change" id="sdaChange">+1.25% ↑</span>
+            <span class="sda-price" id="sdaPrice">$399.82</span>
+            <span class="sda-change-neg" id="sdaChange">↓ 4.17% · 24h</span>
         </div>
-        <div class="sda-balance-box">
-            <span class="sda-balance-label">Số dư khả dụng / Bảo chứng:</span>
-            <span class="sda-balance-value">2,500,000.00 USDT</span>
+        <div class="base-pair-selector" onclick="openModal('Chọn cặp cơ sở')">
+            <span>🪙 Base pair: SDA</span> <span>▼</span>
         </div>
-        <div class="sda-footer">
-            <div class="base-pair-box">
-                <span>Base pair:</span>
-                <select class="base-select" onchange="openModal('Thay đổi cặp giao dịch')">
-                    <option>SDA ▼</option>
-                    <option>USDT</option>
-                    <option>PI</option>
-                </select>
-            </div>
-        </div>
-        <div class="sda-note">
-            ℹ️ SDA/USD is calculated live from a curated stablecoin pool (currently sUSDT). Live ecosystem connection active.
+        <div class="sda-disclaimer">
+            ℹ️ SDA/USD is calculated live from a curated stablecoin pool (currently sUSDT). As this pool is not yet officially recognized on Sidra DEX, the price shown should be treated as an indicative estimate rather than a guaranteed 1:1 USD peg.
         </div>
     </div>
 
-    <!-- Live Chart Card -->
-    <div class="chart-card">
-        <div class="chart-header">
-            <div class="chart-title-box">
-                <span>⚡</span>
-                <span>BIỂU ĐỒ SỐNG: PI / USD</span>
+    <!-- Search Box -->
+    <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" placeholder="Search token, e.g. FREEt" id="searchInput" onkeyup="filterTokens()">
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs-container">
+        <div class="tab-btn active" onclick="switchTab(this)">All</div>
+        <div class="tab-btn" onclick="switchTab(this)">Gainers</div>
+        <div class="tab-btn" onclick="switchTab(this)">Losers</div>
+        <div class="tab-btn-icon" onclick="switchTab(this)">⭐</div>
+    </div>
+
+    <!-- List Header -->
+    <div class="list-header">
+        <span>Token</span>
+        <span class="sort-col">💧 Price (SDA) ⬇</span>
+    </div>
+
+    <!-- Token List -->
+    <div class="token-list" id="tokenListContainer">
+        <div class="token-card" onclick="openModal('REGS / SDA')">
+            <div class="token-left">
+                <span class="fav-star">☆</span>
+                <div class="token-avatar">R</div>
+                <div class="token-info">
+                    <h4>REGS / SDA[span_5](start_span)[span_5](end_span)</h4>
+                    <p>REGs Global[span_6](start_span)[span_6](end_span)</p>
+                </div>
             </div>
-            <div class="realtime-data-badge">
-                <div class="dot-live"></div> REALTIME DATA
+            <div class="token-right">
+                <div class="token-price-sda" id="price-regs">2.5036 SDA[span_7](start_span)[span_7](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$981.08[span_8](start_span)[span_8](end_span)</span><span class="token-change down">↓ 0.1%[span_9](start_span)[span_9](end_span)</span></div>
             </div>
         </div>
-        <div class="chart-container">
-            <canvas id="liveChart"></canvas>
-        </div>
-        <div class="chart-footer">
-            <div class="realtime-price-info">
-                <span>Giá Realtime:</span>
-                <span id="realtimePiPrice">765.3450 USD</span>
+
+        <div class="token-card" onclick="openModal('GLNs / SDA')">
+            <div class="token-left">
+                <span class="fav-star">☆</span>
+                <div class="token-avatar">G</div>
+                <div class="token-info">
+                    <h4>GLNs / SDA[span_10](start_span)[span_10](end_span)</h4>
+                    <p>Global Logistics Network[span_11](start_span)[span_11](end_span)</p>
+                </div>
             </div>
-            <button class="trade-btn" onclick="openModal('Thực hiện Đặt Lệnh Sàn')">ĐẶT LỆNH SÀN</button>
+            <div class="token-right">
+                <div class="token-price-sda" id="price-glns">1.9998 SDA[span_12](start_span)[span_12](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$783.65[span_13](start_span)[span_13](end_span)</span><span class="token-change down">↓ 0.6%[span_14](start_span)[span_14](end_span)</span></div>
+            </div>
+        </div>
+
+        <div class="token-card" onclick="openModal('FREET / SDA')">
+            <div class="token-left">
+                <span class="fav-star">☆</span>
+                <div class="token-avatar">F</div>
+                <div class="token-info">
+                    <h4>FREEt / SDA[span_15](start_span)[span_15](end_span)</h4>
+                    <p>Freelancium[span_16](start_span)[span_16](end_span)</p>
+                </div>
+            </div>
+            <div class="token-right">
+                <div class="token-price-sda">1.5986 SDA[span_17](start_span)[span_17](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$626.42[span_18](start_span)[span_18](end_span)</span><span class="token-change down">↓ 1.4%[span_19](start_span)[span_19](end_span)</span></div>
+            </div>
+        </div>
+
+        <div class="token-card" onclick="openModal('AIR / SDA')">
+            <div class="token-left">
+                <span class="fav-star">☆</span>
+                <div class="token-avatar">A</div>
+                <div class="token-info">
+                    <h4>AIR / SDA[span_20](start_span)[span_20](end_span)</h4>
+                    <p>AirLand[span_21](start_span)[span_21](end_span)</p>
+                </div>
+            </div>
+            <div class="token-right">
+                <div class="token-price-sda">1.5271 SDA[span_22](start_span)[span_22](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$598.43[span_23](start_span)[span_23](end_span)</span><span class="token-change up">↑ 0.3%[span_24](start_span)[span_24](end_span)</span></div>
+            </div>
+        </div>
+
+        <div class="token-card" onclick="openModal('WSDA / SDA')">
+            <div class="token-left">
+                <span class="fav-star">☆</span>
+                <div class="token-avatar">W</div>
+                <div class="token-info">
+                    <h4>WSDA / SDA[span_25](start_span)[span_25](end_span)</h4>
+                    <p>Wrapped SDA[span_26](start_span)[span_26](end_span)</p>
+                </div>
+            </div>
+            <div class="token-right">
+                <div class="token-price-sda">1 SDA[span_27](start_span)[span_27](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$399.82[span_28](start_span)[span_28](end_span)</span><span style="color:#9ca3af">1:1 wrapped[span_29](start_span)[span_29](end_span)</span></div>
+            </div>
+        </div>
+
+        <div class="token-card" onclick="openModal('DBI / SDA')">
+            <div class="token-left">
+                <span class="fav-star">☆</span>
+                <div class="token-avatar">D</div>
+                <div class="token-info">
+                    <h4>DBI / SDA[span_30](start_span)[span_30](end_span)</h4>
+                    <p>Digital Banking Initiative[span_31](start_span)[span_31](end_span)</p>
+                </div>
+            </div>
+            <div class="token-right">
+                <div class="token-price-sda">0.999531 SDA[span_32](start_span)[span_32](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$400.84[span_33](start_span)[span_33](end_span)</span><span class="token-change up">↑ 0.1%[span_34](start_span)[span_34](end_span)</span></div>
+            </div>
+        </div>
+
+        <div class="token-card" onclick="openModal('VPM / SDA')">
+            <div class="token-left">
+                <span class="fav-star">☆</span>
+                <div class="token-avatar">V</div>
+                <div class="token-info">
+                    <h4>VPM / SDA[span_35](start_span)[span_35](end_span)[span_36](start_span)[span_36](end_span)</h4>
+                    <p>VPM ecosystem[span_37](start_span)[span_37](end_span)[span_38](start_span)[span_38](end_span)</p>
+                </div>
+            </div>
+            <div class="token-right">
+                <div class="token-price-sda">0.925299 SDA[span_39](start_span)[span_39](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$362.59[span_40](start_span)[span_40](end_span)</span><span class="token-change down">↓ 2.8%[span_41](start_span)[span_41](end_span)</span></div>
+            </div>
+        </div>
+
+        <div class="token-card" onclick="openModal('FBAY / SDA')">
+            <div class="token-left">
+                <span class="fav-star">☆</span>
+                <div class="token-avatar">FB</div>
+                <div class="token-info">
+                    <h4>FBAY / SDA[span_42](start_span)[span_42](end_span)[span_43](start_span)[span_43](end_span)</h4>
+                    <p>FALCONBAY[span_44](start_span)[span_44](end_span)[span_45](start_span)[span_45](end_span)</p>
+                </div>
+            </div>
+            <div class="token-right">
+                <div class="token-price-sda">0.81082 SDA[span_46](start_span)[span_46](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$322.24[span_47](start_span)[span_47](end_span)</span><span class="token-change up">↑ 3.3%[span_48](start_span)[span_48](end_span)</span></div>
+            </div>
+        </div>
+
+        <div class="token-card" onclick="openModal('SGWA / SDA')">
+            <div class="token-left">
+                <span class="fav-star">☆</span>
+                <div class="token-avatar">SG</div>
+                <div class="token-info">
+                    <h4>SGWA / SDA[span_49](start_span)[span_49](end_span)[span_50](start_span)[span_50](end_span)</h4>
+                    <p>Gemworld[span_51](start_span)[span_51](end_span)[span_52](start_span)[span_52](end_span)</p>
+                </div>
+            </div>
+            <div class="token-right">
+                <div class="token-price-sda">0.717399 SDA[span_53](start_span)[span_53](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$281.12[span_54](start_span)[span_54](end_span)</span><span class="token-change down">↓ 1.3%[span_55](start_span)[span_55](end_span)</span></div>
+            </div>
+        </div>
+
+        <div class="token-card" onclick="openModal('GPC / SDA')">
+            <div class="token-left">
+                <span class="fav-star">☆</span>
+                <div class="token-avatar">GP</div>
+                <div class="token-info">
+                    <h4>GPC / SDA[span_56](start_span)[span_56](end_span)[span_57](start_span)[span_57](end_span)</h4>
+                    <p>GLN Property Chain[span_58](start_span)[span_58](end_span)[span_59](start_span)[span_59](end_span)</p>
+                </div>
+            </div>
+            <div class="token-right">
+                <div class="token-price-sda">0.668468 SDA[span_60](start_span)[span_60](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$261.95[span_61](start_span)[span_61](end_span)</span><span class="token-change up">↑ 1.7%[span_62](start_span)[span_62](end_span)</span></div>
+            </div>
+        </div>
+
+        <div class="token-card" onclick="openModal('VPA / SDA')">
+            <div class="token-left">
+                <span class="fav-star">☆</span>
+                <div class="token-avatar">VP</div>
+                <div class="token-info">
+                    <h4>VPA / SDA[span_63](start_span)[span_63](end_span)[span_64](start_span)[span_64](end_span)</h4>
+                    <p>VPAWord[span_65](start_span)[span_65](end_span)[span_66](start_span)[span_66](end_span)</p>
+                </div>
+            </div>
+            <div class="token-right">
+                <div class="token-price-sda">0.503121 SDA[span_67](start_span)[span_67](end_span)[span_68](start_span)[span_68](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$197.16[span_69](start_span)[span_69](end_span)</span><span class="token-change down">↓ 0.3%[span_70](start_span)[span_70](end_span)[span_71](start_span)[span_71](end_span)</span></div>
+            </div>
+        </div>
+
+        <div class="token-card" onclick="openModal('VPE / SDA')">
+            <div class="token-left">
+                <span class="fav-star">☆</span>
+                <div class="token-avatar">VE</div>
+                <div class="token-info">
+                    <h4>VPE / SDA[span_72](start_span)[span_72](end_span)[span_73](start_span)[span_73](end_span)</h4>
+                    <p>Digital Asset Evaluation[span_74](start_span)[span_74](end_span)[span_75](start_span)[span_75](end_span)</p>
+                </div>
+            </div>
+            <div class="token-right">
+                <div class="token-price-sda">0.469099 SDA[span_76](start_span)[span_76](end_span)[span_77](start_span)[span_77](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$183.82[span_78](start_span)[span_78](end_span)</span><span class="token-change down">↓ 0.2%[span_79](start_span)[span_79](end_span)[span_80](start_span)[span_80](end_span)</span></div>
+            </div>
+        </div>
+
+        <div class="token-card" onclick="openModal('GACP / SDA')">
+            <div class="token-left">
+                <span class="fav-star">☆</span>
+                <div class="token-avatar">GC</div>
+                <div class="token-info">
+                    <h4>GACP / SDA[span_81](start_span)[span_81](end_span)[span_82](start_span)[span_82](end_span)</h4>
+                    <p>GLN agriculture chain[span_83](start_span)[span_83](end_span)[span_84](start_span)[span_84](end_span)</p>
+                </div>
+            </div>
+            <div class="token-right">
+                <div class="token-price-sda">0.38731 SDA[span_85](start_span)[span_85](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$153.93[span_86](start_span)[span_86](end_span)</span><span class="token-change down">↓ 0.5%[span_87](start_span)[span_87](end_span)</span></div>
+            </div>
+        </div>
+
+        <div class="token-card" onclick="openModal('AITT / SDA')">
+            <div class="token-left">
+                <span class="fav-star">☆</span>
+                <div class="token-avatar">AI</div>
+                <div class="token-info">
+                    <h4>AITT / SDA[span_88](start_span)[span_88](end_span)[span_89](start_span)[span_89](end_span)</h4>
+                    <p>Aisha travel tours[span_90](start_span)[span_90](end_span)[span_91](start_span)[span_91](end_span)</p>
+                </div>
+            </div>
+            <div class="token-right">
+                <div class="token-price-sda">0.363154 SDA[span_92](start_span)[span_92](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$144.33[span_93](start_span)[span_93](end_span)</span><span class="token-change down">↓ 5.3%[span_94](start_span)[span_94](end_span)</span></div>
+            </div>
+        </div>
+
+        <div class="token-card" onclick="openModal('QSM / SDA')">
+            <div class="token-left">
+                <span class="fav-star">☆</span>
+                <div class="token-avatar">QS</div>
+                <div class="token-info">
+                    <h4>QSM / SDA[span_95](start_span)[span_95](end_span)</h4>
+                    <p>Qatar Sidra Mall[span_96](start_span)[span_96](end_span)</p>
+                </div>
+            </div>
+            <div class="token-right">
+                <div class="token-price-sda">0.319229 SDA[span_97](start_span)[span_97](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$126.87[span_98](start_span)[span_98](end_span)</span><span class="token-change down">↓ 0.8%[span_99](start_span)[span_99](end_span)</span></div>
+            </div>
+        </div>
+
+        <div class="token-card" onclick="openModal('SKMH / SDA')">
+            <div class="token-left">
+                <span class="fav-star">☆</span>
+                <div class="token-avatar">SK</div>
+                <div class="token-info">
+                    <h4>SKMH / SDA[span_100](start_span)[span_100](end_span)</h4>
+                    <p>Sukoon Mind Horizon[span_101](start_span)[span_101](end_span)</p>
+                </div>
+            </div>
+            <div class="token-right">
+                <div class="token-price-sda">0.314807 SDA[span_102](start_span)[span_102](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$125.11[span_103](start_span)[span_103](end_span)</span><span class="token-change down">↓ 1.1%[span_104](start_span)[span_104](end_span)</span></div>
+            </div>
+        </div>
+
+        <div class="token-card" onclick="openModal('HEC / SDA')">
+            <div class="token-left">
+                <span class="fav-star">☆</span>
+                <div class="token-avatar">HE</div>
+                <div class="token-info">
+                    <h4>HEC / SDA[span_105](start_span)[span_105](end_span)</h4>
+                    <p>Halal Ecommerce[span_106](start_span)[span_106](end_span)</p>
+                </div>
+            </div>
+            <div class="token-right">
+                <div class="token-price-sda">0.297776 SDA[span_107](start_span)[span_107](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$118.34[span_108](start_span)[span_108](end_span)</span><span class="token-change down">↓ 3.9%[span_109](start_span)[span_109](end_span)</span></div>
+            </div>
+        </div>
+
+        <div class="token-card" onclick="openModal('DMCS / SDA')">
+            <div class="token-left">
+                <span class="fav-star">☆</span>
+                <div class="token-avatar">DM</div>
+                <div class="token-info">
+                    <h4>DMCS / SDA[span_110](start_span)[span_110](end_span)</h4>
+                    <p>Digital Marketing Channels[span_111](start_span)[span_111](end_span)</p>
+                </div>
+            </div>
+            <div class="token-right">
+                <div class="token-price-sda">0.271384 SDA[span_112](start_span)[span_112](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$106.35[span_113](start_span)[span_113](end_span)</span><span class="token-change down">↓ 3.3%[span_114](start_span)[span_114](end_span)</span></div>
+            </div>
+        </div>
+
+        <div class="token-card" onclick="openModal('HLMR / SDA')">
+            <div class="token-left">
+                <span class="fav-star">☆</span>
+                <div class="token-avatar">HL</div>
+                <div class="token-info">
+                    <h4>HLMR / SDA[span_115](start_span)[span_115](end_span)</h4>
+                    <p>Halmart[span_116](start_span)[span_116](end_span)</p>
+                </div>
+            </div>
+            <div class="token-right">
+                <div class="token-price-sda">0.259271 SDA[span_117](start_span)[span_117](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$101.60[span_118](start_span)[span_118](end_span)</span><span class="token-change up">↑ 1.4%[span_119](start_span)[span_119](end_span)</span></div>
+            </div>
+        </div>
+
+        <div class="token-card" onclick="openModal('SUBV / SDA')">
+            <div class="token-left">
+                <span class="fav-star">☆</span>
+                <div class="token-avatar">SU</div>
+                <div class="token-info">
+                    <h4>SUBV / SDA[span_120](start_span)[span_120](end_span)</h4>
+                    <p>Subverse pay[span_121](start_span)[span_121](end_span)</p>
+                </div>
+            </div>
+            <div class="token-right">
+                <div class="token-price-sda">0.230406 SDA[span_122](start_span)[span_122](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$90.29[span_123](start_span)[span_123](end_span)</span><span class="token-change down">↓ 6.9%[span_124](start_span)[span_124](end_span)</span></div>
+            </div>
+        </div>
+
+        <div class="token-card" onclick="openModal('WPX / SDA')">
+            <div class="token-left">
+                <span class="fav-star">☆</span>
+                <div class="token-avatar">WP</div>
+                <div class="token-info">
+                    <h4>WPX / SDA[span_125](start_span)[span_125](end_span)</h4>
+                    <p>widpnix[span_126](start_span)[span_126](end_span)</p>
+                </div>
+            </div>
+            <div class="token-right">
+                <div class="token-price-sda">0.221937 SDA[span_127](start_span)[span_127](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$86.97[span_128](start_span)[span_128](end_span)</span><span class="token-change down">↓ 7.4%[span_129](start_span)[span_129](end_span)</span></div>
+            </div>
+        </div>
+
+        <div class="token-card" onclick="openModal('EWM / SDA')">
+            <div class="token-left">
+                <span class="fav-star">☆</span>
+                <div class="token-avatar">EW</div>
+                <div class="token-info">
+                    <h4>EWM / SDA[span_130](start_span)[span_130](end_span)</h4>
+                    <p>Ewave Market[span_131](start_span)[span_131](end_span)</p>
+                </div>
+            </div>
+            <div class="token-right">
+                <div class="token-price-sda">0.214031 SDA[span_132](start_span)[span_132](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$85.06[span_133](start_span)[span_133](end_span)</span><span class="token-change down">↓ 6.7%[span_134](start_span)[span_134](end_span)</span></div>
+            </div>
+        </div>
+
+        <div class="token-card" onclick="openModal('NGEC / SDA')">
+            <div class="token-left">
+                <span class="fav-star">☆</span>
+                <div class="token-avatar">NG</div>
+                <div class="token-info">
+                    <h4>NGEC / SDA[span_135](start_span)[span_135](end_span)</h4>
+                    <p>NEWGEN GLOBAL MARKET[span_136](start_span)[span_136](end_span)</p>
+                </div>
+            </div>
+            <div class="token-right">
+                <div class="token-price-sda">0.191633 SDA[span_137](start_span)[span_137](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$75.09[span_138](start_span)[span_138](end_span)</span><span class="token-change down">↓ 0.7%[span_139](start_span)[span_139](end_span)</span></div>
+            </div>
+        </div>
+
+        <div class="token-card" onclick="openModal('HGM / SDA')">
+            <div class="token-left">
+                <span class="fav-star">☆</span>
+                <div class="token-avatar">HG</div>
+                <div class="token-info">
+                    <h4>HGM / SDA[span_140](start_span)[span_140](end_span)</h4>
+                    <p>Hardware Global Trade Pla...[span_141](start_span)[span_141](end_span)</p>
+                </div>
+            </div>
+            <div class="token-right">
+                <div class="token-price-sda">0.170902 SDA[span_142](start_span)[span_142](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$67.92[span_143](start_span)[span_143](end_span)</span><span class="token-change down">↓ 11.1%[span_144](start_span)[span_144](end_span)</span></div>
+            </div>
+        </div>
+
+        <div class="token-card" onclick="openModal('SLND / SDA')">
+            <div class="token-left">
+                <span class="fav-star">☆</span>
+                <div class="token-avatar">SL</div>
+                <div class="token-info">
+                    <h4>SLND / SDA[span_145](start_span)[span_145](end_span)</h4>
+                    <p>SidraLand[span_146](start_span)[span_146](end_span)</p>
+                </div>
+            </div>
+            <div class="token-right">
+                <div class="token-price-sda">0.160766 SDA[span_147](start_span)[span_147](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$63.00[span_148](start_span)[span_148](end_span)</span><span class="token-change down">↓ 4.9%[span_149](start_span)[span_149](end_span)</span></div>
+            </div>
+        </div>
+
+        <div class="token-card" onclick="openModal('DIIGE / SDA')">
+            <div class="token-left">
+                <span class="fav-star">☆</span>
+                <div class="token-avatar">DI</div>
+                <div class="token-info">
+                    <h4>DIIGE / SDA[span_150](start_span)[span_150](end_span)</h4>
+                    <p>Digital Islamic Gold Exchan...[span_151](start_span)[span_151](end_span)</p>
+                </div>
+            </div>
+            <div class="token-right">
+                <div class="token-price-sda">0.148089 SDA[span_152](start_span)[span_152](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$58.85[span_153](start_span)[span_153](end_span)</span><span class="token-change up">↑ 3.1%[span_154](start_span)[span_154](end_span)</span></div>
+            </div>
+        </div>
+
+        <div class="token-card" onclick="openModal('IDM / SDA')">
+            <div class="token-left">
+                <span class="fav-star">☆</span>
+                <div class="token-avatar">ID</div>
+                <div class="token-info">
+                    <h4>IDM / SDA[span_155](start_span)[span_155](end_span)</h4>
+                    <p>Innovative Digital Marketpl...[span_156](start_span)[span_156](end_span)</p>
+                </div>
+            </div>
+            <div class="token-right">
+                <div class="token-price-sda">0.139918 SDA[span_157](start_span)[span_157](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$54.83[span_158](start_span)[span_158](end_span)</span><span class="token-change up">↑ 9.2%[span_159](start_span)[span_159](end_span)</span></div>
+            </div>
+        </div>
+
+        <div class="token-card" onclick="openModal('SDIP / SDA')">
+            <div class="token-left">
+                <span class="fav-star">☆</span>
+                <div class="token-avatar">SD</div>
+                <div class="token-info">
+                    <h4>SDIP / SDA[span_160](start_span)[span_160](end_span)</h4>
+                    <p>Sidra Insurance Platform[span_161](start_span)[span_161](end_span)</p>
+                </div>
+            </div>
+            <div class="token-right">
+                <div class="token-price-sda">0.131465 SDA[span_162](start_span)[span_162](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$52.25[span_163](start_span)[span_163](end_span)</span><span class="token-change up">↑ 0.8%[span_164](start_span)[span_164](end_span)</span></div>
+            </div>
+        </div>
+
+        <div class="token-card" onclick="openModal('RIDEX / SDA')">
+            <div class="token-left">
+                <span class="fav-star">☆</span>
+                <div class="token-avatar">RI</div>
+                <div class="token-info">
+                    <h4>RIDEX / SDA[span_165](start_span)[span_165](end_span)</h4>
+                    <p>RIDEX Protocol</p>
+                </div>
+            </div>
+            <div class="token-right">
+                <div class="token-price-sda">0.127601 SDA[span_166](start_span)[span_166](end_span)</div>
+                <div class="token-sub-info"><span class="token-usd">$50.72</span><span class="token-change up">↑ 2.4%</span></div>
+            </div>
         </div>
     </div>
 
-    <!-- Token List Section -->
-    <div class="token-section">
-        <div class="section-title">
-            <span>Danh Sách Token Lưu Hành</span>
-            <span style="font-size: 11px; color: var(--accent-blue-light); font-weight: normal;">Live Updates 🟢</span>
-        </div>
-        <div id="tokenList">
-            <div class="token-item" onclick="openModal('Chi tiết token REGS')">
-                <div class="token-left">
-                    <div class="token-icon">R</div>
-                    <div class="token-info">
-                        <h4>REGS / SDA</h4>
-                        <p>REGs Global</p>
-                    </div>
-                </div>
-                <div class="token-right">
-                    <div class="token-price" id="price-regs">2.5103 SDA</div>
-                    <div class="token-change up">+3.4%</div>
-                </div>
-            </div>
-            <div class="token-item" onclick="openModal('Chi tiết token GLNs')">
-                <div class="token-left">
-                    <div class="token-icon">G</div>
-                    <div class="token-info">
-                        <h4>GLNs / SDA</h4>
-                        <p>Global Logistics Net</p>
-                    </div>
-                </div>
-                <div class="token-right">
-                    <div class="token-price" id="price-glns">1.9997 SDA</div>
-                    <div class="token-change up">+1.2%</div>
-                </div>
-            </div>
-            <div class="token-item" onclick="openModal('Chi tiết token FREET')">
-                <div class="token-left">
-                    <div class="token-icon">F</div>
-                    <div class="token-info">
-                        <h4>FREET / SDA</h4>
-                        <p>Freelancium</p>
-                    </div>
-                </div>
-                <div class="token-right">
-                    <div class="token-price" id="price-freet">1.5990 SDA</div>
-                    <div class="token-change down">-1.4%</div>
-                </div>
-            </div>
-            <div class="token-item" onclick="openModal('Chi tiết token AIR')">
-                <div class="token-left">
-                    <div class="token-icon">A</div>
-                    <div class="token-info">
-                        <h4>AIR / SDA</h4>
-                        <p>AirLand</p>
-                    </div>
-                </div>
-                <div class="token-right">
-                    <div class="token-price" id="price-air">1.5272 SDA</div>
-                    <div class="token-change up">+0.3%</div>
-                </div>
-            </div>
-            <div class="token-item" onclick="openModal('Chi tiết token WSDA')">
-                <div class="token-left">
-                    <div class="token-icon">W</div>
-                    <div class="token-info">
-                        <h4>WSDA / SDA</h4>
-                        <p>Wrapped SDA</p>
-                    </div>
-                </div>
-                <div class="token-right">
-                    <div class="token-price">1.0000 SDA</div>
-                    <div class="token-change up">1:1 pegged</div>
-                </div>
-            </div>
-            <div class="token-item" onclick="openModal('Chi tiết token DBI')">
-                <div class="token-left">
-                    <div class="token-icon">D</div>
-                    <div class="token-info">
-                        <h4>DBI / SDA</h4>
-                        <p>Digital Banking Initiative</p>
-                    </div>
-                </div>
-                <div class="token-right">
-                    <div class="token-price" id="price-dbi">400.9953 SDA</div>
-                    <div class="token-change up">+0.1%</div>
-                </div>
-            </div>
-            <div class="token-item" onclick="openModal('Chi tiết token VPM')">
-                <div class="token-left">
-                    <div class="token-icon">V</div>
-                    <div class="token-info">
-                        <h4>VPM / SDA</h4>
-                        <p>VPM Ecosystem</p>
-                    </div>
-                </div>
-                <div class="token-right">
-                    <div class="token-price" id="price-vpm">0.9279 SDA</div>
-                    <div class="token-change down">-1.8%</div>
-                </div>
-            </div>
-            <div class="token-item" onclick="openModal('Chi tiết token FBAY')">
-                <div class="token-left">
-                    <div class="token-icon">FB</div>
-                    <div class="token-info">
-                        <h4>FBAY / SDA</h4>
-                        <p>Falconbay</p>
-                    </div>
-                </div>
-                <div class="token-right">
-                    <div class="token-price" id="price-fbay">0.8117 SDA</div>
-                    <div class="token-change up">+3.4%</div>
-                </div>
-            </div>
-            <div class="token-item" onclick="openModal('Chi tiết token SGWA')">
-                <div class="token-left">
-                    <div class="token-icon">SG</div>
-                    <div class="token-info">
-                        <h4>SGWA / SDA</h4>
-                        <p>Gemworld</p>
-                    </div>
-                </div>
-                <div class="token-right">
-                    <div class="token-price" id="price-sgwa">0.7142 SDA</div>
-                    <div class="token-change down">-2.7%</div>
-                </div>
-            </div>
-            <div class="token-item" onclick="openModal('Chi tiết token GPC')">
-                <div class="token-left">
-                    <div class="token-icon">GP</div>
-                    <div class="token-info">
-                        <h4>GPC / SDA</h4>
-                        <p>GLN Property Chain</p>
-                    </div>
-                </div>
-                <div class="token-right">
-                    <div class="token-price" id="price-gpc">0.6685 SDA</div>
-                    <div class="token-change up">+1.7%</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Thông Báo Tương Tác -->
+    <!-- Modal Thông Báo -->
     <div class="modal" id="actionModal">
         <div class="modal-content">
             <h3 id="modalTitle">Thông báo</h3>
@@ -727,74 +912,37 @@
         </div>
     </div>
 
-    <!-- Chart.js CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Khởi tạo biểu đồ đường sống động với tông xanh dương
-        const ctx = document.getElementById('liveChart').getContext('2d');
-        const liveChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['15:00', '15:05', '15:10', '15:15', '15:20', 'Realtime'],
-                datasets: [{
-                    data: [300, 305, 310, 308, 312, 409],
-                    borderColor: '#3b82f6',
-                    backgroundColor: 'rgba(59, 130, 246, 0.15)',
-                    borderWidth: 2.5,
-                    fill: true,
-                    tension: 0.3,
-                    pointRadius: 4,
-                    pointBackgroundColor: '#60a5fa'
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        max: 450,
-                        ticks: { stepSize: 100, font: { size: 10 }, color: '#9ca3af' },
-                        grid: { color: '#1f2937' }
-                    },
-                    x: {
-                        ticks: { font: { size: 10 }, color: '#9ca3af' },
-                        grid: { display: false }
-                    }
-                }
-            }
-        });
-
-        // Hàm nhảy số liệu thật (Realtime live updating simulation)
+        // Hiệu ứng nhảy số liệu thật realtime nhẹ nhàng
         setInterval(() => {
-            // Biến động giá SDA quanh mốc 409
-            const sdaVariation = (Math.random() * 0.4 - 0.2).toFixed(2);
-            const newSdaPrice = (409.03 + parseFloat(sdaVariation)).toFixed(2);
-            document.getElementById('sdaMainPrice').innerText = '$' + newSdaPrice;
+            const varSda = (Math.random() * 0.1 - 0.05).toFixed(2);
+            const newSda = (399.82 + parseFloat(varSda)).toFixed(2);
+            document.getElementById('sdaPrice').innerText = '$' + newSda;
 
-            // Biến động giá PI realtime quanh mốc 765
-            const piVariation = (Math.random() * 0.8 - 0.4).toFixed(4);
-            const newPiPrice = (765.3450 + parseFloat(piVariation)).toFixed(4);
-            document.getElementById('realtimePiPrice').innerText = newPiPrice + ' USD';
+            const varRegs = (Math.random() * 0.001 - 0.0005).toFixed(4);
+            document.getElementById('price-regs').innerText = (2.5036 + parseFloat(varRegs)).toFixed(4) + ' SDA';
+        }, 2500);
 
-            // Biến động các token ngẫu nhiên
-            const regsVar = (Math.random() * 0.002 - 0.001).toFixed(4);
-            document.getElementById('price-regs').innerText = (2.5103 + parseFloat(regsVar)).toFixed(4) + ' SDA';
+        // Chuyển tab tương tác
+        function switchTab(el) {
+            document.querySelectorAll('.tab-btn, .tab-btn-icon').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+        }
 
-            const dbiVar = (Math.random() * 0.02 - 0.01).toFixed(4);
-            document.getElementById('price-dbi').innerText = (400.9953 + parseFloat(dbiVar)).toFixed(4) + ' SDA';
+        // Tìm kiếm token
+        function filterTokens() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.querySelectorAll('.token-card');
+            cards.forEach(card => {
+                let text = card.innerText.toLowerCase();
+                card.style.display = text.includes(input) ? 'flex' : 'none';
+            });
+        }
 
-            const vpmVar = (Math.random() * 0.002 - 0.001).toFixed(4);
-            document.getElementById('price-vpm').innerText = (0.9279 + parseFloat(vpmVar)).toFixed(4) + ' SDA';
-        }, 2000);
-
-        // Hàm tương tác nút bấm
-        function openModal(actionName) {
-            document.getElementById('modalTitle').innerText = actionName;
-            document.getElementById('modalDesc').innerText = "Hệ thống Sidra DEX đã ghi nhận thao tác của bạn cho mục: " + actionName + ". Số dư ví hiện tại: 2,500,000 USDT.";
+        // Modal tương tác
+        function openModal(name) {
+            document.getElementById('modalTitle').innerText = name;
+            document.getElementById('modalDesc').innerText = "Thao tác thành công trên mục: " + name + ". Số dư ví cá nhân: 2,500,000 USDT.";
             document.getElementById('actionModal').style.display = 'flex';
         }
 
