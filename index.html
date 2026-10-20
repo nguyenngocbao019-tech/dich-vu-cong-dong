@@ -1,322 +1,710 @@
 <!DOCTYPE html>
-<html lang="vi" class="light">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mạng Lưới Giao Dịch Kỹ Thuật Số Toàn Cầu</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Sàn Kỹ Thuật Số & RWA - SidraChain & PI Ecosystem DEX</title>
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; color: #0f172a; }
-        ::-webkit-scrollbar { width: 4px; height: 4px; }
-        ::-webkit-scrollbar-track { background: #f1f5f9; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+        :root {
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-main: #111827;
+            --text-muted: #6b7280;
+            --primary: #059669;
+            --primary-dark: #047857;
+            --border-color: #e5e7eb;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #111827;
+            color: #f9fafb;
+            padding: 12px;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        /* Top Header */
+        .top-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+            background: #1f2937;
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: 1px solid #374151;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #f9fafb;
+        }
+
+        .header-title-box {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .header-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            background: #374151;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .header-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #f9fafb;
+            white-space: nowrap;
+        }
+
+        .warning-icon {
+            color: #fbbf24;
+            font-size: 16px;
+        }
+
+        .dropdown-arrow {
+            font-size: 12px;
+            color: #9ca3af;
+            cursor: pointer;
+        }
+
+        /* Network Banner */
+        .network-banner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #1f2937;
+            border: 1px solid #374151;
+            border-radius: 12px;
+            padding: 10px 14px;
+            margin-bottom: 14px;
+        }
+
+        .network-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .network-globe {
+            width: 36px;
+            height: 36px;
+            background: rgba(251, 191, 36, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .network-text h3 {
+            font-size: 11px;
+            font-weight: 800;
+            color: #f9fafb;
+            letter-spacing: 0.3px;
+        }
+
+        .network-text p {
+            font-size: 10px;
+            color: #9ca3af;
+            margin-top: 2px;
+        }
+
+        .wallet-btn {
+            background: #059669;
+            color: #ffffff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            box-shadow: 0 2px 4px rgba(5, 150, 105, 0.3);
+        }
+
+        .wallet-btn:hover {
+            background: #047857;
+        }
+
+        /* SDA Card (Dark) */
+        .sda-card {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            color: #ffffff;
+            border: 1px solid #374151;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 14px;
+        }
+
+        .sda-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .sda-title {
+            font-size: 13px;
+            color: #9ca3af;
+            font-weight: 500;
+        }
+
+        .realtime-badge {
+            background: rgba(5, 150, 105, 0.2);
+            color: #34d399;
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-weight: 600;
+            border: 1px solid rgba(52, 211, 153, 0.3);
+        }
+
+        .sda-price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .sda-price {
+            font-size: 26px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .sda-change {
+            font-size: 13px;
+            font-weight: 600;
+            color: #34d399;
+        }
+
+        .sda-balance-box {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 10px 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .sda-balance-label {
+            font-size: 11px;
+            color: #9ca3af;
+        }
+
+        .sda-balance-value {
+            font-size: 14px;
+            font-weight: 700;
+            color: #34d399;
+            text-align: right;
+        }
+
+        .sda-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 10px;
+        }
+
+        .base-pair-box {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+        .base-select {
+            background: #374151;
+            color: #ffffff;
+            border: 1px solid #4b5563;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .sda-note {
+            font-size: 10px;
+            color: #9ca3af;
+            line-height: 1.4;
+            background: rgba(217, 119, 6, 0.1);
+            border-left: 2px solid #f59e0b;
+            padding: 6px 8px;
+            border-radius: 0 6px 6px 0;
+            margin-top: 10px;
+        }
+
+        /* Live Chart Card */
+        .chart-card {
+            background: #1f2937;
+            border: 2px solid #fef08a;
+            border-radius: 16px;
+            padding: 14px;
+            margin-bottom: 14px;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .chart-title-box {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .chart-title-box span {
+            font-size: 13px;
+            font-weight: 700;
+            color: #f9fafb;
+        }
+
+        .realtime-data-badge {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 10px;
+            color: #34d399;
+            font-weight: 600;
+        }
+
+        .dot-live {
+            width: 6px;
+            height: 6px;
+            background: #34d399;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+
+        .chart-container {
+            position: relative;
+            height: 140px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .chart-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #374151;
+            padding-top: 10px;
+        }
+
+        .realtime-price-info span:first-child {
+            font-size: 11px;
+            color: #9ca3af;
+        }
+
+        .realtime-price-info span:last-child {
+            font-size: 14px;
+            font-weight: 700;
+            color: #f9fafb;
+            margin-left: 6px;
+        }
+
+        .trade-btn {
+            background: #059669;
+            color: #ffffff;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(5, 150, 105, 0.3);
+        }
+
+        .trade-btn:hover {
+            background: #047857;
+        }
+
+        /* Token List Section */
+        .token-section {
+            background: #1f2937;
+            border: 1px solid #374151;
+            border-radius: 16px;
+            padding: 14px;
+            margin-bottom: 14px;
+        }
+
+        .section-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #f9fafb;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .token-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 8px;
+            border-bottom: 1px solid #374151;
+            cursor: pointer;
+            transition: background 0.2s;
+            border-radius: 8px;
+        }
+
+        .token-item:last-child {
+            border-bottom: none;
+        }
+
+        .token-item:hover {
+            background: rgba(255,255,255,0.03);
+        }
+
+        .token-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .token-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #374151;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            color: #34d399;
+        }
+
+        .token-info h4 {
+            font-size: 13px;
+            font-weight: 700;
+            color: #f9fafb;
+        }
+
+        .token-info p {
+            font-size: 11px;
+            color: #9ca3af;
+        }
+
+        .token-right {
+            text-align: right;
+        }
+
+        .token-price {
+            font-size: 13px;
+            font-weight: 700;
+            color: #f9fafb;
+        }
+
+        .token-change {
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .token-change.up { color: #34d399; }
+        .token-change.down { color: #ef4444; }
+
+        /* Modal Overlay */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 16px;
+        }
+
+        .modal-content {
+            background: #1f2937;
+            border: 1px solid #374151;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            color: #f9fafb;
+        }
+
+        .modal-content h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #f9fafb;
+        }
+
+        .modal-content p {
+            font-size: 13px;
+            color: #9ca3af;
+            margin-bottom: 20px;
+        }
+
+        .close-modal {
+            background: #059669;
+            color: #ffffff;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-size: 12px;
+            cursor: pointer;
+            font-weight: 600;
+        }
     </style>
 </head>
-<body class="min-h-screen bg-slate-50 pb-12">
+<body>
 
-    <!-- TOP HEADER BAR -->
-    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-xs">
-        <div class="max-w-xl mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center gap-2.5">
-                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-500 to-amber-600 text-white flex items-center justify-center font-extrabold text-lg shadow-sm">
-                    <i class="fa-solid fa-globe"></i>
-                </div>
-                <div>
-                    <h1 class="font-extrabold text-xs uppercase text-slate-900 leading-tight">MẠNG LƯỚI GIAO DỊCH TOÀN CẦU</h1>
-                    <p class="text-[10px] text-amber-600 font-bold flex items-center gap-1">
-                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> SidraChain & Pi Ecosystem DEX
-                    </p>
-                </div>
+    <!-- Header -->
+    <div class="top-header">
+        <div class="header-left">
+            <button class="back-btn" onclick="openModal('Quay lại trang chủ')">←</button>
+            <div class="header-title-box">
+                <div class="header-avatar">🏛️</div>
+                <span class="header-title">Sàn Kỹ Thuật Số & RWA</span>
+                <span class="warning-icon">⚠️</span>
             </div>
-            
-            <button onclick="openModal('walletModal')" class="bg-emerald-600 text-white font-bold text-xs px-3 py-2 rounded-xl shadow-xs flex items-center gap-1.5 hover:bg-emerald-700 transition">
-                <i class="fa-solid fa-wallet"></i>
-                <span>Ví ($680,000 USD)</span>
-            </button>
         </div>
-    </header>
+        <span class="dropdown-arrow" onclick="openModal('Menu tùy chọn hệ thống')">▼</span>
+    </div>
 
-    <main class="max-w-xl mx-auto p-4 space-y-4">
-
-        <!-- CARD PRICE HEADER (Y HỆT BỨC ẢNH MẪU - HIỂN THỊ SỐ DƯ $680,000 USD) -->
-        <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-amber-950 text-white rounded-3xl p-5 shadow-lg relative overflow-hidden">
-            <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl"></div>
-            
-            <div class="flex justify-between items-start mb-1">
-                <span class="text-xs font-bold text-slate-300">1 SDA (SidraChain Live)</span>
-                <span class="text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-full font-bold">● REALTIME POOL</span>
+    <!-- Network Banner -->
+    <div class="network-banner">
+        <div class="network-info">
+            <div class="network-globe">🌐</div>
+            <div class="network-text">
+                <h3>MẠNG LƯỚI GIAO DỊCH TOÀN CẦU</h3>
+                <p>SidraChain & PI Ecosystem DEX</p>
             </div>
+        </div>
+        <button class="wallet-btn" onclick="openModal('Quản lý ví tài sản')">
+            💳 Ví($2,500,000 USDT)
+        </button>
+    </div>
 
-            <div class="flex items-baseline gap-2 mb-1">
-                <div id="mainSdaPrice" class="text-3xl font-black font-mono tracking-tight text-amber-400">$409.17</div>
-                <span id="mainSdaChange" class="text-xs font-bold text-emerald-400">+1.25% ↑</span>
-            </div>
-            
-            <div class="flex justify-between items-center my-2 p-2.5 bg-slate-800/60 rounded-xl border border-slate-700/80">
-                <span class="text-xs font-bold text-slate-300">Số dư khả dụng / Bảo chứng:</span>
-                <strong class="text-emerald-400 font-mono text-sm font-extrabold">$680,000.00 USD</strong>
-            </div>
-
-            <div class="flex items-center gap-2 mb-2">
-                <span class="text-xs font-bold text-slate-300">Base pair:</span>
-                <select id="basePairSelect" class="bg-slate-800/80 border border-slate-700 text-amber-400 text-xs font-bold rounded-xl px-2.5 py-1 outline-none">
-                    <option value="SDA">SDA ▾</option>
-                    <option value="PI">PI ▾</option>
-                    <option value="USD">USD ▾</option>
+    <!-- SDA Card -->
+    <div class="sda-card">
+        <div class="sda-header">
+            <span class="sda-title">1 SDA (SidraChain Live)</span>
+            <span class="realtime-badge">● REALTIME POOL</span>
+        </div>
+        <div class="sda-price-row">
+            <span class="sda-price">$409.03</span>
+            <span class="sda-change">+1.25% ↑</span>
+        </div>
+        <div class="sda-balance-box">
+            <span class="sda-balance-label">Số dư khả dụng / Bảo chứng:</span>
+            <span class="sda-balance-value">2,500,000.00 USDT</span>
+        </div>
+        <div class="sda-footer">
+            <div class="base-pair-box">
+                <span>Base pair:</span>
+                <select class="base-select" onchange="openModal('Thay đổi cặp giao dịch')">
+                    <option>SDA ▼</option>
+                    <option>USDT</option>
+                    <option>PI</option>
                 </select>
             </div>
-
-            <p class="text-[10px] text-slate-400 leading-relaxed border-t border-slate-700/60 pt-2">
-                <i class="fa-solid fa-circle-info text-amber-400 mr-1"></i>
-                SDA/USD is calculated live from a curated stablecoin pool (currently sUSDT). Live ecosystem connection active.
-            </p>
         </div>
+        <div class="sda-note">
+            ℹ️ SDA/USD is calculated live from a curated stablecoin pool (currently sUSDT). Live ecosystem connection active.
+        </div>
+    </div>
 
-        <!-- KHUNG BIỂU ĐỒ NẾN SỐNG TRỰC QUAN -->
-        <div id="chartPanel" class="bg-white p-4 rounded-3xl border-2 border-amber-500 shadow-md space-y-3">
-            <div class="flex justify-between items-center border-b pb-2">
-                <div class="flex items-center gap-2">
-                    <img id="chartTokenIcon" src="https://cryptologos.cc/logos/bnb-bnb-logo.png?v=032" class="w-6 h-6 rounded-full border">
-                    <h3 class="font-extrabold text-xs text-slate-900 uppercase">BIỂU ĐỒ SỐNG: <span id="chartTokenPair" class="text-amber-600">REGS / SDA</span></h3>
+    <!-- Live Chart Card -->
+    <div class="chart-card">
+        <div class="chart-header">
+            <div class="chart-title-box">
+                <span>⚡</span>
+                <span>BIỂU ĐỒ SỐNG: PI / USD</span>
+            </div>
+            <div class="realtime-data-badge">
+                <div class="dot-live"></div> REALTIME DATA
+            </div>
+        </div>
+        <div class="chart-container">
+            <canvas id="liveChart"></canvas>
+        </div>
+        <div class="chart-footer">
+            <div class="realtime-price-info">
+                <span>Giá Realtime:</span>
+                <span>765.3450 USD</span>
+            </div>
+            <button class="trade-btn" onclick="openModal('Thực hiện Đặt Lệnh Sàn')">ĐẶT LỆNH SÀN</button>
+        </div>
+    </div>
+
+    <!-- Token List Section -->
+    <div class="token-section">
+        <div class="section-title">
+            <span>Danh Sách Token Lưu Hành</span>
+            <span style="font-size: 11px; color: #9ca3af; font-weight: normal;">Live Updates</span>
+        </div>
+        <div id="tokenList">
+            <!-- Token items will be injected or clicked -->
+            <div class="token-item" onclick="openModal('Chi tiết token REGS')">
+                <div class="token-left">
+                    <div class="token-icon" style="background:#1e3a8a; color:#60a5fa;">R</div>
+                    <div class="token-info">
+                        <h4>REGS / SDA</h4>
+                        <p>REGs Global</p>
+                    </div>
                 </div>
-                <div class="flex items-center gap-1.5">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                    <span class="text-[10px] font-bold text-slate-500">REALTIME DATA</span>
-                </div>
-            </div>
-            
-            <div class="h-48 w-full">
-                <canvas id="liveChart"></canvas>
-            </div>
-
-            <div class="flex justify-between items-center pt-2 border-t text-xs font-bold">
-                <span class="text-slate-500">Giá Realtime: <strong id="chartLivePrice" class="text-slate-900 font-mono text-sm">2.5103 SDA</strong></span>
-                <button onclick="openModal('walletModal')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-1.5 rounded-xl text-xs font-extrabold shadow-xs transition">ĐẶT LỆNH SÀN</button>
-            </div>
-        </div>
-
-        <!-- PROGRESS SCANNER BAR -->
-        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs space-y-2">
-            <div class="flex justify-between text-xs font-bold text-slate-700 font-mono">
-                <span id="scanProgressText">Scanning 40 / 89</span>
-                <span id="scanPercentText" class="text-amber-600">45%</span>
-            </div>
-            <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
-                <div id="scanProgressBar" class="bg-gradient-to-r from-amber-500 to-rose-500 h-full rounded-full transition-all duration-300" style="width: 45%"></div>
-            </div>
-            <button onclick="toggleScan()" id="scanBtn" class="w-full mt-1 border border-rose-300 text-rose-600 hover:bg-rose-50 font-bold py-2 rounded-xl text-xs transition">
-                Stop scan
-            </button>
-        </div>
-
-        <!-- SEARCH BAR -->
-        <div class="relative">
-            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-slate-400 text-xs"></i>
-            <input type="text" id="tokenSearch" onkeyup="searchTokens()" placeholder="Search token, e.g. SDA, REGS, PI, TKC..." class="w-full bg-white border border-slate-200 rounded-2xl pl-9 pr-4 py-2.5 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500 shadow-2xs">
-        </div>
-
-        <!-- VIBRANT COLOR BUTTONS -->
-        <div class="flex gap-2 overflow-x-auto pb-1 text-xs font-extrabold whitespace-nowrap">
-            <button onclick="filterTokens('ALL')" class="bg-amber-500 text-white px-4 py-2 rounded-xl shadow-xs">Tất Cả Token</button>
-            <button onclick="filterTokens('SIDRA')" class="bg-emerald-600 text-white px-4 py-2 rounded-xl shadow-xs">SidraChain</button>
-            <button onclick="filterTokens('PI')" class="bg-purple-600 text-white px-4 py-2 rounded-xl shadow-xs">Pi Network</button>
-            <button onclick="filterTokens('GAINERS')" class="bg-blue-600 text-white px-4 py-2 rounded-xl shadow-xs">Gainers</button>
-            <button onclick="filterTokens('RWA')" class="bg-rose-600 text-white px-4 py-2 rounded-xl shadow-xs"><i class="fa-solid fa-globe mr-1"></i> Global RWA</button>
-        </div>
-
-        <!-- TOKEN LISTINGS (ĐẦY ĐỦ TOKEN CẢ 2 HỆ - TĨNH DỊU MẮT KHÔNG CHỚP MÀU) -->
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden">
-            <div class="flex justify-between items-center p-3 text-[11px] font-bold text-slate-400 border-b border-slate-100">
-                <span>Token SidraChain & Pi Ecosystem</span>
-                <span>Price Realtime ↓</span>
-            </div>
-
-            <div id="tokenContainer" class="divide-y divide-slate-100 text-xs">
-                <!-- Data Rendered via JavaScript -->
-            </div>
-        </div>
-    </main>
-
-    <!-- WALLET MODAL -->
-    <div id="walletModal" class="fixed inset-0 bg-slate-900/60 z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-3xl max-w-sm w-full p-5 relative shadow-2xl text-xs space-y-4">
-            <button onclick="closeModal('walletModal')" class="absolute top-4 right-4 text-slate-400"><i class="fa-solid fa-xmark text-lg"></i></button>
-            
-            <div class="flex items-center gap-3 border-b pb-3">
-                <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 font-black flex items-center justify-center text-sm border border-emerald-300">
-                    BP
-                </div>
-                <div>
-                    <h3 class="font-extrabold text-slate-900 text-sm">Bảo Pi (@Abao1985)</h3>
-                    <span class="bg-emerald-100 text-emerald-800 text-[9px] px-2 py-0.5 rounded-full font-bold">✓ KYC MAINNET VERIFIED</span>
+                <div class="token-right">
+                    <div class="token-price">2.5103 SDA</div>
+                    <div class="token-change up">+3.4%</div>
                 </div>
             </div>
-
-            <div class="bg-slate-50 p-3 rounded-2xl border border-slate-200 space-y-2 font-mono">
-                <div class="text-[10px] text-slate-400 font-sans font-bold">ĐỊA CHỈ VÍ ĐÃ LIÊN KẾT:</div>
-                <div class="text-[11px] font-bold text-slate-800 break-all">0xa6Bb6...97ED1</div>
-                <div class="text-[10px] text-amber-600 font-sans font-bold pt-1 border-t border-slate-200 flex justify-between">
-                    <span>Số Dư Tài Khoản:</span>
-                    <strong class="text-emerald-700 font-extrabold text-sm">$680,000.00 USD</strong>
+            <div class="token-item" onclick="openModal('Chi tiết token GLNs')">
+                <div class="token-left">
+                    <div class="token-icon" style="background:#065f46; color:#34d399;">G</div>
+                    <div class="token-info">
+                        <h4>GLNs / SDA</h4>
+                        <p>Global Logistics Net...</p>
+                    </div>
+                </div>
+                <div class="token-right">
+                    <div class="token-price">1.9997 SDA</div>
+                    <div class="token-change up">+1.2%</div>
                 </div>
             </div>
-
-            <div class="grid grid-cols-2 gap-2 font-bold">
-                <button onclick="showToast('Đang mở cổng Nạp...')" class="bg-emerald-600 text-white py-2.5 rounded-xl">NẠP PI / COIN</button>
-                <button onclick="showToast('Đang kết nối cổng Rút...')" class="bg-slate-900 text-white py-2.5 rounded-xl">RÚT COIN</button>
+            <div class="token-item" onclick="openModal('Chi tiết token FREET')">
+                <div class="token-left">
+                    <div class="token-icon" style="background:#1e40af; color:#93c5fd;">F</div>
+                    <div class="token-info">
+                        <h4>FREET / SDA</h4>
+                        <p>Freelancium</p>
+                    </div>
+                </div>
+                <div class="token-right">
+                    <div class="token-price">1.5990 SDA</div>
+                    <div class="token-change down">-1.4%</div>
+                </div>
+            </div>
+            <div class="token-item" onclick="openModal('Chi tiết token AIR')">
+                <div class="token-left">
+                    <div class="token-icon" style="background:#374151; color:#e5e7eb;">A</div>
+                    <div class="token-info">
+                        <h4>AIR / SDA</h4>
+                        <p>AirLand</p>
+                    </div>
+                </div>
+                <div class="token-right">
+                    <div class="token-price">1.5272 SDA</div>
+                    <div class="token-change up">+0.3%</div>
+                </div>
+            </div>
+            <div class="token-item" onclick="openModal('Chi tiết token WSDA')">
+                <div class="token-left">
+                    <div class="token-icon" style="background:#78350f; color:#f59e0b;">W</div>
+                    <div class="token-info">
+                        <h4>WSDA / SDA</h4>
+                        <p>Wrapped SDA</p>
+                    </div>
+                </div>
+                <div class="token-right">
+                    <div class="token-price">1.0000 SDA</div>
+                    <div class="token-change up">1:1 pegged</div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- TOAST NOTIFICATION -->
-    <div id="toast" class="fixed bottom-4 right-4 bg-slate-900 text-white px-4 py-3 rounded-2xl text-xs z-50 transform translate-y-20 opacity-0 transition-all duration-300 font-bold shadow-2xl">
-        <span id="toastMsg">Thành công</span>
+    <!-- Modal Thông Báo Tương Tác -->
+    <div class="modal" id="actionModal">
+        <div class="modal-content">
+            <h3 id="modalTitle">Thông báo</h3>
+            <p id="modalDesc">Hệ thống hoạt động trơn tru.</p>
+            <button class="close-modal" onclick="closeModal()">Đóng</button>
+        </div>
     </div>
 
-    <!-- SCRIPT ENGINE CORE -->
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        let currentActiveSymbol = "REGS";
-
-        // DANH SÁCH TẤT CẢ TOKEN TỪ 2 HỆ SINH THÁI SIDRACHAIN & PI NETWORK
-        let tokens = [
-            { id: 1, symbol: "REGS", pair: "SDA", eco: "SIDRA", name: "REGs Global", price: 2.5103, usd: 1006.67, icon: "https://cryptologos.cc/logos/bnb-bnb-logo.png?v=032", status: "gain", chartData: [2.10, 2.25, 2.18, 2.35, 2.42, 2.5103] },
-            { id: 2, symbol: "GLNs", pair: "SDA", eco: "SIDRA", name: "Global Logistics Net...", price: 1.9997, usd: 801.93, icon: "https://cryptologos.cc/logos/chainlink-link-logo.png?v=032", status: "gain", chartData: [1.80, 1.85, 1.90, 1.88, 1.95, 1.9997] },
-            { id: 3, symbol: "FREET", pair: "SDA", eco: "SIDRA", name: "Freelancium", price: 1.5990, usd: 641.22, icon: "https://cryptologos.cc/logos/polygon-matic-logo.png?v=032", status: "lose", chartData: [1.75, 1.70, 1.68, 1.62, 1.60, 1.5990] },
-            { id: 4, symbol: "AIR", pair: "SDA", eco: "SIDRA", name: "AirLand Global", price: 1.5272, usd: 612.44, icon: "https://cryptologos.cc/logos/cardano-ada-logo.png?v=032", status: "gain", chartData: [1.30, 1.38, 1.42, 1.45, 1.50, 1.5272] },
-            { id: 5, symbol: "WSDA", pair: "SDA", eco: "SIDRA", name: "Wrapped SDA", price: 1.0000, usd: 409.17, icon: "https://cryptologos.cc/logos/tether-usdt-logo.png?v=032", status: "stable", chartData: [1.00, 1.00, 1.00, 1.00, 1.00, 1.0000] },
-            { id: 6, symbol: "SDA", pair: "USD", eco: "SIDRA", name: "Sidra Coin Native", price: 1.0000, usd: 409.17, icon: "https://cryptologos.cc/logos/xrp-xrp-logo.png?v=032", status: "gain", chartData: [400, 402, 405, 407, 408, 409.17] },
-            { id: 7, symbol: "PI", pair: "USD", eco: "PI", name: "Pi Network Global", price: 767.79, usd: 314159.00, icon: "https://cryptologos.cc/logos/ethereum-eth-logo.png?v=032", status: "gain", chartData: [300000, 305000, 310000, 308000, 312000, 314159] },
-            { id: 8, symbol: "TKC", pair: "USD", eco: "PI", name: "Tikcoin Global", price: 0.0020, usd: 0.85, icon: "https://cryptologos.cc/logos/solana-sol-logo.png?v=032", status: "gain", chartData: [0.70, 0.72, 0.78, 0.80, 0.82, 0.85] },
-            { id: 9, symbol: "G$", pair: "USD", eco: "PI", name: "GoodDollar Global", price: 0.000005, usd: 0.0021, icon: "https://cryptologos.cc/logos/uniswap-uni-logo.png?v=032", status: "gain", chartData: [0.0018, 0.0019, 0.0020, 0.0021, 0.0021, 0.0021] },
-            { id: 10, symbol: "BTC", pair: "USD", eco: "GLOBAL", name: "Bitcoin Global", price: 167.28, usd: 68450.00, icon: "https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=032", status: "gain", chartData: [67000, 67500, 68000, 68200, 68300, 68450] },
-            { id: 11, symbol: "ETH", pair: "USD", eco: "GLOBAL", name: "Ethereum Global", price: 8.60, usd: 3520.00, icon: "https://cryptologos.cc/logos/ethereum-eth-logo.png?v=032", status: "gain", chartData: [3400, 3450, 3480, 3500, 3510, 3520] }
-        ];
-
-        // KHỞI TẠO BIỂU ĐỒ
+        // Khởi tạo biểu đồ đường sống động
         const ctx = document.getElementById('liveChart').getContext('2d');
-        let myChart = new Chart(ctx, {
+        const liveChart = new Chart(ctx, {
             type: 'line',
             data: {
                 labels: ['15:00', '15:05', '15:10', '15:15', '15:20', 'Realtime'],
                 datasets: [{
-                    label: 'Sóng giá',
-                    data: [2.10, 2.25, 2.18, 2.35, 2.42, 2.5103],
-                    borderColor: '#10b981',
-                    backgroundColor: 'rgba(16, 185, 129, 0.12)',
+                    data: [300, 305, 310, 308, 312, 10],
+                    borderColor: '#34d399',
+                    backgroundColor: 'rgba(52, 211, 153, 0.1)',
                     borderWidth: 2.5,
                     fill: true,
-                    tension: 0.35,
-                    pointRadius: 4
+                    tension: 0.3,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#34d399'
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
+                plugins: {
+                    legend: { display: false }
+                },
                 scales: {
-                    x: { grid: { color: '#f1f5f9' }, ticks: { color: '#64748b', font: { size: 9, weight: 'bold' } } },
-                    y: { grid: { color: '#f1f5f9' }, ticks: { color: '#64748b', font: { size: 9, weight: 'bold' } } }
+                    y: {
+                        beginAtZero: true,
+                        max: 350,
+                        ticks: { stepSize: 50, font: { size: 10 }, color: '#9ca3af' },
+                        grid: { color: '#374151' }
+                    },
+                    x: {
+                        ticks: { font: { size: 10 }, color: '#9ca3af' },
+                        grid: { display: false }
+                    }
                 }
             }
         });
 
-        // HÀM RENDER TĨNH - KHÔNG BỊ CHỚP GIẬT MÀU
-        function renderTokens(data) {
-            const container = document.getElementById('tokenContainer');
-            container.innerHTML = '';
-            data.forEach((t, index) => {
-                const isGain = t.status === 'gain';
-                container.innerHTML += `
-                    <div class="p-3 flex justify-between items-center hover:bg-slate-50 transition cursor-pointer" onclick="selectTokenChart('${t.symbol}')">
-                        <div class="flex items-center gap-3">
-                            <span class="text-slate-400 font-bold text-[10px] w-3">${index + 1}</span>
-                            <img src="${t.icon}" class="w-8 h-8 rounded-full border border-slate-200 p-0.5 object-contain bg-white shadow-xs">
-                            <div>
-                                <div class="font-extrabold text-slate-900">${t.symbol} <span class="text-slate-400 text-[10px]">/ ${t.pair}</span></div>
-                                <div class="text-[10px] text-slate-400 font-medium">${t.name}</div>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <div class="font-extrabold font-mono text-xs text-slate-900">${t.price.toFixed(4)} ${t.pair}</div>
-                            <div class="text-[10px] ${isGain ? 'text-emerald-600 font-bold' : 'text-slate-500 font-medium'}">$${t.usd.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</div>
-                        </div>
-                    </div>`;
-            });
+        // Hàm tương tác nút bấm
+        function openModal(actionName) {
+            document.getElementById('modalTitle').innerText = actionName;
+            document.getElementById('modalDesc').innerText = "Hệ thống Sidra DEX đã ghi nhận thao tác của bạn cho mục: " + actionName + ". Số dư ví hiện tại: 2,500,000 USDT.";
+            document.getElementById('actionModal').style.display = 'flex';
         }
 
-        renderTokens(tokens);
-
-        // REALTIME TICKER (SỐ GIÁ NHẢY MƯỢT ÊM ÁM, KHÔNG BỊ CHỚP CHỚP)
-        setInterval(() => {
-            let sdaDelta = (Math.random() - 0.48) * 0.4;
-            let currentSda = 409.17 + sdaDelta;
-            document.getElementById('mainSdaPrice').innerText = `$${currentSda.toFixed(2)}`;
-
-            tokens.forEach(t => {
-                let changePercent = (Math.random() - 0.48) * 0.005;
-                t.price = Math.max(0.0001, t.price * (1 + changePercent));
-                t.usd = t.symbol === 'PI' ? 314159 * (t.price / 767.79) : t.price * currentSda;
-                t.chartData[t.chartData.length - 1] = t.price;
-            });
-
-            renderTokens(tokens);
-
-            const activeToken = tokens.find(t => t.symbol === currentActiveSymbol);
-            if (activeToken) {
-                document.getElementById('chartLivePrice').innerText = `${activeToken.price.toFixed(4)} ${activeToken.pair}`;
-                myChart.data.datasets[0].data = activeToken.chartData;
-                myChart.update('none');
-            }
-        }, 2000);
-
-        function selectTokenChart(sym) {
-            currentActiveSymbol = sym;
-            const token = tokens.find(t => t.symbol === sym);
-            if(!token) return;
-
-            document.getElementById('chartTokenIcon').src = token.icon;
-            document.getElementById('chartTokenPair').innerText = `${token.symbol} / ${token.pair}`;
-            document.getElementById('chartLivePrice').innerText = `${token.price.toFixed(4)} ${token.pair}`;
-
-            myChart.data.datasets[0].data = token.chartData;
-            myChart.data.datasets[0].borderColor = '#10b981';
-            myChart.data.datasets[0].backgroundColor = 'rgba(16, 185, 129, 0.12)';
-            myChart.update();
-
-            document.getElementById('chartPanel').scrollIntoView({ behavior: 'smooth' });
-            showToast(`Đã hiển thị sóng giá Realtime của ${token.symbol}`);
-        }
-
-        function filterTokens(type) {
-            if(type === 'ALL') renderTokens(tokens);
-            else if(type === 'SIDRA') renderTokens(tokens.filter(t => t.eco === 'SIDRA'));
-            else if(type === 'PI') renderTokens(tokens.filter(t => t.eco === 'PI'));
-            else if(type === 'GAINERS') renderTokens(tokens.filter(t => t.status === 'gain'));
-            else { showToast('Đã lọc theo danh mục: ' + type); renderTokens(tokens); }
-        }
-
-        function searchTokens() {
-            const query = document.getElementById('tokenSearch').value.toUpperCase();
-            renderTokens(tokens.filter(t => t.symbol.includes(query) || t.name.toUpperCase().includes(query)));
-        }
-
-        let scanning = true;
-        function toggleScan() {
-            scanning = !scanning;
-            document.getElementById('scanBtn').innerText = scanning ? 'Stop scan' : 'Start scan';
-            showToast(scanning ? 'Đang tiếp tục quét Token Realtime...' : 'Đã dừng quét');
-        }
-
-        function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
-        function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
-        function showToast(msg) {
-            const t = document.getElementById('toast');
-            document.getElementById('toastMsg').innerText = msg;
-            t.classList.remove('translate-y-20', 'opacity-0');
-            setTimeout(() => t.classList.add('translate-y-20', 'opacity-0'), 3000);
+        function closeModal() {
+            document.getElementById('actionModal').style.display = 'none';
         }
     </script>
 </body>
