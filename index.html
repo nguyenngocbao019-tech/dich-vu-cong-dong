@@ -6,13 +6,15 @@
     <title>Sàn Kỹ Thuật Số & RWA - SidraChain & PI Ecosystem DEX</title>
     <style>
         :root {
-            --bg-color: #f8f9fa;
-            --card-bg: #ffffff;
-            --text-main: #111827;
-            --text-muted: #6b7280;
-            --primary: #059669;
-            --primary-dark: #047857;
-            --border-color: #e5e7eb;
+            --bg-color: #0b0f19;
+            --card-bg: #111827;
+            --border-color: #1f2937;
+            --accent-blue: #3b82f6;
+            --accent-blue-light: #60a5fa;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --green: #10b981;
+            --red: #ef4444;
         }
 
         * {
@@ -23,8 +25,8 @@
         }
 
         body {
-            background-color: #111827;
-            color: #f9fafb;
+            background-color: var(--bg-color);
+            color: var(--text-main);
             padding: 12px;
             max-width: 480px;
             margin: 0 auto;
@@ -36,10 +38,10 @@
             align-items: center;
             justify-content: space-between;
             margin-bottom: 14px;
-            background: #1f2937;
+            background: var(--card-bg);
             padding: 10px 14px;
             border-radius: 12px;
-            border: 1px solid #374151;
+            border: 1px solid var(--border-color);
         }
 
         .header-left {
@@ -53,7 +55,7 @@
             border: none;
             font-size: 20px;
             cursor: pointer;
-            color: #f9fafb;
+            color: var(--text-main);
         }
 
         .header-title-box {
@@ -66,7 +68,7 @@
             width: 28px;
             height: 28px;
             border-radius: 6px;
-            background: #374151;
+            background: #1e3a8a;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -76,7 +78,7 @@
         .header-title {
             font-size: 13px;
             font-weight: 700;
-            color: #f9fafb;
+            color: var(--text-main);
             white-space: nowrap;
         }
 
@@ -87,7 +89,7 @@
 
         .dropdown-arrow {
             font-size: 12px;
-            color: #9ca3af;
+            color: var(--text-muted);
             cursor: pointer;
         }
 
@@ -96,8 +98,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: #1f2937;
-            border: 1px solid #374151;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 10px 14px;
             margin-bottom: 14px;
@@ -112,7 +114,7 @@
         .network-globe {
             width: 36px;
             height: 36px;
-            background: rgba(251, 191, 36, 0.15);
+            background: rgba(59, 130, 246, 0.15);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -123,18 +125,18 @@
         .network-text h3 {
             font-size: 11px;
             font-weight: 800;
-            color: #f9fafb;
+            color: var(--text-main);
             letter-spacing: 0.3px;
         }
 
         .network-text p {
             font-size: 10px;
-            color: #9ca3af;
+            color: var(--accent-blue-light);
             margin-top: 2px;
         }
 
         .wallet-btn {
-            background: #059669;
+            background: var(--accent-blue);
             color: #ffffff;
             border: none;
             padding: 8px 12px;
@@ -143,21 +145,23 @@
             font-weight: 600;
             cursor: pointer;
             white-space: nowrap;
-            box-shadow: 0 2px 4px rgba(5, 150, 105, 0.3);
+            box-shadow: 0 2px 6px rgba(59, 130, 246, 0.4);
+            transition: background 0.2s;
         }
 
         .wallet-btn:hover {
-            background: #047857;
+            background: #2563eb;
         }
 
-        /* SDA Card (Dark) */
+        /* SDA Card */
         .sda-card {
-            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
             color: #ffffff;
-            border: 1px solid #374151;
+            border: 1px solid rgba(59, 130, 246, 0.3);
             border-radius: 16px;
             padding: 16px;
             margin-bottom: 14px;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.1);
         }
 
         .sda-header {
@@ -169,18 +173,18 @@
 
         .sda-title {
             font-size: 13px;
-            color: #9ca3af;
+            color: var(--text-muted);
             font-weight: 500;
         }
 
         .realtime-badge {
-            background: rgba(5, 150, 105, 0.2);
-            color: #34d399;
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--accent-blue-light);
             font-size: 10px;
             padding: 3px 8px;
             border-radius: 20px;
             font-weight: 600;
-            border: 1px solid rgba(52, 211, 153, 0.3);
+            border: 1px solid rgba(96, 165, 250, 0.4);
         }
 
         .sda-price-row {
@@ -193,13 +197,13 @@
         .sda-price {
             font-size: 26px;
             font-weight: 800;
-            color: #ffffff;
+            color: var(--text-main);
         }
 
         .sda-change {
             font-size: 13px;
             font-weight: 600;
-            color: #34d399;
+            color: var(--green);
         }
 
         .sda-balance-box {
@@ -215,13 +219,13 @@
 
         .sda-balance-label {
             font-size: 11px;
-            color: #9ca3af;
+            color: var(--text-muted);
         }
 
         .sda-balance-value {
             font-size: 14px;
             font-weight: 700;
-            color: #34d399;
+            color: var(--accent-blue-light);
             text-align: right;
         }
 
@@ -238,13 +242,13 @@
             align-items: center;
             gap: 6px;
             font-size: 12px;
-            color: #9ca3af;
+            color: var(--text-muted);
         }
 
         .base-select {
-            background: #374151;
+            background: #1e293b;
             color: #ffffff;
-            border: 1px solid #4b5563;
+            border: 1px solid #334155;
             padding: 4px 8px;
             border-radius: 6px;
             font-size: 12px;
@@ -253,10 +257,10 @@
 
         .sda-note {
             font-size: 10px;
-            color: #9ca3af;
+            color: var(--text-muted);
             line-height: 1.4;
-            background: rgba(217, 119, 6, 0.1);
-            border-left: 2px solid #f59e0b;
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 2px solid var(--accent-blue);
             padding: 6px 8px;
             border-radius: 0 6px 6px 0;
             margin-top: 10px;
@@ -264,11 +268,12 @@
 
         /* Live Chart Card */
         .chart-card {
-            background: #1f2937;
-            border: 2px solid #fef08a;
+            background: var(--card-bg);
+            border: 2px solid var(--accent-blue);
             border-radius: 16px;
             padding: 14px;
             margin-bottom: 14px;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.15);
         }
 
         .chart-header {
@@ -287,7 +292,7 @@
         .chart-title-box span {
             font-size: 13px;
             font-weight: 700;
-            color: #f9fafb;
+            color: var(--text-main);
         }
 
         .realtime-data-badge {
@@ -295,21 +300,21 @@
             align-items: center;
             gap: 4px;
             font-size: 10px;
-            color: #34d399;
+            color: var(--accent-blue-light);
             font-weight: 600;
         }
 
         .dot-live {
             width: 6px;
             height: 6px;
-            background: #34d399;
+            background: var(--accent-blue);
             border-radius: 50%;
             animation: pulse 1.5s infinite;
         }
 
         @keyframes pulse {
             0% { opacity: 1; }
-            50% { opacity: 0.4; }
+            50% { opacity: 0.3; }
             100% { opacity: 1; }
         }
 
@@ -324,24 +329,24 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-top: 1px solid #374151;
+            border-top: 1px solid var(--border-color);
             padding-top: 10px;
         }
 
         .realtime-price-info span:first-child {
             font-size: 11px;
-            color: #9ca3af;
+            color: var(--text-muted);
         }
 
         .realtime-price-info span:last-child {
             font-size: 14px;
             font-weight: 700;
-            color: #f9fafb;
+            color: var(--accent-blue-light);
             margin-left: 6px;
         }
 
         .trade-btn {
-            background: #059669;
+            background: var(--accent-blue);
             color: #ffffff;
             border: none;
             padding: 8px 14px;
@@ -349,17 +354,18 @@
             font-size: 12px;
             font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 2px 4px rgba(5, 150, 105, 0.3);
+            box-shadow: 0 2px 6px rgba(59, 130, 246, 0.4);
+            transition: background 0.2s;
         }
 
         .trade-btn:hover {
-            background: #047857;
+            background: #2563eb;
         }
 
         /* Token List Section */
         .token-section {
-            background: #1f2937;
-            border: 1px solid #374151;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 14px;
             margin-bottom: 14px;
@@ -368,7 +374,7 @@
         .section-title {
             font-size: 13px;
             font-weight: 700;
-            color: #f9fafb;
+            color: var(--text-main);
             margin-bottom: 12px;
             display: flex;
             align-items: center;
@@ -380,7 +386,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 10px 8px;
-            border-bottom: 1px solid #374151;
+            border-bottom: 1px solid var(--border-color);
             cursor: pointer;
             transition: background 0.2s;
             border-radius: 8px;
@@ -391,7 +397,7 @@
         }
 
         .token-item:hover {
-            background: rgba(255,255,255,0.03);
+            background: rgba(59, 130, 246, 0.08);
         }
 
         .token-left {
@@ -404,24 +410,25 @@
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            background: #374151;
+            background: rgba(59, 130, 246, 0.15);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: bold;
-            color: #34d399;
+            color: var(--accent-blue-light);
+            border: 1px solid rgba(59, 130, 246, 0.3);
         }
 
         .token-info h4 {
             font-size: 13px;
             font-weight: 700;
-            color: #f9fafb;
+            color: var(--text-main);
         }
 
         .token-info p {
             font-size: 11px;
-            color: #9ca3af;
+            color: var(--text-muted);
         }
 
         .token-right {
@@ -431,7 +438,7 @@
         .token-price {
             font-size: 13px;
             font-weight: 700;
-            color: #f9fafb;
+            color: var(--text-main);
         }
 
         .token-change {
@@ -439,15 +446,15 @@
             font-weight: 600;
         }
 
-        .token-change.up { color: #34d399; }
-        .token-change.down { color: #ef4444; }
+        .token-change.up { color: var(--green); }
+        .token-change.down { color: var(--red); }
 
         /* Modal Overlay */
         .modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.8);
             justify-content: center;
             align-items: center;
             z-index: 1000;
@@ -455,30 +462,31 @@
         }
 
         .modal-content {
-            background: #1f2937;
-            border: 1px solid #374151;
+            background: var(--card-bg);
+            border: 1px solid var(--accent-blue);
             width: 100%;
             max-width: 400px;
             border-radius: 16px;
             padding: 20px;
             text-align: center;
-            color: #f9fafb;
+            color: var(--text-main);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
         }
 
         .modal-content h3 {
             font-size: 16px;
             margin-bottom: 10px;
-            color: #f9fafb;
+            color: var(--accent-blue-light);
         }
 
         .modal-content p {
             font-size: 13px;
-            color: #9ca3af;
+            color: var(--text-muted);
             margin-bottom: 20px;
         }
 
         .close-modal {
-            background: #059669;
+            background: var(--accent-blue);
             color: #ffffff;
             border: none;
             padding: 8px 20px;
@@ -525,8 +533,8 @@
             <span class="realtime-badge">● REALTIME POOL</span>
         </div>
         <div class="sda-price-row">
-            <span class="sda-price">$409.03</span>
-            <span class="sda-change">+1.25% ↑</span>
+            <span class="sda-price" id="sdaMainPrice">$409.03</span>
+            <span class="sda-change" id="sdaChange">+1.25% ↑</span>
         </div>
         <div class="sda-balance-box">
             <span class="sda-balance-label">Số dư khả dụng / Bảo chứng:</span>
@@ -564,7 +572,7 @@
         <div class="chart-footer">
             <div class="realtime-price-info">
                 <span>Giá Realtime:</span>
-                <span>765.3450 USD</span>
+                <span id="realtimePiPrice">765.3450 USD</span>
             </div>
             <button class="trade-btn" onclick="openModal('Thực hiện Đặt Lệnh Sàn')">ĐẶT LỆNH SÀN</button>
         </div>
@@ -574,65 +582,64 @@
     <div class="token-section">
         <div class="section-title">
             <span>Danh Sách Token Lưu Hành</span>
-            <span style="font-size: 11px; color: #9ca3af; font-weight: normal;">Live Updates</span>
+            <span style="font-size: 11px; color: var(--accent-blue-light); font-weight: normal;">Live Updates 🟢</span>
         </div>
         <div id="tokenList">
-            <!-- Token items will be injected or clicked -->
             <div class="token-item" onclick="openModal('Chi tiết token REGS')">
                 <div class="token-left">
-                    <div class="token-icon" style="background:#1e3a8a; color:#60a5fa;">R</div>
+                    <div class="token-icon">R</div>
                     <div class="token-info">
                         <h4>REGS / SDA</h4>
                         <p>REGs Global</p>
                     </div>
                 </div>
                 <div class="token-right">
-                    <div class="token-price">2.5103 SDA</div>
+                    <div class="token-price" id="price-regs">2.5103 SDA</div>
                     <div class="token-change up">+3.4%</div>
                 </div>
             </div>
             <div class="token-item" onclick="openModal('Chi tiết token GLNs')">
                 <div class="token-left">
-                    <div class="token-icon" style="background:#065f46; color:#34d399;">G</div>
+                    <div class="token-icon">G</div>
                     <div class="token-info">
                         <h4>GLNs / SDA</h4>
-                        <p>Global Logistics Net...</p>
+                        <p>Global Logistics Net</p>
                     </div>
                 </div>
                 <div class="token-right">
-                    <div class="token-price">1.9997 SDA</div>
+                    <div class="token-price" id="price-glns">1.9997 SDA</div>
                     <div class="token-change up">+1.2%</div>
                 </div>
             </div>
             <div class="token-item" onclick="openModal('Chi tiết token FREET')">
                 <div class="token-left">
-                    <div class="token-icon" style="background:#1e40af; color:#93c5fd;">F</div>
+                    <div class="token-icon">F</div>
                     <div class="token-info">
                         <h4>FREET / SDA</h4>
                         <p>Freelancium</p>
                     </div>
                 </div>
                 <div class="token-right">
-                    <div class="token-price">1.5990 SDA</div>
+                    <div class="token-price" id="price-freet">1.5990 SDA</div>
                     <div class="token-change down">-1.4%</div>
                 </div>
             </div>
             <div class="token-item" onclick="openModal('Chi tiết token AIR')">
                 <div class="token-left">
-                    <div class="token-icon" style="background:#374151; color:#e5e7eb;">A</div>
+                    <div class="token-icon">A</div>
                     <div class="token-info">
                         <h4>AIR / SDA</h4>
                         <p>AirLand</p>
                     </div>
                 </div>
                 <div class="token-right">
-                    <div class="token-price">1.5272 SDA</div>
+                    <div class="token-price" id="price-air">1.5272 SDA</div>
                     <div class="token-change up">+0.3%</div>
                 </div>
             </div>
             <div class="token-item" onclick="openModal('Chi tiết token WSDA')">
                 <div class="token-left">
-                    <div class="token-icon" style="background:#78350f; color:#f59e0b;">W</div>
+                    <div class="token-icon">W</div>
                     <div class="token-info">
                         <h4>WSDA / SDA</h4>
                         <p>Wrapped SDA</p>
@@ -641,6 +648,71 @@
                 <div class="token-right">
                     <div class="token-price">1.0000 SDA</div>
                     <div class="token-change up">1:1 pegged</div>
+                </div>
+            </div>
+            <div class="token-item" onclick="openModal('Chi tiết token DBI')">
+                <div class="token-left">
+                    <div class="token-icon">D</div>
+                    <div class="token-info">
+                        <h4>DBI / SDA</h4>
+                        <p>Digital Banking Initiative</p>
+                    </div>
+                </div>
+                <div class="token-right">
+                    <div class="token-price" id="price-dbi">400.9953 SDA</div>
+                    <div class="token-change up">+0.1%</div>
+                </div>
+            </div>
+            <div class="token-item" onclick="openModal('Chi tiết token VPM')">
+                <div class="token-left">
+                    <div class="token-icon">V</div>
+                    <div class="token-info">
+                        <h4>VPM / SDA</h4>
+                        <p>VPM Ecosystem</p>
+                    </div>
+                </div>
+                <div class="token-right">
+                    <div class="token-price" id="price-vpm">0.9279 SDA</div>
+                    <div class="token-change down">-1.8%</div>
+                </div>
+            </div>
+            <div class="token-item" onclick="openModal('Chi tiết token FBAY')">
+                <div class="token-left">
+                    <div class="token-icon">FB</div>
+                    <div class="token-info">
+                        <h4>FBAY / SDA</h4>
+                        <p>Falconbay</p>
+                    </div>
+                </div>
+                <div class="token-right">
+                    <div class="token-price" id="price-fbay">0.8117 SDA</div>
+                    <div class="token-change up">+3.4%</div>
+                </div>
+            </div>
+            <div class="token-item" onclick="openModal('Chi tiết token SGWA')">
+                <div class="token-left">
+                    <div class="token-icon">SG</div>
+                    <div class="token-info">
+                        <h4>SGWA / SDA</h4>
+                        <p>Gemworld</p>
+                    </div>
+                </div>
+                <div class="token-right">
+                    <div class="token-price" id="price-sgwa">0.7142 SDA</div>
+                    <div class="token-change down">-2.7%</div>
+                </div>
+            </div>
+            <div class="token-item" onclick="openModal('Chi tiết token GPC')">
+                <div class="token-left">
+                    <div class="token-icon">GP</div>
+                    <div class="token-info">
+                        <h4>GPC / SDA</h4>
+                        <p>GLN Property Chain</p>
+                    </div>
+                </div>
+                <div class="token-right">
+                    <div class="token-price" id="price-gpc">0.6685 SDA</div>
+                    <div class="token-change up">+1.7%</div>
                 </div>
             </div>
         </div>
@@ -658,21 +730,21 @@
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Khởi tạo biểu đồ đường sống động
+        // Khởi tạo biểu đồ đường sống động với tông xanh dương
         const ctx = document.getElementById('liveChart').getContext('2d');
         const liveChart = new Chart(ctx, {
             type: 'line',
             data: {
                 labels: ['15:00', '15:05', '15:10', '15:15', '15:20', 'Realtime'],
                 datasets: [{
-                    data: [300, 305, 310, 308, 312, 10],
-                    borderColor: '#34d399',
-                    backgroundColor: 'rgba(52, 211, 153, 0.1)',
+                    data: [300, 305, 310, 308, 312, 409],
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59, 130, 246, 0.15)',
                     borderWidth: 2.5,
                     fill: true,
                     tension: 0.3,
                     pointRadius: 4,
-                    pointBackgroundColor: '#34d399'
+                    pointBackgroundColor: '#60a5fa'
                 }]
             },
             options: {
@@ -684,9 +756,9 @@
                 scales: {
                     y: {
                         beginAtZero: true,
-                        max: 350,
-                        ticks: { stepSize: 50, font: { size: 10 }, color: '#9ca3af' },
-                        grid: { color: '#374151' }
+                        max: 450,
+                        ticks: { stepSize: 100, font: { size: 10 }, color: '#9ca3af' },
+                        grid: { color: '#1f2937' }
                     },
                     x: {
                         ticks: { font: { size: 10 }, color: '#9ca3af' },
@@ -695,6 +767,29 @@
                 }
             }
         });
+
+        // Hàm nhảy số liệu thật (Realtime live updating simulation)
+        setInterval(() => {
+            // Biến động giá SDA quanh mốc 409
+            const sdaVariation = (Math.random() * 0.4 - 0.2).toFixed(2);
+            const newSdaPrice = (409.03 + parseFloat(sdaVariation)).toFixed(2);
+            document.getElementById('sdaMainPrice').innerText = '$' + newSdaPrice;
+
+            // Biến động giá PI realtime quanh mốc 765
+            const piVariation = (Math.random() * 0.8 - 0.4).toFixed(4);
+            const newPiPrice = (765.3450 + parseFloat(piVariation)).toFixed(4);
+            document.getElementById('realtimePiPrice').innerText = newPiPrice + ' USD';
+
+            // Biến động các token ngẫu nhiên
+            const regsVar = (Math.random() * 0.002 - 0.001).toFixed(4);
+            document.getElementById('price-regs').innerText = (2.5103 + parseFloat(regsVar)).toFixed(4) + ' SDA';
+
+            const dbiVar = (Math.random() * 0.02 - 0.01).toFixed(4);
+            document.getElementById('price-dbi').innerText = (400.9953 + parseFloat(dbiVar)).toFixed(4) + ' SDA';
+
+            const vpmVar = (Math.random() * 0.002 - 0.001).toFixed(4);
+            document.getElementById('price-vpm').innerText = (0.9279 + parseFloat(vpmVar)).toFixed(4) + ' SDA';
+        }, 2000);
 
         // Hàm tương tác nút bấm
         function openModal(actionName) {
