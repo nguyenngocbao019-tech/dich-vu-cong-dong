@@ -374,7 +374,7 @@
         
         <!-- Status Bar -->
         <div class="status-bar">
-            <span class="status-time" id="top-clock">09:11</span>
+            <span class="status-time" id="top-clock">00:00</span>
             <div>📶 🔋</div>
         </div>
 
@@ -392,9 +392,9 @@
             </button>
         </div>
 
-        <!-- Time -->
+        <!-- Time hiển thị thời gian thực -->
         <div class="local-time">
-            Giờ địa phương <strong id="live-time">00:00:00</strong> Ngày <strong id="live-date">Đang tải...</strong> <span style="font-size: 9px; color: #6b7280;">Asia/Saigon</span>
+            Giờ địa phương <strong id="live-time">00:00:00</strong> Ngày <strong id="live-date">...</strong> <span style="font-size: 9px; color: #6b7280;">Asia/Saigon</span>
         </div>
 
         <!-- Scrollable Content: Màn hình Ví -->
@@ -507,7 +507,7 @@
 
         </div>
 
-        <!-- Market Tab Content: DANH SÁCH COIN ĐẦY ĐỦ TRÊN THỊ TRƯỜNG -->
+        <!-- Market Tab Content -->
         <div class="content" id="view-market" style="display: none;">
             <h3 style="margin-top: 10px; font-size: 16px; font-weight: 700;">Thị trường Coin Thời Gian Thực</h3>
             <div class="coin-list">
@@ -656,7 +656,7 @@
             document.getElementById('modal').style.display = 'none';
         }
 
-        // Chức năng đổi ngôn ngữ
+        // Ngôn ngữ
         const languages = [
             { code: 'vi', flag: '🇻🇳', name: 'Tiếng Việt' },
             { code: 'en', flag: '🇺🇸', name: 'English' },
@@ -683,7 +683,7 @@
             hideModal();
         }
 
-        // Navigation Switcher (Ví / Thị trường)
+        // Switch Tab Ví / Thị trường
         function switchNav(type) {
             document.getElementById('view-wallet').style.display = type === 'wallet' ? 'flex' : 'none';
             document.getElementById('view-market').style.display = type === 'market' ? 'flex' : 'none';
@@ -692,13 +692,12 @@
             document.getElementById('nav-m').className = type === 'market' ? 'nav-btn active' : 'nav-btn';
         }
 
-        // Real-time Clock & Date chính xác theo thời gian thực
+        // Tự động tính toán Thứ & Ngày thực tế 100%
         const daysOfWeek = ['Chủ Nhật', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7'];
 
         function tick() {
             const d = new Date();
             
-            // Giờ
             const hours = String(d.getHours()).padStart(2, '0');
             const minutes = String(d.getMinutes()).padStart(2, '0');
             const seconds = String(d.getSeconds()).padStart(2, '0');
@@ -706,7 +705,6 @@
             document.getElementById('top-clock').innerText = `${hours}:${minutes}`;
             document.getElementById('live-time').innerText = `${hours}:${minutes}:${seconds}`;
 
-            // Ngày thực tế
             const dayName = daysOfWeek[d.getDay()];
             const dateNum = String(d.getDate()).padStart(2, '0');
             const monthNum = String(d.getMonth() + 1).padStart(2, '0');
