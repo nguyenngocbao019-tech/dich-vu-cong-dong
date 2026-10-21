@@ -4,160 +4,590 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Wallet Bảo Pi</title>
-    <!-- Lucide Icons & Tailwind CSS CDN -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
-        
         * {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: #0b0712;
-            color: #ffffff;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
         }
 
-        .bg-purple-card {
-            background: linear-gradient(135deg, rgba(58, 20, 89, 0.6) 0%, rgba(26, 10, 46, 0.8) 100%);
-            border: 1px solid rgba(147, 51, 234, 0.3);
+        .app-container {
+            width: 100%;
+            max-width: 450px;
+            background-color: #090510;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            padding-bottom: 75px;
+            border-left: 1px solid rgba(147, 51, 234, 0.2);
+            border-right: 1px solid rgba(147, 51, 234, 0.2);
+            overflow-x: hidden;
         }
 
-        .bg-btn-primary {
-            background: linear-gradient(90deg, #c026d3 0%, #7e22ce 100%);
+        /* Status & Header */
+        .status-bar {
+            padding: 10px 18px 4px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #a1a1aa;
+        }
+        .status-time { color: #fff; font-weight: 600; }
+
+        .header {
+            padding: 8px 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .avatar-bp {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f59e0b, #dc2626, #9333ea);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 16px;
+            color: #fef08a;
+            border: 1px solid rgba(251, 191, 36, 0.5);
+        }
+        .brand-title {
+            font-size: 18px;
+            font-weight: 800;
+            background: linear-gradient(to right, #fde047, #f87171, #d8b4fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .brand-sub {
+            font-size: 8px;
+            color: #fca5a5;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .bg-btn-dark {
-            background: rgba(30, 18, 51, 0.7);
-            border: 1px solid rgba(139, 92, 246, 0.2);
+        .lang-btn {
+            background: rgba(58, 20, 89, 0.6);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            color: #e4e4e7;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
         }
 
-        .hide-scrollbar::-webkit-scrollbar {
+        .local-time {
+            padding: 0 18px 10px;
+            font-size: 11px;
+            color: #9ca3af;
+        }
+        .local-time strong { color: #e5e7eb; }
+
+        /* Content Area */
+        .content {
+            flex: 1;
+            padding: 0 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            overflow-y: auto;
+        }
+
+        .wallet-select-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .wallet-chip {
+            background: rgba(88, 28, 135, 0.3);
+            border: 1px solid rgba(168, 85, 247, 0.25);
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 14px;
+            color: #f3e8ff;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+        .icon-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .icon-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(58, 20, 89, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            color: #d8b4fe;
+            font-size: 14px;
+        }
+
+        /* Asset Card */
+        .asset-card {
+            background: linear-gradient(135deg, rgba(67, 24, 102, 0.7) 0%, rgba(24, 9, 43, 0.9) 100%);
+            border: 1px solid rgba(168, 85, 247, 0.35);
+            border-radius: 20px;
+            padding: 18px;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        .card-label {
+            font-size: 13px;
+            color: #d1d5db;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .balance-val {
+            font-size: 26px;
+            font-weight: 800;
+            margin: 8px 0 2px;
+            color: #fff;
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+        }
+        .balance-val span { font-size: 16px; color: #c084fc; }
+        .card-sub { font-size: 10px; color: #9ca3af; }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 14px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(168, 85, 247, 0.2);
+        }
+        .connect-btn {
+            background: linear-gradient(90deg, #c026d3, #7e22ce);
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(192, 38, 211, 0.3);
+        }
+        .network-btn {
+            background: rgba(30, 12, 51, 0.8);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            color: #d1d5db;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        /* 4 Main Action Buttons */
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        .action-item {
+            background: rgba(30, 15, 53, 0.7);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 16px;
+            padding: 12px 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        .action-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(168, 85, 247, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #c084fc;
+            font-size: 16px;
+        }
+        .action-text { font-size: 11px; color: #e4e4e7; font-weight: 500; }
+
+        /* Banner Swap */
+        .swap-banner {
+            background: linear-gradient(90deg, rgba(88, 28, 135, 0.4), rgba(46, 16, 101, 0.6));
+            border: 1px solid rgba(168, 85, 247, 0.25);
+            border-radius: 16px;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        .swap-left { display: flex; align-items: center; gap: 12px; }
+        .swap-title { font-size: 13px; font-weight: 700; color: #fff; }
+        .swap-desc { font-size: 10px; color: #a1a1aa; }
+
+        /* Tabs & List */
+        .tab-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+            padding-bottom: 8px;
+        }
+        .tab-group { display: flex; gap: 20px; }
+        .tab-item { font-size: 13px; color: #a1a1aa; cursor: pointer; }
+        .tab-item.active { color: #fff; font-weight: 700; border-bottom: 2px solid #a855f7; padding-bottom: 6px; }
+
+        .coin-list { display: flex; flex-direction: column; }
+        .coin-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.1);
+            cursor: pointer;
+        }
+        .coin-left { display: flex; align-items: center; gap: 12px; }
+        .coin-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 14px;
+        }
+        .coin-name { font-size: 13px; font-weight: 700; color: #fff; }
+        .coin-amount { font-size: 10px; color: #a1a1aa; }
+        .coin-price { font-size: 13px; font-weight: 700; text-align: right; color: #fff; }
+        .coin-change { font-size: 10px; color: #4ade80; text-align: right; }
+
+        /* Bottom Fixed Nav */
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 65px;
+            background: rgba(12, 7, 21, 0.98);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(168, 85, 247, 0.25);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 100;
+        }
+        .nav-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            background: none;
+            border: none;
+            color: #71717a;
+            cursor: pointer;
+            font-size: 10px;
+        }
+        .nav-btn.active { color: #c084fc; font-weight: 700; }
+
+        /* Modal Pop-up */
+        .modal-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(4px);
+            z-index: 200;
             display: none;
+            align-items: flex-end;
         }
-        .hide-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        /* Animation cho Pop-up Modal */
-        .modal-enter {
-            animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        .modal-content {
+            width: 100%;
+            background: #180e2b;
+            border-top: 1px solid rgba(168, 85, 247, 0.4);
+            border-radius: 24px 24px 0 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            animation: slideUp 0.25s ease-out;
         }
         @keyframes slideUp {
-            from { transform: translateY(100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; }
+        .modal-title { font-size: 16px; font-weight: 700; color: #e9d5ff; }
+        .modal-close { background: none; border: none; color: #a1a1aa; font-size: 18px; cursor: pointer; }
+        .modal-body { font-size: 13px; color: #d1d5db; line-height: 1.5; }
+        .modal-btn {
+            background: linear-gradient(90deg, #c026d3, #7e22ce);
+            border: none;
+            color: #fff;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
         }
     </style>
 </head>
-<body class="flex justify-center min-h-screen bg-black">
+<body>
 
-    <!-- Container Mô Phỏng Màn Hình Điện Thoại -->
-    <div class="w-full max-w-md bg-[#090510] text-white flex flex-col min-h-screen relative pb-20 shadow-2xl overflow-hidden border-x border-purple-900/30">
+    <div class="app-container">
         
-        <!-- Status Bar & Top Info -->
-        <div class="px-5 pt-3 pb-1 flex justify-between items-center text-xs text-gray-400">
-            <span id="live-time-top" class="font-semibold text-white">09:11</span>
-            <div class="flex items-center space-x-1.5">
-                <i data-lucide="wifi" class="w-3.5 h-3.5"></i>
-                <i data-lucide="battery" class="w-4 h-4"></i>
-            </div>
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span class="status-time" id="top-clock">09:11</span>
+            <div>📶 🔋</div>
         </div>
 
-        <!-- Header: Logo & Chữ "Wallet Bảo Pi" -->
-        <div class="px-5 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <div class="relative">
-                    <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-500 via-red-600 to-purple-600 flex items-center justify-center shadow-lg shadow-red-900/30 border border-amber-400/50">
-                        <span class="text-xl font-black text-amber-200 tracking-tighter">BP</span>
-                    </div>
-                </div>
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-box">
+                <div class="avatar-bp">BP</div>
                 <div>
-                    <h1 class="text-xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-red-400 to-purple-300">
-                        Wallet Bảo Pi
-                    </h1>
-                    <p class="text-[9px] text-red-300/80 font-medium tracking-wide uppercase">Dedicated To Your Success</p>
+                    <div class="brand-title">Wallet Bảo Pi</div>
+                    <div class="brand-sub">Dedicated To Your Success</div>
                 </div>
             </div>
-
-            <!-- Nút chọn ngôn ngữ -->
-            <button onclick="openModal('Ngôn ngữ', 'Chức năng chuyển đổi ngôn ngữ đang hoạt động (Mặc định: Tiếng Việt)')" class="flex items-center space-x-1.5 bg-purple-950/60 border border-purple-500/30 rounded-full px-3 py-1 text-xs active:scale-95 transition">
-                <span class="text-xs">🇻🇳</span>
-                <span class="text-gray-200 font-medium text-[11px]">Tiếng Việt</span>
-                <i data-lucide="chevron-down" class="w-3 h-3 text-gray-400"></i>
+            <button class="lang-btn" onclick="showModal('Ngôn ngữ', 'Hệ thống đang chọn ngôn ngữ: <b>Tiếng Việt</b>')">
+                🇻🇳 <span>Tiếng Việt</span> ▾
             </button>
         </div>
 
-        <!-- Thời gian địa phương -->
-        <div class="px-5 pb-3 text-[11px] text-gray-400 flex items-center space-x-1">
-            <span>Giờ địa phương</span>
-            <span id="current-time" class="font-bold text-gray-200">21:14:33</span>
-            <span>Ngày</span>
-            <span id="current-date" class="font-bold text-gray-200">Thứ 3, 20/10/2026</span>
-            <span class="text-gray-500 text-[10px]">Asia/Saigon</span>
+        <!-- Time -->
+        <div class="local-time">
+            Giờ địa phương <strong id="live-time">21:14:33</strong> Ngày <strong id="live-date">Thứ 3, 20/10/2026</strong> <span style="font-size: 9px; color: #6b7280;">Asia/Saigon</span>
         </div>
 
-        <!-- TAB CONTENT 1: MÀN HÌNH VÍ -->
-        <main id="tab-wallet" class="flex-1 px-4 overflow-y-auto hide-scrollbar space-y-4">
+        <!-- Scrollable Content: Màn hình Ví -->
+        <div class="content" id="view-wallet">
             
-            <!-- Selector Ví Chính & Scanner -->
-            <div class="flex justify-between items-center py-1">
-                <button onclick="openModal('Chọn Ví', 'Danh sách ví khả dụng:<br>• <b>Ví chính (Bảo Pi)</b> - 2,500,000 USD<br>• Ví Phụ 01 - 0.00 USD')" class="flex items-center space-x-2 text-gray-200 font-bold text-base bg-purple-900/20 px-3 py-1.5 rounded-xl border border-purple-500/20 active:scale-95 transition">
-                    <i data-lucide="wallet" class="w-4 h-4 text-purple-400"></i>
-                    <span>Ví chính</span>
-                    <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400"></i>
-                </button>
-                <div class="flex items-center space-x-3">
-                    <button onclick="openModal('Tìm kiếm', 'Nhập mã token hoặc hợp đồng thông minh (Smart Contract)...')" class="p-2 text-gray-300 hover:text-white bg-purple-950/40 rounded-full active:scale-95 transition"><i data-lucide="search" class="w-4 h-4"></i></button>
-                    <button onclick="openModal('Quét mã QR', 'Đang bật Camera quét mã QR thanh toán...')" class="p-2 text-gray-300 hover:text-white bg-purple-950/40 rounded-full active:scale-95 transition"><i data-lucide="scan" class="w-4 h-4"></i></button>
+            <!-- Selector -->
+            <div class="wallet-select-row">
+                <div class="wallet-chip" onclick="showModal('Quản lý Ví', '• <b>Ví chính (Bảo Pi)</b>: 2,500,000.00 USD<br>• Trạng thái: Hoạt động bảo mật')">
+                    👛 <span>Ví chính</span> ▾
+                </div>
+                <div class="icon-actions">
+                    <button class="icon-btn" onclick="showModal('Tìm kiếm', 'Nhập tên token hoặc địa chỉ hợp đồng (Smart Contract)...')">🔍</button>
+                    <button class="icon-btn" onclick="showModal('Quét mã QR', 'Đang khởi động máy ảnh để quét mã QR thanh toán...')">📷</button>
                 </div>
             </div>
 
-            <!-- Thẻ Tổng Tài Sản -->
-            <div class="bg-purple-card rounded-2xl p-5 relative overflow-hidden shadow-xl border border-purple-500/30">
-                <div class="absolute -right-6 -top-6 w-32 h-32 rounded-full border border-purple-400/20 pointer-events-none"></div>
-                <div class="absolute -right-12 -top-12 w-44 h-44 rounded-full border border-purple-300/10 pointer-events-none"></div>
-                
-                <div class="flex justify-between items-center mb-1">
-                    <div class="flex items-center space-x-2 text-gray-300 text-sm">
-                        <span>Tổng tài sản</span>
-                        <button id="toggle-balance-btn" class="text-gray-400 hover:text-white">
-                            <i data-lucide="eye" id="eye-icon" class="w-4 h-4"></i>
-                        </button>
-                    </div>
+            <!-- Asset Card -->
+            <div class="asset-card">
+                <div class="card-label">
+                    Tổng tài sản
+                    <span id="eye-btn" style="cursor: pointer; margin-left: 6px;" onclick="toggleEye()">👁️</span>
                 </div>
-
-                <div class="my-2">
-                    <div id="balance-text" class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white flex items-baseline space-x-2">
-                        <span>2,500,000.00</span>
-                        <span class="text-lg font-bold text-purple-300">USD</span>
-                    </div>
-                    <p class="text-[11px] text-gray-400 mt-0.5">Ví đã kết nối bảo mật</p>
+                <div class="balance-val" id="balance-display">
+                    2,500,000.00 <span>USD</span>
                 </div>
+                <div class="card-sub">Ví đã kết nối bảo mật</div>
 
-                <div class="flex items-center justify-between pt-3 mt-2 border-t border-purple-500/20">
-                    <button onclick="openModal('Kết nối ví', 'Trạng thái: <b>Đã kết nối an toàn với Mainnet</b>')" class="bg-btn-primary hover:opacity-90 text-white font-semibold text-xs px-4 py-2 rounded-full flex items-center space-x-1.5 shadow-lg shadow-purple-900/50 active:scale-95 transition">
-                        <span>Kết nối ví</span>
-                        <i data-lucide="link-2" class="w-3.5 h-3.5"></i>
-                    </button>
-                    
-                    <button onclick="openModal('Chọn mạng', 'Mạng đang chọn: <b>Tất cả mạng (All Networks)</b><br>• Pi Network Mainnet<br>• BNB Smart Chain<br>• Ethereum')" class="bg-purple-950/80 border border-purple-500/30 text-gray-300 text-xs px-3 py-1.5 rounded-full flex items-center space-x-1 active:scale-95 transition">
-                        <span>Tất cả mạng</span>
-                        <i data-lucide="chevron-down" class="w-3 h-3 text-gray-400"></i>
-                    </button>
+                <div class="card-footer">
+                    <button class="connect-btn" onclick="showModal('Trạng thái Ví', 'Ví đã kết nối thành công với mạng lưới Mainnet bảo mật.')">Kết nối ví 🔗</button>
+                    <button class="network-btn" onclick="showModal('Chọn Mạng', 'Mạng hiện tại: <b>Tất cả mạng</b><br>• Pi Network Mainnet<br>• BNB Smart Chain<br>• Ethereum')">Tất cả mạng ▾</button>
                 </div>
             </div>
 
-            <!-- 4 Nút Thao Tác Nhanh -->
-            <div class="grid grid-cols-4 gap-2.5 pt-1">
-                <button onclick="openSendModal()" class="bg-btn-dark hover:bg-purple-900/40 p-3 rounded-2xl flex flex-col items-center justify-center space-y-1.5 active:scale-95 transition">
-                    <div class="w-8 h-8 rounded-full bg-purple-600/20 flex items-center justify-center text-purple-300">
-                        <i data-lucide="arrow-up" class="w-4 h-4"></i>
-                    </div>
-                    <span class="text-xs font-medium text-gray-200">Gửi</span>
-                </button>
+            <!-- 4 Main Action Buttons -->
+            <div class="actions-grid">
+                <div class="action-item" onclick="showModal('Gửi tiền', 'Nhập địa chỉ ví nhận:<br><input type=\'text\' placeholder=\'0x...\' style=\'width:100%; padding:10px; margin-top:8px; background:#2a1845; border:1px solid #a855f7; color:#fff; border-radius:8px; outline:none;\'>')">
+                    <div class="action-icon">⬆️</div>
+                    <div class="action-text">Gửi</div>
+                </div>
 
-                <button onclick="openReceiveModal()" class="bg-btn-dark hover:bg-purple-900/40 p-3 rounded-2xl flex flex-col items-center justify-center space-y-1.5 active:scale-95 transition">
-                    <div class="w-8 h-8 rounded-full bg-purple
+                <div class="action-item" onclick="showModal('Nhận tiền', 'Địa chỉ ví nhận tiền của bạn:<br><b style=\'color:#c084fc; word-break:break-all; display:block; margin-top:8px;\'>0x8a9F39E1B2C3D4E5F6A7B8C9D0E1F2A3</b>')">
+                    <div class="action-icon">⬇️</div>
+                    <div class="action-text">Nhận</div>
+                </div>
+
+                <div class="action-item" onclick="showModal('Hoán đổi (Swap)', 'Tính năng Hoán đổi token nhanh và tối ưu hóa phí gas.')">
+                    <div class="action-icon">🔄</div>
+                    <div class="action-text">Hoán đổi</div>
+                </div>
+
+                <div class="action-item" onclick="showModal('Tiện ích', '• Nạp/Rút Fiat<br>• Staking Nhận Lãi<br>• DApp Browser<br>• Cầu Nối Cross-chain')">
+                    <div class="action-icon">🎛️</div>
+                    <div class="action-text">Tiện ích</div>
+                </div>
+            </div>
+
+            <!-- Banner Swap -->
+            <div class="swap-banner" onclick="showModal('Hoán đổi nhanh', 'Chọn cặp giao dịch Swap nhanh hoặc Pro tùy chọn.')">
+                <div class="swap-left">
+                    <div style="font-size: 20px;">🔀</div>
+                    <div>
+                        <div class="swap-title">Hoán đổi</div>
+                        <div class="swap-desc">Swap nhanh · Pro tùy chọn</div>
+                    </div>
+                </div>
+                <div style="color: #a1a1aa;">›</div>
+            </div>
+
+            <!-- Asset List -->
+            <div>
+                <div class="tab-bar">
+                    <div class="tab-group">
+                        <div class="tab-item active">Tài sản</div>
+                        <div class="tab-item" onclick="showModal('NFT Collection', 'Hiện chưa có vật phẩm NFT nào trong ví này.')">NFT</div>
+                        <div class="tab-item" onclick="showModal('Sổ tài sản', 'Nhật ký lịch sử phân bổ tài sản của bạn.')">Sổ tài sản</div>
+                    </div>
+                    <div style="color: #c084fc; font-size: 18px; cursor: pointer;" onclick="showModal('Thêm Token', 'Nhập mã thông minh (Smart Contract) để thêm coin.')">➕</div>
+                </div>
+
+                <div class="coin-list">
+                    <div class="coin-row" onclick="showModal('Pi Network', 'Số dư: 10,000 PI<br>Giá hiện tại: $31.40<br>Tổng giá trị: $314,000.00 USD')">
+                        <div class="coin-left">
+                            <div class="coin-avatar" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b;">𝝅</div>
+                            <div>
+                                <div class="coin-name">Pi Network</div>
+                                <div class="coin-amount">10,000 PI</div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="coin-price">$31.40</div>
+                            <div class="coin-change">+5.2%</div>
+                        </div>
+                    </div>
+
+                    <div class="coin-row" onclick="showModal('Bitcoin', 'Số dư: 2.5 BTC<br>Giá hiện tại: $67,450.00<br>Tổng giá trị: $168,625.00 USD')">
+                        <div class="coin-left">
+                            <div class="coin-avatar" style="background: rgba(249, 115, 22, 0.2); color: #f97316;">₿</div>
+                            <div>
+                                <div class="coin-name">Bitcoin</div>
+                                <div class="coin-amount">2.5 BTC</div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="coin-price">$67,450.00</div>
+                            <div class="coin-change">+2.1%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Market Tab Content -->
+        <div class="content" id="view-market" style="display: none;">
+            <h3 style="margin-top: 10px; font-size: 16px; font-weight: 700;">Thị trường Coin Thời Gian Thực</h3>
+            <div class="coin-list">
+                <div class="coin-row" onclick="showModal('BTC / USDT', 'Biểu đồ giá Bitcoin theo thời gian thực.')">
+                    <div><b>BTC/USDT</b><br><small style="color:#aaa">Bitcoin</small></div>
+                    <div style="text-align:right"><b>$67,450.00</b><br><span style="color:#4ade80">+2.1%</span></div>
+                </div>
+                <div class="coin-row" onclick="showModal('ETH / USDT', 'Biểu đồ giá Ethereum theo thời gian thực.')">
+                    <div><b>ETH/USDT</b><br><small style="color:#aaa">Ethereum</small></div>
+                    <div style="text-align:right"><b>$3,520.00</b><br><span style="color:#4ade80">+1.8%</span></div>
+                </div>
+                <div class="coin-row" onclick="showModal('BNB / USDT', 'Biểu đồ giá BNB Chain theo thời gian thực.')">
+                    <div><b>BNB/USDT</b><br><small style="color:#aaa">BNB Chain</small></div>
+                    <div style="text-align:right"><b>$590.50</b><br><span style="color:#ef4444">-0.45%</span></div>
+                </div>
+                <div class="coin-row" onclick="showModal('PI / USDT', 'Biểu đồ giá Pi Network theo thời gian thực.')">
+                    <div><b>PI/USDT</b><br><small style="color:#aaa">Pi Network</small></div>
+                    <div style="text-align:right"><b>$31.40</b><br><span style="color:#4ade80">+5.2%</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fixed Bottom Nav -->
+        <div class="bottom-nav">
+            <button class="nav-btn active" id="nav-v" onclick="switchNav('wallet')">
+                <span style="font-size: 18px;">👛</span>
+                <span>Ví</span>
+            </button>
+            <button class="nav-btn" id="nav-m" onclick="switchNav('market')">
+                <span style="font-size: 18px;">📊</span>
+                <span>Thị trường</span>
+            </button>
+            <button class="nav-btn" onclick="showModal('Giao dịch', 'Màn hình Giao dịch P2P & DEX trực tuyến.')">
+                <span style="font-size: 18px;">🔄</span>
+                <span>Giao dịch</span>
+            </button>
+            <button class="nav-btn" onclick="showModal('Cá nhân', 'Tài khoản: <b>Bảo Pi</b><br>Bảo mật 2FA: Đã kích hoạt<br>Trạng thái: An toàn')">
+                <span style="font-size: 18px;">👤</span>
+                <span>Cá nhân</span>
+            </button>
+        </div>
+
+        <!-- Modal Pop-up Chung -->
+        <div class="modal-overlay" id="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title" id="m-title">Thông báo</div>
+                    <button class="modal-close" onclick="hideModal()">✕</button>
+                </div>
+                <div class="modal-body" id="m-body">Nội dung</div>
+                <button class="modal-btn" onclick="hideModal()">Đóng</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Toggle Balance ẩn/hiện số dư
+        let show = true;
+        function toggleEye() {
+            show = !show;
+            document.getElementById('balance-display').innerHTML = show ? '2,500,000.00 <span>USD</span>' : '••••••••••';
+            document.getElementById('eye-btn').innerText = show ? '👁️' : '🙈';
+        }
+
+        // Modal Controls
+        function showModal(title, html) {
+            document.getElementById('m-title').innerHTML = title;
+            document.getElementById('m-body').innerHTML = html;
+            document.getElementById('modal').style.display = 'flex';
+        }
+        function hideModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        // Navigation Switcher (Ví / Thị trường)
+        function switchNav(type) {
+            document.getElementById('view-wallet').style.display = type === 'wallet' ? 'flex' : 'none';
+            document.getElementById('view-market').style.display = type === 'market' ? 'flex' : 'none';
+            
+            document.getElementById('nav-v').className = type === 'wallet' ? 'nav-btn active' : 'nav-btn';
+            document.getElementById('nav-m').className = type === 'market' ? 'nav-btn active' : 'nav-btn';
+        }
+
+        // Real-time Clock
+        function tick() {
+            const d = new Date();
+            document.getElementById('top-clock').innerText = d.toTimeString().substring(0, 5);
+            document.getElementById('live-time').innerText = d.toTimeString().split(' ')[0];
+        }
+        setInterval(tick, 1000);
+        tick();
+    </script>
+</body>
+</html>
