@@ -286,7 +286,9 @@
         .coin-name { font-size: 13px; font-weight: 700; color: #fff; }
         .coin-amount { font-size: 10px; color: #a1a1aa; }
         .coin-price { font-size: 13px; font-weight: 700; text-align: right; color: #fff; }
-        .coin-change { font-size: 10px; color: #4ade80; text-align: right; }
+        .coin-change { font-size: 10px; text-align: right; }
+        .coin-change.up { color: #4ade80; }
+        .coin-change.down { color: #f87171; }
 
         /* Bottom Fixed Nav */
         .bottom-nav {
@@ -354,6 +356,16 @@
             font-weight: 700;
             cursor: pointer;
         }
+
+        .lang-item {
+            padding: 10px;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+        .lang-item:hover { background: rgba(168, 85, 247, 0.1); }
     </style>
 </head>
 <body>
@@ -375,14 +387,14 @@
                     <div class="brand-sub">Dedicated To Your Success</div>
                 </div>
             </div>
-            <button class="lang-btn" onclick="showModal('Ngôn ngữ', 'Hệ thống đang chọn ngôn ngữ: <b>Tiếng Việt</b>')">
-                🇻🇳 <span>Tiếng Việt</span> ▾
+            <button class="lang-btn" id="current-lang-btn" onclick="openLangModal()">
+                <span>🇻🇳</span> <span id="lang-label">Tiếng Việt</span> ▾
             </button>
         </div>
 
         <!-- Time -->
         <div class="local-time">
-            Giờ địa phương <strong id="live-time">21:14:33</strong> Ngày <strong id="live-date">Thứ 3, 20/10/2026</strong> <span style="font-size: 9px; color: #6b7280;">Asia/Saigon</span>
+            Giờ địa phương <strong id="live-time">00:00:00</strong> Ngày <strong id="live-date">Đang tải...</strong> <span style="font-size: 9px; color: #6b7280;">Asia/Saigon</span>
         </div>
 
         <!-- Scrollable Content: Màn hình Ví -->
@@ -473,7 +485,7 @@
                         </div>
                         <div>
                             <div class="coin-price">$31.40</div>
-                            <div class="coin-change">+5.2%</div>
+                            <div class="coin-change up">+5.2%</div>
                         </div>
                     </div>
 
@@ -487,7 +499,7 @@
                         </div>
                         <div>
                             <div class="coin-price">$67,450.00</div>
-                            <div class="coin-change">+2.1%</div>
+                            <div class="coin-change up">+2.1%</div>
                         </div>
                     </div>
                 </div>
@@ -495,26 +507,99 @@
 
         </div>
 
-        <!-- Market Tab Content -->
+        <!-- Market Tab Content: DANH SÁCH COIN ĐẦY ĐỦ TRÊN THỊ TRƯỜNG -->
         <div class="content" id="view-market" style="display: none;">
             <h3 style="margin-top: 10px; font-size: 16px; font-weight: 700;">Thị trường Coin Thời Gian Thực</h3>
             <div class="coin-list">
-                <div class="coin-row" onclick="showModal('BTC / USDT', 'Biểu đồ giá Bitcoin theo thời gian thực.')">
-                    <div><b>BTC/USDT</b><br><small style="color:#aaa">Bitcoin</small></div>
-                    <div style="text-align:right"><b>$67,450.00</b><br><span style="color:#4ade80">+2.1%</span></div>
+                
+                <div class="coin-row" onclick="showModal('BTC / USDT', 'Bitcoin Mainnet<br>Giá: $67,450.00<br>Khối lượng 24h: $38.5B')">
+                    <div class="coin-left">
+                        <div class="coin-avatar" style="background: rgba(249, 115, 22, 0.2); color: #f97316;">₿</div>
+                        <div><b>BTC/USDT</b><br><small style="color:#aaa">Bitcoin</small></div>
+                    </div>
+                    <div><div class="coin-price">$67,450.00</div><div class="coin-change up">+2.15%</div></div>
                 </div>
-                <div class="coin-row" onclick="showModal('ETH / USDT', 'Biểu đồ giá Ethereum theo thời gian thực.')">
-                    <div><b>ETH/USDT</b><br><small style="color:#aaa">Ethereum</small></div>
-                    <div style="text-align:right"><b>$3,520.00</b><br><span style="color:#4ade80">+1.8%</span></div>
+
+                <div class="coin-row" onclick="showModal('ETH / USDT', 'Ethereum Mainnet<br>Giá: $3,520.00<br>Khối lượng 24h: $19.2B')">
+                    <div class="coin-left">
+                        <div class="coin-avatar" style="background: rgba(99, 102, 241, 0.2); color: #818cf8;">Ξ</div>
+                        <div><b>ETH/USDT</b><br><small style="color:#aaa">Ethereum</small></div>
+                    </div>
+                    <div><div class="coin-price">$3,520.00</div><div class="coin-change up">+1.80%</div></div>
                 </div>
-                <div class="coin-row" onclick="showModal('BNB / USDT', 'Biểu đồ giá BNB Chain theo thời gian thực.')">
-                    <div><b>BNB/USDT</b><br><small style="color:#aaa">BNB Chain</small></div>
-                    <div style="text-align:right"><b>$590.50</b><br><span style="color:#ef4444">-0.45%</span></div>
+
+                <div class="coin-row" onclick="showModal('PI / USDT', 'Pi Network Mainnet<br>Giá: $31.40<br>Khối lượng 24h: $1.2B')">
+                    <div class="coin-left">
+                        <div class="coin-avatar" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b;">𝝅</div>
+                        <div><b>PI/USDT</b><br><small style="color:#aaa">Pi Network</small></div>
+                    </div>
+                    <div><div class="coin-price">$31.40</div><div class="coin-change up">+5.20%</div></div>
                 </div>
-                <div class="coin-row" onclick="showModal('PI / USDT', 'Biểu đồ giá Pi Network theo thời gian thực.')">
-                    <div><b>PI/USDT</b><br><small style="color:#aaa">Pi Network</small></div>
-                    <div style="text-align:right"><b>$31.40</b><br><span style="color:#4ade80">+5.2%</span></div>
+
+                <div class="coin-row" onclick="showModal('BNB / USDT', 'BNB Smart Chain<br>Giá: $590.50<br>Khối lượng 24h: $1.8B')">
+                    <div class="coin-left">
+                        <div class="coin-avatar" style="background: rgba(234, 179, 8, 0.2); color: #facc15;">🟡</div>
+                        <div><b>BNB/USDT</b><br><small style="color:#aaa">BNB Chain</small></div>
+                    </div>
+                    <div><div class="coin-price">$590.50</div><div class="coin-change down">-0.45%</div></div>
                 </div>
+
+                <div class="coin-row" onclick="showModal('SOL / USDT', 'Solana Network<br>Giá: $148.20<br>Khối lượng 24h: $3.1B')">
+                    <div class="coin-left">
+                        <div class="coin-avatar" style="background: rgba(168, 85, 247, 0.2); color: #c084fc;">◎</div>
+                        <div><b>SOL/USDT</b><br><small style="color:#aaa">Solana</small></div>
+                    </div>
+                    <div><div class="coin-price">$148.20</div><div class="coin-change up">+4.65%</div></div>
+                </div>
+
+                <div class="coin-row" onclick="showModal('XRP / USDT', 'Ripple Ledger<br>Giá: $0.58<br>Khối lượng 24h: $950M')">
+                    <div class="coin-left">
+                        <div class="coin-avatar" style="background: rgba(255, 255, 255, 0.15); color: #fff;">✕</div>
+                        <div><b>XRP/USDT</b><br><small style="color:#aaa">Ripple</small></div>
+                    </div>
+                    <div><div class="coin-price">$0.58</div><div class="coin-change up">+0.95%</div></div>
+                </div>
+
+                <div class="coin-row" onclick="showModal('ADA / USDT', 'Cardano Network<br>Giá: $0.38<br>Khối lượng 24h: $420M')">
+                    <div class="coin-left">
+                        <div class="coin-avatar" style="background: rgba(59, 130, 246, 0.2); color: #60a5fa;">₳</div>
+                        <div><b>ADA/USDT</b><br><small style="color:#aaa">Cardano</small></div>
+                    </div>
+                    <div><div class="coin-price">$0.38</div><div class="coin-change down">-1.12%</div></div>
+                </div>
+
+                <div class="coin-row" onclick="showModal('DOGE / USDT', 'Dogecoin Network<br>Giá: $0.12<br>Khối lượng 24h: $880M')">
+                    <div class="coin-left">
+                        <div class="coin-avatar" style="background: rgba(234, 179, 8, 0.2); color: #facc15;">Ð</div>
+                        <div><b>DOGE/USDT</b><br><small style="color:#aaa">Dogecoin</small></div>
+                    </div>
+                    <div><div class="coin-price">$0.12</div><div class="coin-change up">+3.10%</div></div>
+                </div>
+
+                <div class="coin-row" onclick="showModal('TON / USDT', 'Toncoin Network<br>Giá: $5.65<br>Khối lượng 24h: $650M')">
+                    <div class="coin-left">
+                        <div class="coin-avatar" style="background: rgba(14, 165, 233, 0.2); color: #38bdf8;">💎</div>
+                        <div><b>TON/USDT</b><br><small style="color:#aaa">Toncoin</small></div>
+                    </div>
+                    <div><div class="coin-price">$5.65</div><div class="coin-change up">+2.80%</div></div>
+                </div>
+
+                <div class="coin-row" onclick="showModal('AVAX / USDT', 'Avalanche C-Chain<br>Giá: $28.40<br>Khối lượng 24h: $390M')">
+                    <div class="coin-left">
+                        <div class="coin-avatar" style="background: rgba(239, 68, 68, 0.2); color: #f87171;">🔺</div>
+                        <div><b>AVAX/USDT</b><br><small style="color:#aaa">Avalanche</small></div>
+                    </div>
+                    <div><div class="coin-price">$28.40</div><div class="coin-change up">+1.40%</div></div>
+                </div>
+
+                <div class="coin-row" onclick="showModal('DOT / USDT', 'Polkadot Relay Chain<br>Giá: $4.85<br>Khối lượng 24h: $210M')">
+                    <div class="coin-left">
+                        <div class="coin-avatar" style="background: rgba(236, 72, 153, 0.2); color: #f472b6;">●</div>
+                        <div><b>DOT/USDT</b><br><small style="color:#aaa">Polkadot</small></div>
+                    </div>
+                    <div><div class="coin-price">$4.85</div><div class="coin-change down">-0.80%</div></div>
+                </div>
+
             </div>
         </div>
 
@@ -571,6 +656,33 @@
             document.getElementById('modal').style.display = 'none';
         }
 
+        // Chức năng đổi ngôn ngữ
+        const languages = [
+            { code: 'vi', flag: '🇻🇳', name: 'Tiếng Việt' },
+            { code: 'en', flag: '🇺🇸', name: 'English' },
+            { code: 'zh', flag: '🇨🇳', name: '中文 (Chinese)' },
+            { code: 'kr', flag: '🇰🇷', name: '한국어 (Korean)' },
+            { code: 'jp', flag: '🇯🇵', name: '日本語 (Japanese)' }
+        ];
+
+        function openLangModal() {
+            let listHtml = '<div style="display:flex; flex-direction:column; gap:6px;">';
+            languages.forEach(lang => {
+                listHtml += `
+                    <div class="lang-item" onclick="selectLang('${lang.flag}', '${lang.name}')">
+                        <span>${lang.flag}</span> <b>${lang.name}</b>
+                    </div>
+                `;
+            });
+            listHtml += '</div>';
+            showModal('Chọn Ngôn Ngữ', listHtml);
+        }
+
+        function selectLang(flag, name) {
+            document.getElementById('current-lang-btn').innerHTML = `<span>${flag}</span> <span id="lang-label">${name}</span> ▾`;
+            hideModal();
+        }
+
         // Navigation Switcher (Ví / Thị trường)
         function switchNav(type) {
             document.getElementById('view-wallet').style.display = type === 'wallet' ? 'flex' : 'none';
@@ -580,12 +692,29 @@
             document.getElementById('nav-m').className = type === 'market' ? 'nav-btn active' : 'nav-btn';
         }
 
-        // Real-time Clock
+        // Real-time Clock & Date chính xác theo thời gian thực
+        const daysOfWeek = ['Chủ Nhật', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7'];
+
         function tick() {
             const d = new Date();
-            document.getElementById('top-clock').innerText = d.toTimeString().substring(0, 5);
-            document.getElementById('live-time').innerText = d.toTimeString().split(' ')[0];
+            
+            // Giờ
+            const hours = String(d.getHours()).padStart(2, '0');
+            const minutes = String(d.getMinutes()).padStart(2, '0');
+            const seconds = String(d.getSeconds()).padStart(2, '0');
+            
+            document.getElementById('top-clock').innerText = `${hours}:${minutes}`;
+            document.getElementById('live-time').innerText = `${hours}:${minutes}:${seconds}`;
+
+            // Ngày thực tế
+            const dayName = daysOfWeek[d.getDay()];
+            const dateNum = String(d.getDate()).padStart(2, '0');
+            const monthNum = String(d.getMonth() + 1).padStart(2, '0');
+            const yearNum = d.getFullYear();
+
+            document.getElementById('live-date').innerText = `${dayName}, ${dateNum}/${monthNum}/${yearNum}`;
         }
+
         setInterval(tick, 1000);
         tick();
     </script>
