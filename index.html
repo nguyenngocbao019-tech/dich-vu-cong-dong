@@ -219,4 +219,231 @@
                         <div class="flex items-center space-x-3">
                             <div class="w-10 h-10 rounded-full bg-[#F7931A] text-white flex items-center justify-center p-2 shadow-sm">
                                 <svg viewBox="0 0 32 32" class="w-full h-full fill-white">
-                                    <path d="M23.189 14.022c0.314-2.096-1.285-3.22-3.473-3.973l0.709-2.846-1.728-0.431-0.69 2.77c-0.454-0.114-0.922-0.22-1.388-0.326l0.694-2.784-1.728-0.431-0.709 2.844c-0.376-0.086-0.746-0.17-1.106-0.258l0.002-0.008-2.385-0.596-0.46 1.846s1.283 0.294 1.257 0.312c0.701 0.175 0.828 0.643 0.807 1.013l-0.808 3.242c0.048 0.012 0.11 0.029 0.178 0.055l-0.183-0.045-1.134 4.548c-0.086 0.214-0.304 0.537-0.795 0.415 0.027 0.039-1.257-0.312-1.257-0.312l-0.86 1.986 2.25 0.562c0.418 0.105 0.828 0.214 1.235 0.318l-0.705 2.834 1.728 0.431 0.707-2.842c0.464 0.126 0.91
+                                    <path d="M23.189 14.022c0.314-2.096-1.285-3.22-3.473-3.973l0.709-2.846-1.728-0.431-0.69 2.77c-0.454-0.114-0.922-0.22-1.388-0.326l0.694-2.784-1.728-0.431-0.709 2.844c-0.376-0.086-0.746-0.17-1.106-0.258l0.002-0.008-2.385-0.596-0.46 1.846s1.283 0.294 1.257 0.312c0.701 0.175 0.828 0.643 0.807 1.013l-0.808 3.242c0.048 0.012 0.11 0.029 0.178 0.055l-0.183-0.045-1.134 4.548c-0.086 0.214-0.304 0.537-0.795 0.415 0.027 0.039-1.257-0.312-1.257-0.312l-0.86 1.986 2.25 0.562c0.418 0.105 0.828 0.214 1.235 0.318l-0.705 2.834 1.728 0.431 0.707-2.842c0.464 0.126 0.916 0.246 1.362 0.36l-0.692 2.782 1.728 0.431 0.711-2.854c2.924 0.553 5.122 0.33 6.045-2.33 0.745-2.128-0.037-3.354-1.571-4.152 1.118-0.257 1.958-0.988 2.183-2.502zM19.782 20.34c-0.404 1.624-3.138 0.746-4.022 0.526l0.718-2.882c0.884 0.221 3.731 0.658 3.304 2.356zM20.403 13.518c-0.37 1.488-2.646 0.732-3.388 0.547l0.649-2.604c0.742 0.185 3.12 0.534 2.739 2.057z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="font-bold text-sm text-gray-900">Bitcoin</div>
+                                <div class="text-xs text-gray-400 font-medium">BTC</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-bold text-sm text-gray-900">0.45 BTC</div>
+                            <div class="text-xs text-gray-400 font-medium" id="btc-price">$29,250.00 <span class="text-emerald-500 text-[10px]">+1.8%</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Ethereum (ETH) -->
+                    <div onclick="openModal('Ethereum (ETH)', 'Số dư: 2.15 ETH\nMạng lưới ERC-20')" class="flex items-center justify-between p-2.5 rounded-2xl hover:bg-slate-50 transition cursor-pointer active:bg-slate-100">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-[#627EEA] text-white flex items-center justify-center p-2.5 shadow-sm">
+                                <svg viewBox="0 0 784.37 1277.39" class="w-full h-full fill-white">
+                                    <path d="M392.07,0L383.5,28.1V870.54L392.07,879.1L784.13,650.54L392.07,0Z" fill-opacity="0.6"/>
+                                    <path d="M392.07,0L0,650.54L392.07,879.1V472.84V0Z"/>
+                                    <path d="M392.07,956.52L387.24,962.41V1273L392.07,1277.39L784.37,728.32L392.07,956.52Z" fill-opacity="0.6"/>
+                                    <path d="M392.07,1277.39V956.52L0,728.32L392.07,1277.39Z"/>
+                                    <path d="M392.07,879.1L784.13,650.54L392.07,472.84V879.1Z" fill-opacity="0.2"/>
+                                    <path d="M0,650.54L392.07,879.1V472.84L0,650.54Z" fill-opacity="0.6"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="font-bold text-sm text-gray-900">Ethereum</div>
+                                <div class="text-xs text-gray-400 font-medium">ETH</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-bold text-sm text-gray-900">2.15 ETH</div>
+                            <div class="text-xs text-gray-400 font-medium" id="eth-price">$5,590.00 <span class="text-red-500 text-[10px]">-0.4%</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Solana (SOL) -->
+                    <div onclick="openModal('Solana (SOL)', 'Số dư: 45.00 SOL\nTốc độ giao dịch cao trên mạng Solana.')" class="flex items-center justify-between p-2.5 rounded-2xl hover:bg-slate-50 transition cursor-pointer active:bg-slate-100">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-[#9945FF] to-[#14F195] text-white flex items-center justify-center font-bold shadow-sm">
+                                <i class="fa-solid fa-bolt text-lg"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-sm text-gray-900">Solana</div>
+                                <div class="text-xs text-gray-400 font-medium">SOL</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-bold text-sm text-gray-900">45.00 SOL</div>
+                            <div class="text-xs text-gray-400 font-medium">$6,750.00 <span class="text-emerald-500 text-[10px]">+3.2%</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Pi Network (PI) -->
+                    <div onclick="openModal('Pi Network (PI)', 'Số dư: 1,500.00 PI\nĐã di chuyển Mainnet thành công.')" class="flex items-center justify-between p-2.5 rounded-2xl hover:bg-slate-50 transition cursor-pointer active:bg-slate-100">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-[#800080] text-white flex items-center justify-center font-bold shadow-sm">
+                                <span class="font-black text-lg">Π</span>
+                            </div>
+                            <div>
+                                <div class="font-bold text-sm text-gray-900">Pi Network</div>
+                                <div class="text-xs text-gray-400 font-medium">PI</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-bold text-sm text-gray-900">1.500,00 PI</div>
+                            <div class="text-xs text-gray-400 font-medium">$450.00 <span class="text-emerald-500 text-[10px]">+1.5%</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Toncoin (TON) -->
+                    <div onclick="openModal('Toncoin (TON)', 'Số dư: 250.00 TON\nMạng The Open Network.')" class="flex items-center justify-between p-2.5 rounded-2xl hover:bg-slate-50 transition cursor-pointer active:bg-slate-100">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-[#0088CC] text-white flex items-center justify-center font-bold shadow-sm">
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-sm text-gray-900">Toncoin</div>
+                                <div class="text-xs text-gray-400 font-medium">TON</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-bold text-sm text-gray-900">250.00 TON</div>
+                            <div class="text-xs text-gray-400 font-medium">$1,375.00 <span class="text-emerald-500 text-[10px]">+0.8%</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Binance Coin (BNB) -->
+                    <div onclick="openModal('BNB Coin (BNB)', 'Số dư: 5.80 BNB\nMạng BNB Smart Chain')" class="flex items-center justify-between p-2.5 rounded-2xl hover:bg-slate-50 transition cursor-pointer active:bg-slate-100">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-[#F3BA2F] text-white flex items-center justify-center text-sm font-bold shadow-sm">
+                                <i class="fa-solid fa-cube"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-sm text-gray-900">BNB</div>
+                                <div class="text-xs text-gray-400 font-medium">BNB</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-bold text-sm text-gray-900">5.80 BNB</div>
+                            <div class="text-xs text-gray-400 font-medium">$3,364.00 <span class="text-emerald-500 text-[10px]">+1.15%</span></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Thanh Điều Hướng Đáy (Bottom Navigation Bar) -->
+        <div class="absolute bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-100 px-4 py-2 flex justify-between items-center z-20">
+            
+            <button onclick="openModal('Trang Chủ Ví', 'Bạn đang ở màn hình chính của Bảo pi Wallet.')" class="flex flex-col items-center text-indigo-600 font-medium text-[10px]">
+                <i class="fa-solid fa-wallet text-lg mb-0.5"></i>
+                <span>Trang chủ</span>
+            </button>
+
+            <button onclick="openModal('Trình Duyệt DApp', 'Khám phá các ứng dụng tài chính phi tập trung (DeFi) Web3.')" class="flex flex-col items-center text-gray-400 hover:text-gray-600 font-medium text-[10px]">
+                <i class="fa-solid fa-compass text-lg mb-0.5"></i>
+                <span>DApp</span>
+            </button>
+
+            <!-- Nút Swap Trung Tâm -->
+            <button onclick="openModal('Giao Dịch Swap', 'Quy đổi trực tiếp USDT sang các đồng coin khác với mức trượt giá thấp nhất.')" class="w-12 h-12 rounded-full bg-indigo-600 text-white flex items-center justify-center text-lg shadow-lg shadow-indigo-300 -mt-5 hover:bg-indigo-700 transition active:scale-95">
+                <i class="fa-solid fa-right-left"></i>
+            </button>
+
+            <button onclick="openModal('Thẻ Ngân Hàng', 'Quản lý hạn mức chi tiêu thẻ Visa/Mastercard ảo toàn cầu.')" class="flex flex-col items-center text-gray-400 hover:text-gray-600 font-medium text-[10px]">
+                <i class="fa-solid fa-credit-card text-lg mb-0.5"></i>
+                <span>Thẻ</span>
+            </button>
+
+            <button onclick="openModal('Hồ Sơ Cá Nhân', 'Cài đặt tài khoản, xác thực danh tính KYC và bảo mật 2FA.')" class="flex flex-col items-center text-gray-400 hover:text-gray-600 font-medium text-[10px]">
+                <i class="fa-solid fa-user text-lg mb-0.5"></i>
+                <span>Hồ sơ</span>
+            </button>
+
+        </div>
+
+        <!-- Cửa Sổ Bật Lên Chi Tiết (Interactive Modal Window) -->
+        <div id="action-modal" class="hidden absolute inset-0 bg-black/60 z-50 flex items-end justify-center backdrop-blur-xs">
+            <div class="bg-white w-full rounded-t-3xl p-5 modal-animate shadow-2xl border-t border-gray-100 max-h-[80%] overflow-y-auto">
+                <div class="w-12 h-1.5 bg-gray-300 rounded-full mx-auto mb-4"></div>
+                <div class="flex justify-between items-center mb-3">
+                    <h2 id="modal-title" class="text-base font-bold text-gray-900">Tiêu đề</h2>
+                    <button onclick="closeModal()" class="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200">
+                        <i class="fa-solid fa-xmark text-sm"></i>
+                    </button>
+                </div>
+                <div id="modal-content" class="text-sm text-gray-600 whitespace-pre-line leading-relaxed mb-6 font-normal">
+                    Nội dung...
+                </div>
+                <button onclick="closeModal()" class="w-full py-3 bg-indigo-600 text-white font-bold text-sm rounded-xl hover:bg-indigo-700 transition active:scale-98">
+                    Đóng cửa sổ
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JavaScript Logic & Actions -->
+    <script>
+        // Cập nhật Đồng hồ và Ngày tháng Thời gian Thực
+        function updateDateTime() {
+            const now = new Date();
+            
+            // Giờ:Phút:Giây
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('realtime-clock').textContent = `${hours}:${minutes}:${seconds}`;
+
+            // Ngày tháng năm & Thứ bằng tiếng Việt
+            const days = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
+            const dayName = days[now.getDay()];
+            const date = String(now.getDate()).padStart(2, '0');
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const year = now.getFullYear();
+            
+            document.getElementById('realtime-date').textContent = `${dayName}, ${date}/${month}/${year}`;
+        }
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+
+        // Mở cửa sổ Pop-up
+        function openModal(title, content) {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-content').textContent = content;
+            document.getElementById('action-modal').classList.remove('hidden');
+        }
+
+        // Đóng cửa sổ Pop-up
+        function closeModal() {
+            document.getElementById('action-modal').classList.add('hidden');
+        }
+
+        // Sao chép địa chỉ ví
+        function copyWallet() {
+            navigator.clipboard.writeText('0xf96f30a911a8c982d513');
+            openModal('Đã sao chép!', 'Địa chỉ ví Bảo pi Wallet (0xf96f30a911a8c982d513) đã được lưu vào bộ nhớ tạm.');
+        }
+
+        // Giả lập biến động giá coin thời gian thực
+        function simulateMarket() {
+            const btcBase = 65000;
+            const ethBase = 2600;
+
+            setInterval(() => {
+                const btcDelta = (Math.random() - 0.48) * 120;
+                const ethDelta = (Math.random() - 0.48) * 12;
+
+                const currentBTC = (btcBase + btcDelta).toLocaleString('en-US', {maximumFractionDigits: 2});
+                const currentETH = (ethBase + ethDelta).toLocaleString('en-US', {maximumFractionDigits: 2});
+
+                const btcElem = document.getElementById('btc-price');
+                const ethElem = document.getElementById('eth-price');
+
+                if (btcElem) btcElem.innerHTML = `$${currentBTC} <span class="text-emerald-500 text-[10px]">+1.8%</span>`;
+                if (ethElem) ethElem.innerHTML = `$${currentETH} <span class="text-red-500 text-[10px]">-0.4%</span>`;
+            }, 3000);
+        }
+
+        simulateMarket();
+    </script>
+</body>
+</html>
