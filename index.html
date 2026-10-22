@@ -3,193 +3,175 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Crypto Wallet</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#0b1020;color:#f5f7ff;font-family:Arial,sans-serif}
-button,input,select{font:inherit}
-button{cursor:pointer}
-.app{max-width:440px;min-height:100vh;margin:auto;padding:22px 18px 90px;background:linear-gradient(160deg,#17264a,#0b1020 55%)}
+body{margin:0;background:#e7f3ff;color:#183657;font-family:Arial,sans-serif}
+button,input,select{font:inherit}button{cursor:pointer}
+.app{max-width:440px;min-height:100vh;margin:auto;padding:20px 17px 85px;background:linear-gradient(160deg,#fff,#d9edff)}
 .row{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.logo{font-size:22px;font-weight:bold}.logo span{color:#43e0ac}
-.avatar{padding:12px;background:#293858;border-radius:50%}
-.muted{color:#94a0bb;font-size:13px}
-.card{margin-top:25px;padding:23px;border-radius:23px;background:linear-gradient(130deg,#405fc1,#7950c8)}
-.balance{font-size:32px;font-weight:bold;margin:15px 0}
-.eye{background:#ffffff25;color:white;border:0;border-radius:8px;padding:7px}
-.green{color:#7df0c2;font-size:13px}
-.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:22px 0}
-.action{background:#182138;color:white;border:1px solid #2a3550;border-radius:15px;padding:14px 2px;font-size:12px}
-.action b{display:block;font-size:23px;color:#a5b6ff;margin-bottom:8px}
-h3{font-size:18px;margin:24px 0 12px}
-.coin{display:flex;align-items:center;gap:12px;padding:15px 0;border-bottom:1px solid #273047}
-.icon{width:43px;height:43px;border-radius:50%;display:grid;place-items:center;font-size:20px;font-weight:bold;flex-shrink:0}
-.info{flex:1}.name{font-weight:bold;margin-bottom:5px}
-.price{text-align:right;font-weight:bold}.up{color:#52dfa5;font-size:12px;margin-top:5px}
-.down{color:#ff8298;font-size:12px;margin-top:5px}
-.panel{background:#171f34;border:1px solid #29334d;border-radius:16px;padding:15px}
-.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:440px;display:flex;justify-content:space-around;background:#121a2df5;border-top:1px solid #29334d;padding:13px 2px 18px}
-.nav button{background:none;border:0;color:#9ba6bf;font-size:11px}
+.logo{font-size:22px;font-weight:bold}.logo span{color:#1687ed}
+.muted{color:#6985a4;font-size:12px;margin-top:5px}
+.connection{display:flex;align-items:center;gap:6px;padding:8px;background:white;border-radius:20px;font-size:11px;color:#13804d}
+.dot{width:8px;height:8px;background:#20c77a;border-radius:50%}
+.card{margin-top:22px;padding:23px;border-radius:22px;color:white;background:linear-gradient(130deg,#2388ee,#586be7);box-shadow:0 10px 25px #438bdf30}
+.balance{font-size:32px;font-weight:bold;margin:17px 0}
+.eye{background:#ffffff30;color:white;border:0;border-radius:8px;padding:7px}
+.green{color:#c9ffe7;font-size:13px}
+.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:20px 0}
+.action{background:white;color:#234467;border:1px solid #d7e8f8;border-radius:14px;padding:14px 2px;font-size:12px}
+.action b{display:block;font-size:22px;color:#2787ec;margin-bottom:8px}
+h3{font-size:17px;margin:23px 0 12px}
+.panel{background:white;border:1px solid #d8e8f7;border-radius:16px;padding:12px}
+.coin{display:flex;align-items:center;gap:11px;padding:14px 0;border-bottom:1px solid #e4eef8}
+.coin:last-child{border:0}
+.icon{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-size:21px;font-weight:bold;flex-shrink:0}
+.info{flex:1}.name{font-weight:bold;font-size:14px}
+.price{text-align:right;font-weight:bold;font-size:14px}
+.up{color:#159b68;font-size:12px;margin-top:5px}
+.down{color:#d94c67;font-size:12px;margin-top:5px}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:440px;display:flex;justify-content:space-around;background:#ffffffed;border-top:1px solid #d6e7f7;padding:12px 2px 17px}
+.nav button{background:none;border:0;color:#66809e;font-size:11px}
 .nav button span{display:block;font-size:21px;margin-bottom:5px}
-.nav button.active{color:#a5b7ff}
-.overlay{display:none;position:fixed;inset:0;background:#000b;z-index:5;align-items:flex-end;justify-content:center}
+.nav button.active{color:#1687ed}
+.overlay{display:none;position:fixed;inset:0;background:#17395b66;z-index:5;align-items:flex-end;justify-content:center}
 .overlay.show{display:flex}
-.modal{width:100%;max-width:440px;background:#19223a;border-radius:23px 23px 0 0;padding:23px 20px 30px}
-.close{background:#303c58;color:white;border:0;border-radius:9px;padding:9px 13px}
-label{display:block;color:#aab5cc;font-size:13px;margin-top:13px}
-input,select{width:100%;background:#0d1427;color:white;border:1px solid #34415e;border-radius:11px;padding:13px;margin-top:7px}
-.primary{width:100%;padding:15px;border:0;border-radius:12px;background:#43e0ac;color:#08251d;font-weight:bold;margin-top:18px}
-.note{color:#94a0bb;font-size:12px;line-height:1.5}
-.toast{display:none;position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#263653;padding:14px 18px;border-radius:12px;z-index:10;max-width:90%}
+.modal{width:100%;max-width:440px;background:#f7fbff;border-radius:23px 23px 0 0;padding:23px 20px 30px;color:#183657}
+.close{background:#e2effc;color:#244b70;border:0;border-radius:9px;padding:9px 13px}
+label{display:block;color:#547493;font-size:13px;margin-top:13px}
+input,select{width:100%;background:white;color:#183657;border:1px solid #cbdff2;border-radius:11px;padding:13px;margin-top:7px}
+.primary{width:100%;padding:15px;border:0;border-radius:12px;background:#2588ed;color:white;font-weight:bold;margin-top:18px}
+.note{color:#6c83a0;font-size:12px;line-height:1.5}
+.toast{display:none;position:fixed;top:18px;left:50%;transform:translateX(-50%);background:#17395b;color:white;padding:13px 17px;border-radius:12px;z-index:10;max-width:90%;font-size:13px}
 </style>
 </head>
 <body>
 <div class="app">
-  <header class="row">
-    <div class="logo">Crypto<span>Wallet</span></div>
-    <div class="avatar">👤</div>
-  </header>
+<header class="row">
+ <div>
+  <div class="logo">Crypto<span>Wallet</span></div>
+  <div id="clock" class="muted">--:--:--</div>
+  <div id="date" class="muted">Đang tải ngày...</div>
+ </div>
+ <div id="connection" class="connection"><span class="dot"></span> Đang kiểm tra</div>
+</header>
 
-  <section class="card">
-    <div class="row">
-      <span>✨ Tổng tài sản</span>
-      <button class="eye" onclick="toggleBalance()">◉</button>
-    </div>
-    <div class="balance" id="balance">$24,680.50</div>
-    <div class="green">▲ +5.29% hôm nay</div>
-    <p class="muted" style="color:#e2e6ff">Số dư ước tính · USD</p>
-  </section>
+<section class="card">
+ <div class="row"><span>✨ Tổng tài sản</span><button class="eye" onclick="toggleBalance()">◉</button></div>
+ <div id="balance" class="balance">$24,680.50</div>
+ <div class="green">▲ +5.29% hôm nay</div>
+ <p style="color:#e2eaff;font-size:12px">Số dư ước tính · USD</p>
+</section>
 
-  <section class="actions">
-    <button class="action" onclick="openModal('Nạp tiền')"><b>↓</b>Nạp</button>
-    <button class="action" onclick="openModal('Rút tiền')"><b>↑</b>Rút</button>
-    <button class="action" onclick="openModal('Gửi crypto')"><b>➤</b>Gửi</button>
-    <button class="action" onclick="openModal('Nhận crypto')"><b>▣</b>Nhận</button>
-  </section>
+<section class="actions">
+ <button class="action" onclick="openModal('Nạp tiền')"><b>↓</b>Nạp</button>
+ <button class="action" onclick="openModal('Rút tiền')"><b>↑</b>Rút</button>
+ <button class="action" onclick="openModal('Gửi crypto')"><b>➤</b>Gửi</button>
+ <button class="action" onclick="openModal('Nhận crypto')"><b>▣</b>Nhận</button>
+</section>
 
-  <div class="row"><h3>Tài sản của tôi</h3><span class="muted">3 coin</span></div>
-  <div class="panel" id="portfolio"></div>
-
-  <div class="row">
-    <h3>Thị trường</h3>
-    <button onclick="loadPrices()" style="background:none;color:#a5b7ff;border:0">↻ Làm mới</button>
-  </div>
-  <div id="market"></div>
-  <p class="note" id="status">Giá hiện tại đang dùng số liệu minh họa. Nhấn Làm mới để thử tải giá trực tuyến.</p>
+<div class="row"><h3>Tài sản của tôi</h3><span class="muted">3 loại coin</span></div>
+<div class="panel" id="portfolio"></div>
+<div class="row"><h3 id="marketTitle">Thị trường</h3><button onclick="loadPrices()" style="border:0;background:none;color:#1687ed">↻ Làm mới</button></div>
+<div id="market"></div>
+<p class="note" id="status">Giá coin ban đầu là số liệu minh họa.</p>
 </div>
 
 <nav class="nav">
-  <button class="active" onclick="go('Trang chủ')"><span>⌂</span>Trang chủ</button>
-  <button onclick="go('Thị trường')"><span>▥</span>Thị trường</button>
-  <button onclick="openModal('Giao dịch')"><span>⇄</span>Giao dịch</button>
-  <button onclick="openModal('Tài sản')"><span>▤</span>Tài sản</button>
-  <button onclick="openModal('Cài đặt')"><span>⚙</span>Cài đặt</button>
+<button class="active" onclick="go('home',this)"><span>⌂</span>Trang chủ</button>
+<button onclick="go('market',this)"><span>▥</span>Thị trường</button>
+<button onclick="openModal('Giao dịch')"><span>⇄</span>Giao dịch</button>
+<button onclick="openModal('Tài sản')"><span>▤</span>Tài sản</button>
+<button onclick="openModal('Cài đặt')"><span>⚙</span>Cài đặt</button>
 </nav>
 
 <div class="overlay" id="overlay" onclick="backdropClose(event)">
-  <section class="modal">
-    <div class="row">
-      <h3 id="modalTitle" style="margin:0 0 12px">Chức năng</h3>
-      <button class="close" onclick="closeModal()">✕</button>
-    </div>
-    <div id="modalBody"></div>
-  </section>
+<section class="modal">
+<div class="row"><h3 id="modalTitle" style="margin:0">Chức năng</h3><button class="close" onclick="closeModal()">✕</button></div>
+<div id="modalBody"></div>
+</section>
 </div>
 <div class="toast" id="toast"></div>
 
 <script>
 const coins=[
- {name:"Bitcoin",symbol:"BTC",icon:"₿",color:"#f7931a",price:67420,change:2.4,amount:0.25},
- {name:"Ethereum",symbol:"ETH",icon:"◆",color:"#627eea",price:3520,change:1.8,amount:2.4},
- {name:"Tether",symbol:"USDT",icon:"₮",color:"#26a17b",price:1,change:0.1,amount:850}
+{name:"Bitcoin",symbol:"BTC",icon:"₿",color:"#f7931a",price:67420,change:2.4,amount:.25},
+{name:"Ethereum",symbol:"ETH",icon:"◆",color:"#627eea",price:3520,change:1.8,amount:2.4},
+{name:"Tether",symbol:"USDT",icon:"₮",color:"#26a17b",price:1,change:.1,amount:850}
 ];
-let balanceVisible=true;
-
-function money(n){
- return n.toLocaleString("en-US",{style:"currency",currency:"USD",maximumFractionDigits:2});
+let visible=true;
+function money(n){return n.toLocaleString("en-US",{style:"currency",currency:"USD",maximumFractionDigits:2})}
+function toggleBalance(){visible=!visible;document.getElementById("balance").textContent=visible?"$24,680.50":"••••••••"}
+function updateClock(){
+const d=new Date();
+document.getElementById("clock").textContent=d.toLocaleTimeString("vi-VN",{timeZone:"Asia/Ho_Chi_Minh",hour12:false});
+document.getElementById("date").textContent=d.toLocaleDateString("vi-VN",{timeZone:"Asia/Ho_Chi_Minh",weekday:"long",day:"2-digit",month:"2-digit",year:"numeric"});
 }
-function toggleBalance(){
- balanceVisible=!balanceVisible;
- document.getElementById("balance").textContent=balanceVisible?"$24,680.50":"••••••••";
+function updateConnection(){
+const el=document.getElementById("connection");
+el.innerHTML=navigator.onLine?'<span class="dot"></span> Đã kết nối':'<span class="dot" style="background:#e34d59"></span> Mất kết nối';
+el.style.color=navigator.onLine?"#13804d":"#c52d3a";
 }
-function coinRow(c){
- return `<div class="coin">
- <div class="icon" style="background:${c.color}22;color:${c.color}">${c.icon}</div>
- <div class="info"><div class="name">${c.name}</div><div class="muted">${c.symbol}</div></div>
- <div class="price">${money(c.price)}<div class="${c.change<0?'down':'up'}">${c.change>=0?'+':''}${c.change}%</div></div>
- </div>`;
+function rowCoin(c,portfolio=false){
+return `<div class="coin"><div class="icon" style="background:${c.color}22;color:${c.color}">${c.icon}</div><div class="info"><div class="name">${c.name}</div><div class="muted">${portfolio?c.amount+" "+c.symbol:c.symbol}</div></div><div class="price">${money(portfolio?c.amount*c.price:c.price)}<div class="${c.change<0?"down":"up"}">${c.change>=0?"+":""}${c.change}%</div></div></div>`;
 }
 function render(){
- document.getElementById("portfolio").innerHTML=coins.map(c=>
- `<div class="coin">
- <div class="icon" style="background:${c.color}22;color:${c.color}">${c.icon}</div>
- <div class="info"><div class="name">${c.symbol}</div><div class="muted">${c.amount} ${c.symbol}</div></div>
- <div class="price">${money(c.amount*c.price)}</div>
- </div>`).join("");
- document.getElementById("market").innerHTML=coins.map(coinRow).join("");
+document.getElementById("portfolio").innerHTML=coins.map(c=>rowCoin(c,true)).join("");
+document.getElementById("market").innerHTML=coins.map(c=>rowCoin(c)).join("");
 }
 function openModal(title){
- document.getElementById("modalTitle").textContent=title;
- const body=document.getElementById("modalBody");
- if(title==="Cài đặt"){
- body.innerHTML=`<p>Giao diện CryptoWallet</p><button class="primary" onclick="showToast('Bạn đang dùng bản demo')">Thông tin ứng dụng</button>`;
- }else if(title==="Nhận crypto"){
- body.innerHTML=`<p>Địa chỉ ví demo của bạn:</p><input id="address" readonly value="0xDEMO123456789ABCDEF"><button class="primary" onclick="copyAddress()">Sao chép địa chỉ</button><p class="note">Đây là địa chỉ minh họa, không gửi tiền thật vào địa chỉ này.</p>`;
- }else{
- body.innerHTML=`<label>Loại tài sản</label>
- <select id="asset">${coins.map(c=>`<option value="${c.symbol}">${c.name} (${c.symbol})</option>`).join("")}</select>
- <label>Số lượng</label><input id="amount" type="number" min="0" step="any" placeholder="Nhập số lượng">
- <label>Địa chỉ ví / ghi chú</label><input id="destination" placeholder="Nhập thông tin (nếu cần)">
- <button class="primary" onclick="submitDemo('${title.replace(/'/g,"")}')">Xác nhận</button>
- <p class="note">Chức năng mô phỏng. Ứng dụng chưa kết nối blockchain và không thực hiện giao dịch thật.</p>`;
- }
- document.getElementById("overlay").classList.add("show");
+document.getElementById("modalTitle").textContent=title;
+const body=document.getElementById("modalBody");
+if(title==="Cài đặt"){
+body.innerHTML='<p>CryptoWallet · Phiên bản demo</p><p class="note">Ứng dụng giao diện mẫu, chưa kết nối tài khoản thật.</p>';
+}else if(title==="Nhận crypto"){
+body.innerHTML='<p>Địa chỉ ví demo:</p><input id="address" readonly value="0xDEMO123456789ABCDEF"><button class="primary" onclick="copyAddress()">Sao chép địa chỉ</button><p class="note">Đây không phải địa chỉ ví blockchain thật. Không gửi tiền vào địa chỉ này.</p>';
+}else{
+body.innerHTML=`<label>Loại coin</label><select id="asset">${coins.map(c=>`<option>${c.symbol}</option>`).join("")}</select><label>Số lượng</label><input id="amount" type="number" min="0" placeholder="Nhập số lượng"><label>Địa chỉ ví hoặc ghi chú</label><input id="destination" placeholder="Nhập thông tin nếu cần"><button class="primary" onclick="submitDemo('${title}')">Xác nhận</button><p class="note">Chỉ là mô phỏng giao diện. Chưa thực hiện giao dịch thật.</p>`;
+}
+document.getElementById("overlay").classList.add("show");
 }
 function closeModal(){document.getElementById("overlay").classList.remove("show")}
 function backdropClose(e){if(e.target.id==="overlay")closeModal()}
 function submitDemo(title){
- const amount=Number(document.getElementById("amount")?.value||0);
- if(amount<=0){showToast("Vui lòng nhập số lượng hợp lệ");return}
- closeModal();showToast(title+" demo đã được ghi nhận trên giao diện");
+const n=Number(document.getElementById("amount")?.value||0);
+if(n<=0){toast("Vui lòng nhập số lượng hợp lệ");return}
+closeModal();toast(title+" là chức năng demo, chưa gửi giao dịch thật.");
 }
 function copyAddress(){
- const input=document.getElementById("address");
- input.select();
- try{document.execCommand("copy");showToast("Đã sao chép địa chỉ demo")}
- catch(e){showToast("Hãy sao chép địa chỉ bằng cách chọn văn bản")}
+const el=document.getElementById("address");
+el.select();
+if(navigator.clipboard&&window.isSecureContext){
+navigator.clipboard.writeText(el.value).then(()=>toast("Đã sao chép địa chỉ demo")).catch(()=>toast("Hãy sao chép địa chỉ thủ công"));
+}else{document.execCommand("copy");toast("Đã sao chép địa chỉ demo")}
 }
-function showToast(msg){
- const el=document.getElementById("toast");
- el.textContent=msg;el.style.display="block";
- setTimeout(()=>el.style.display="none",2500);
+function toast(msg){
+const el=document.getElementById("toast");el.textContent=msg;el.style.display="block";
+setTimeout(()=>el.style.display="none",2500);
 }
-function go(name){
- if(name==="Thị trường"){
- document.getElementById("market").scrollIntoView({behavior:"smooth"});
- }else{
- window.scrollTo({top:0,behavior:"smooth"});
- }
+function go(where,btn){
+document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+btn.classList.add("active");
+if(where==="market")document.getElementById("marketTitle").scrollIntoView({behavior:"smooth",block:"start"});
+else window.scrollTo({top:0,behavior:"smooth"});
 }
 async function loadPrices(){
- const status=document.getElementById("status");
- status.textContent="Đang tải giá coin...";
- try{
- const response=await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,tether&vs_currencies=usd&include_24hr_change=true");
- if(!response.ok)throw new Error("Không tải được giá");
- const data=await response.json();
- const mapping={BTC:"bitcoin",ETH:"ethereum",USDT:"tether"};
- coins.forEach(c=>{
- const item=data[mapping[c.symbol]];
- if(item&&item.usd){c.price=item.usd;c.change=item.usd_24h_change||0}
- });
- render();
- status.textContent="Đã cập nhật giá trực tuyến. Giá có thể thay đổi liên tục.";
- }catch(e){
- status.textContent="Không tải được giá trực tuyến. Đang giữ số liệu demo; hãy thử lại sau.";
- }
+const status=document.getElementById("status");
+status.textContent="Đang tải giá trực tuyến...";
+try{
+const r=await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,tether&vs_currencies=usd&include_24hr_change=true");
+if(!r.ok)throw Error();
+const data=await r.json();
+const ids={BTC:"bitcoin",ETH:"ethereum",USDT:"tether"};
+coins.forEach(c=>{const x=data[ids[c.symbol]];if(x){c.price=x.usd;c.change=x.usd_24h_change||0}});
+render();status.textContent="Giá đã cập nhật từ CoinGecko.";
+}catch(e){status.textContent="Không tải được giá. Kiểm tra mạng rồi thử lại."}
 }
-render();
+updateClock();updateConnection();render();
+setInterval(updateClock,1000);
+window.addEventListener("online",updateConnection);
+window.addEventListener("offline",updateConnection);
 </script>
 </body>
 </html>
