@@ -1,4 +1,289 @@
-{
-  "language": "HTML",
-  "query": "Tạo giao diện ứng dụng ví tiền điện tử di động có tên Bảo pi Wallet với giao diện hiện đại giống ảnh chụp. Các tính năng: Tổng số dư 89.750,00 USDT, thanh trạng thái hiển thị giờ và ngày tháng thực tế, nút Kết nối ví màu xanh lá, đầy đủ logo SVG chuẩn của các đồng coin (USDT, BTC, ETH, SOL, PI, TON, BNB), các nút chức năng Gửi, Nhận, Livestream, Stake, Thêm, thẻ Visa Bảo Pi, và tất cả các nút bấm, tab, dòng coin đều bấm mở được cửa sổ Modal popup chi tiết."
-}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bảo pi Wallet</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0f172a;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .app-header-bg {
+            background: linear-gradient(180deg, #4f46e5 0%, #6366f1 40%, #818cf8 75%, #f8fafc 100%);
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .modal-animate { animation: slideUp 0.2s ease-out forwards; }
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="flex justify-center items-center min-h-screen p-0 sm:p-4">
+
+    <!-- Container Giao diện Ví -->
+    <div class="w-full max-w-md h-[100vh] sm:h-[880px] bg-slate-50 flex flex-col relative overflow-hidden shadow-2xl sm:rounded-[36px] border-gray-800">
+        
+        <!-- Thanh trạng thái & Thời gian thực -->
+        <div class="app-header-bg pt-3 px-5 pb-2 text-white flex justify-between items-center text-xs font-semibold z-10">
+            <span id="realtime-clock" class="font-mono">12:48:00</span>
+            <span id="realtime-date" class="text-[11px] opacity-90">Thứ Năm, 22/10/2026</span>
+            <div class="flex items-center space-x-1.5">
+                <i class="fa-solid fa-signal text-[10px]"></i>
+                <span class="text-[10px] bg-white/20 px-1 rounded font-mono">5G</span>
+                <i class="fa-solid fa-battery-full text-sm"></i>
+            </div>
+        </div>
+
+        <!-- Nội dung chính -->
+        <div class="flex-1 overflow-y-auto hide-scrollbar pb-24 app-header-bg">
+            
+            <!-- Top bar -->
+            <div class="px-4 py-2 flex justify-between items-center text-white">
+                <button data-modal-title="Quét Mã QR" data-modal-desc="Mở camera để quét mã QR thanh toán hoặc kết nối dApp." class="clickable-btn p-2 hover:bg-white/10 rounded-full transition">
+                    <i class="fa-solid fa-qrcode text-xl"></i>
+                </button>
+                <div class="bg-black/20 p-1 rounded-full flex items-center space-x-1 border border-white/10">
+                    <button data-modal-title="Chế Độ App" data-modal-desc="Đang chuyển đổi sang trình duyệt ứng dụng phi tập trung DApp." class="clickable-btn px-3 py-1 text-xs text-gray-200 rounded-full font-medium">App</button>
+                    <button data-modal-title="Chế Độ Wallet" data-modal-desc="Đang ở giao diện ví tài sản Bảo pi Wallet." class="clickable-btn px-3 py-1 text-xs bg-white text-indigo-900 rounded-full font-bold shadow-sm">Wallet</button>
+                </div>
+                <button data-modal-title="Cài Đặt Bảo Mật" data-modal-desc="Quản lý khóa riêng tư (Private Key) và bảo mật ví." class="clickable-btn p-2 hover:bg-white/10 rounded-full transition">
+                    <i class="fa-solid fa-gear text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Tên ví & Nút Kết nối ví -->
+            <div class="px-5 mt-2 flex justify-between items-center text-white">
+                <div data-modal-title="Quản Lý Tài Khoản Ví" data-modal-desc="• Bảo pi Wallet - Tài khoản #1 (Chính)&#10;• Ví phụ lưu trữ mạng lưới Pi Network & EVM" class="clickable-btn flex items-center space-x-3 cursor-pointer p-1 rounded-xl hover:bg-white/10 transition">
+                    <div class="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center font-bold text-lg border-2 border-white/40 shadow">
+                        <i class="fa-solid fa-shield-cat"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center space-x-1 font-bold text-sm">
+                            <span>Bảo pi Wallet</span>
+                            <i class="fa-solid fa-chevron-down text-xs opacity-70"></i>
+                        </div>
+                        <div class="text-xs text-indigo-100 font-mono tracking-tight opacity-90">0xf96f...d513</div>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-2">
+                    <button id="copy-wallet-btn" class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition text-white" title="Sao chép ví">
+                        <i class="fa-regular fa-copy text-xs"></i>
+                    </button>
+                    <button data-modal-title="Trạng Thái Kết Nối Ví" data-modal-desc="Ví Bảo pi Wallet đã được kết nối an toàn với mạng Web3 chính thức qua cổng bảo mật mã hóa." class="clickable-btn px-3 py-1.5 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs shadow-md transition flex items-center space-x-1">
+                        <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+                        <span>Kết nối ví</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tổng số dư 89.750 USDT -->
+            <div data-modal-title="Chi Tiết Tài Sản Tổng" data-modal-desc="• Tether USD (USDT): 89.750,00&#10;• Bitcoin (BTC): 0.45&#10;• Ethereum (ETH): 2.15&#10;• Pi Network (PI): 1,500.00" class="clickable-btn px-5 mt-6 text-center text-white cursor-pointer">
+                <div class="text-xs uppercase tracking-wider opacity-80 mb-1 font-medium">Tổng số dư ước tính</div>
+                <div class="text-3xl font-black tracking-tight">
+                    <span>89.750,00</span> <span class="text-lg font-bold text-emerald-300">USDT</span>
+                </div>
+                <div class="text-xs text-emerald-300 font-medium mt-1 flex items-center justify-center space-x-1">
+                    <i class="fa-solid fa-circle-arrow-up text-[10px]"></i>
+                    <span>+2.45% (+$2,148.50 hôm nay)</span>
+                </div>
+            </div>
+
+            <!-- Phím tắt (Gửi, Nhận, Livestream, Stake, Thêm) -->
+            <div class="px-4 mt-6 grid grid-cols-5 gap-2 text-center text-white">
+                <button data-modal-title="Gửi Tiền (Send)" data-modal-desc="Nhập địa chỉ ví người nhận và số lượng token muốn chuyển." class="clickable-btn flex flex-col items-center group">
+                    <div class="w-12 h-12 rounded-full bg-white text-gray-800 flex items-center justify-center text-lg shadow-md group-active:scale-90 transition">
+                        <i class="fa-solid fa-arrow-up"></i>
+                    </div>
+                    <span class="text-xs mt-2 font-medium">Gửi</span>
+                </button>
+                <button data-modal-title="Nhận Tiền (Receive)" data-modal-desc="Địa chỉ ví Bảo pi Wallet: 0xf96f30a911a8c982d513" class="clickable-btn flex flex-col items-center group">
+                    <div class="w-12 h-12 rounded-full bg-white text-gray-800 flex items-center justify-center text-lg shadow-md group-active:scale-90 transition">
+                        <i class="fa-solid fa-arrow-down"></i>
+                    </div>
+                    <span class="text-xs mt-2 font-medium">Nhận</span>
+                </button>
+                <button data-modal-title="Livestream Crypto" data-modal-desc="Xem phát sóng trực tiếp phân tích thị trường." class="clickable-btn flex flex-col items-center group">
+                    <div class="w-12 h-12 rounded-full bg-white text-gray-800 flex items-center justify-center text-lg shadow-md group-active:scale-90 transition">
+                        <i class="fa-solid fa-play"></i>
+                    </div>
+                    <span class="text-xs mt-2 font-medium">Livestream</span>
+                </button>
+                <button data-modal-title="Staking & Lợi Nhuận" data-modal-desc="Gửi tiết kiệm nhận lãi suất lên đến 14.2%/năm." class="clickable-btn flex flex-col items-center group">
+                    <div class="w-12 h-12 rounded-full bg-white text-gray-800 flex items-center justify-center text-lg shadow-md group-active:scale-90 transition">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+                    <span class="text-xs mt-2 font-medium">Stake</span>
+                </button>
+                <button data-modal-title="Tiện Ích Mở Rộng" data-modal-desc="Khám phá cầu nối chuỗi và DApp." class="clickable-btn flex flex-col items-center group">
+                    <div class="w-12 h-12 rounded-full bg-white text-gray-800 flex items-center justify-center text-lg shadow-md group-active:scale-90 transition">
+                        <i class="fa-solid fa-border-all"></i>
+                    </div>
+                    <span class="text-xs mt-2 font-medium">Thêm</span>
+                </button>
+            </div>
+
+            <!-- Banner Visa -->
+            <div class="px-4 mt-6">
+                <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-2xl p-4 text-white relative overflow-hidden shadow-lg border border-white/10">
+                    <div class="relative z-10 w-2/3">
+                        <h3 class="font-bold text-sm">Get your Visa Card</h3>
+                        <p class="text-xs text-gray-300 mt-1">Bảo pi Virtual Card - Chi tiêu toàn cầu</p>
+                        <button data-modal-title="Thẻ Visa Bảo Pi" data-modal-desc="Đăng ký thẻ thanh toán quốc tế liên kết số dư USDT." class="clickable-btn mt-3 bg-white text-gray-900 font-bold text-xs px-3.5 py-1.5 rounded-full shadow hover:bg-gray-100 transition">
+                            Explore Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Danh sách tài sản -->
+            <div class="mt-6 bg-white rounded-t-3xl min-h-[500px] p-4 text-gray-800 shadow-xl">
+                <div class="flex justify-around border-b border-gray-100 pb-2 mb-4 font-semibold text-sm">
+                    <button class="text-indigo-600 border-b-2 border-indigo-600 pb-2 px-2 font-bold">Token</button>
+                    <button data-modal-title="Bộ Sưu Tập NFT" data-modal-desc="Kho lưu trữ tác phẩm nghệ thuật số." class="clickable-btn text-gray-400 pb-2 px-2">NFT</button>
+                    <button data-modal-title="Lịch Sử Giao Dịch" data-modal-desc="1. Nạp +89.750,00 USDT&#10;2. Nhận +1,500.00 PI" class="clickable-btn text-gray-400 pb-2 px-2">Lịch sử</button>
+                </div>
+
+                <!-- Danh sách các đồng coin -->
+                <div class="space-y-2">
+                    <div data-modal-title="Tether USD (USDT)" data-modal-desc="Số dư: 89.750,00 USDT&#10;Giá: $1.00 USD" class="clickable-btn flex items-center justify-between p-2.5 rounded-2xl hover:bg-slate-50 transition cursor-pointer">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-[#26A17B] flex items-center justify-center p-2 text-white font-bold text-sm">T</div>
+                            <div>
+                                <div class="font-bold text-sm text-gray-900">Tether USD</div>
+                                <div class="text-xs text-gray-400 font-medium">USDT</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-bold text-sm text-emerald-600">89.750,00 USDT</div>
+                            <div class="text-xs text-gray-400">$89,750.00</div>
+                        </div>
+                    </div>
+
+                    <div data-modal-title="Bitcoin (BTC)" data-modal-desc="Số dư: 0.45 BTC" class="clickable-btn flex items-center justify-between p-2.5 rounded-2xl hover:bg-slate-50 transition cursor-pointer">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-[#F7931A] text-white flex items-center justify-center font-bold">₿</div>
+                            <div>
+                                <div class="font-bold text-sm text-gray-900">Bitcoin</div>
+                                <div class="text-xs text-gray-400 font-medium">BTC</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-bold text-sm text-gray-900">0.45 BTC</div>
+                            <div class="text-xs text-gray-400" id="btc-price">$29,250.00</div>
+                        </div>
+                    </div>
+
+                    <div data-modal-title="Pi Network (PI)" data-modal-desc="Số dư: 1,500.00 PI&#10;Đã di chuyển Mainnet thành công." class="clickable-btn flex items-center justify-between p-2.5 rounded-2xl hover:bg-slate-50 transition cursor-pointer">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-[#800080] text-white flex items-center justify-center font-bold">Π</div>
+                            <div>
+                                <div class="font-bold text-sm text-gray-900">Pi Network</div>
+                                <div class="text-xs text-gray-400 font-medium">PI</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-bold text-sm text-gray-900">1.500,00 PI</div>
+                            <div class="text-xs text-gray-400">$450.00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thanh điều hướng đáy -->
+        <div class="absolute bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-100 px-4 py-2 flex justify-between items-center z-20">
+            <button data-modal-title="Trang Chủ" data-modal-desc="Màn hình chính Bảo pi Wallet." class="clickable-btn flex flex-col items-center text-indigo-600 text-[10px]">
+                <i class="fa-solid fa-wallet text-lg mb-0.5"></i><span>Trang chủ</span>
+            </button>
+            <button data-modal-title="DApp" data-modal-desc="Trình duyệt Web3." class="clickable-btn flex flex-col items-center text-gray-400 text-[10px]">
+                <i class="fa-solid fa-compass text-lg mb-0.5"></i><span>DApp</span>
+            </button>
+            <button data-modal-title="Swap" data-modal-desc="Quy đổi coin tức thì." class="clickable-btn w-12 h-12 rounded-full bg-indigo-600 text-white flex items-center justify-center text-lg shadow-lg -mt-5">
+                <i class="fa-solid fa-right-left"></i>
+            </button>
+            <button data-modal-title="Thẻ" data-modal-desc="Quản lý thẻ Visa." class="clickable-btn flex flex-col items-center text-gray-400 text-[10px]">
+                <i class="fa-solid fa-credit-card text-lg mb-0.5"></i><span>Thẻ</span>
+            </button>
+            <button data-modal-title="Hồ Sơ" data-modal-desc="Cài đặt tài khoản và KYC." class="clickable-btn flex flex-col items-center text-gray-400 text-[10px]">
+                <i class="fa-solid fa-user text-lg mb-0.5"></i><span>Hồ sơ</span>
+            </button>
+        </div>
+
+        <!-- Popup Modal -->
+        <div id="action-modal" class="hidden absolute inset-0 bg-black/60 z-50 flex items-end justify-center">
+            <div class="bg-white w-full rounded-t-3xl p-5 modal-animate shadow-2xl border-t border-gray-100 max-h-[80%] overflow-y-auto">
+                <div class="w-12 h-1.5 bg-gray-300 rounded-full mx-auto mb-4"></div>
+                <div class="flex justify-between items-center mb-3">
+                    <h2 id="modal-title" class="text-base font-bold text-gray-900">Tiêu đề</h2>
+                    <button id="close-modal-x" class="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center text-gray-500">
+                        <i class="fa-solid fa-xmark text-sm"></i>
+                    </button>
+                </div>
+                <div id="modal-content" class="text-sm text-gray-600 whitespace-pre-line leading-relaxed mb-6 font-normal">Nội dung...</div>
+                <button id="close-modal-btn" class="w-full py-3 bg-indigo-600 text-white font-bold text-sm rounded-xl">Đóng cửa sổ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script tương tác -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('action-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalContent = document.getElementById('modal-content');
+            const closeModalBtn = document.getElementById('close-modal-btn');
+            const closeModalX = document.getElementById('close-modal-x');
+            const copyBtn = document.getElementById('copy-wallet-btn');
+
+            function showPopup(title, desc) {
+                modalTitle.textContent = title;
+                modalContent.textContent = desc;
+                modal.classList.remove('hidden');
+            }
+            function hidePopup() { modal.classList.add('hidden'); }
+
+            closeModalBtn.addEventListener('click', hidePopup);
+            closeModalX.addEventListener('click', hidePopup);
+            modal.addEventListener('click', function(e) { if (e.target === modal) hidePopup(); });
+
+            document.querySelectorAll('.clickable-btn').forEach(function(el) {
+                el.addEventListener('click', function() {
+                    showPopup(el.getAttribute('data-modal-title') || 'Thông báo', el.getAttribute('data-modal-desc') || 'Đã kích hoạt.');
+                });
+            });
+
+            if (copyBtn) {
+                copyBtn.addEventListener('click', function() {
+                    navigator.clipboard.writeText('0xf96f30a911a8c982d513');
+                    showPopup('Đã Sao Chép!', 'Địa chỉ ví Bảo pi Wallet đã được lưu vào bộ nhớ tạm.');
+                });
+            }
+
+            function updateClock() {
+                const now = new Date();
+                const h = String(now.getHours()).padStart(2, '0');
+                const m = String(now.getMinutes()).padStart(2, '0');
+                const s = String(now.getSeconds()).padStart(2, '0');
+                document.getElementById('realtime-clock').textContent = `${h}:${m}:${s}`;
+                
+                const days = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
+                const d = String(now.getDate()).padStart(2, '0');
+                const month = String(now.getMonth() + 1).padStart(2, '0');
+                document.getElementById('realtime-date').textContent = `${days[now.getDay()]}, ${d}/${month}/${now.getFullYear()}`;
+            }
+            setInterval(updateClock, 1000);
+            updateClock();
+        });
+    </script>
+</body>
+</html>
