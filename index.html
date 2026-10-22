@@ -1,146 +1,195 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bảo pi Wallet</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body { font-family: -apple-system, sans-serif; background-color: #0f172a; user-select: none; -webkit-tap-highlight-color: transparent; }
-        .app-bg { background: linear-gradient(180deg, #4f46e5 0%, #6366f1 40%, #818cf8 75%, #f8fafc 100%); }
-        .hide-scroll::-webkit-scrollbar { display: none; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crypto Wallet</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0b1020;color:#f5f7ff;font-family:Arial,sans-serif}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.app{max-width:440px;min-height:100vh;margin:auto;padding:22px 18px 90px;background:linear-gradient(160deg,#17264a,#0b1020 55%)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.logo{font-size:22px;font-weight:bold}.logo span{color:#43e0ac}
+.avatar{padding:12px;background:#293858;border-radius:50%}
+.muted{color:#94a0bb;font-size:13px}
+.card{margin-top:25px;padding:23px;border-radius:23px;background:linear-gradient(130deg,#405fc1,#7950c8)}
+.balance{font-size:32px;font-weight:bold;margin:15px 0}
+.eye{background:#ffffff25;color:white;border:0;border-radius:8px;padding:7px}
+.green{color:#7df0c2;font-size:13px}
+.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:22px 0}
+.action{background:#182138;color:white;border:1px solid #2a3550;border-radius:15px;padding:14px 2px;font-size:12px}
+.action b{display:block;font-size:23px;color:#a5b6ff;margin-bottom:8px}
+h3{font-size:18px;margin:24px 0 12px}
+.coin{display:flex;align-items:center;gap:12px;padding:15px 0;border-bottom:1px solid #273047}
+.icon{width:43px;height:43px;border-radius:50%;display:grid;place-items:center;font-size:20px;font-weight:bold;flex-shrink:0}
+.info{flex:1}.name{font-weight:bold;margin-bottom:5px}
+.price{text-align:right;font-weight:bold}.up{color:#52dfa5;font-size:12px;margin-top:5px}
+.down{color:#ff8298;font-size:12px;margin-top:5px}
+.panel{background:#171f34;border:1px solid #29334d;border-radius:16px;padding:15px}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:440px;display:flex;justify-content:space-around;background:#121a2df5;border-top:1px solid #29334d;padding:13px 2px 18px}
+.nav button{background:none;border:0;color:#9ba6bf;font-size:11px}
+.nav button span{display:block;font-size:21px;margin-bottom:5px}
+.nav button.active{color:#a5b7ff}
+.overlay{display:none;position:fixed;inset:0;background:#000b;z-index:5;align-items:flex-end;justify-content:center}
+.overlay.show{display:flex}
+.modal{width:100%;max-width:440px;background:#19223a;border-radius:23px 23px 0 0;padding:23px 20px 30px}
+.close{background:#303c58;color:white;border:0;border-radius:9px;padding:9px 13px}
+label{display:block;color:#aab5cc;font-size:13px;margin-top:13px}
+input,select{width:100%;background:#0d1427;color:white;border:1px solid #34415e;border-radius:11px;padding:13px;margin-top:7px}
+.primary{width:100%;padding:15px;border:0;border-radius:12px;background:#43e0ac;color:#08251d;font-weight:bold;margin-top:18px}
+.note{color:#94a0bb;font-size:12px;line-height:1.5}
+.toast{display:none;position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#263653;padding:14px 18px;border-radius:12px;z-index:10;max-width:90%}
+</style>
 </head>
-<body class="flex justify-center items-center min-h-screen">
+<body>
+<div class="app">
+  <header class="row">
+    <div class="logo">Crypto<span>Wallet</span></div>
+    <div class="avatar">👤</div>
+  </header>
 
-    <div class="w-full max-w-md h-[100vh] sm:h-[880px] bg-slate-50 flex flex-col relative overflow-hidden shadow-2xl sm:rounded-[36px]">
-        
-        <!-- Status Bar Realtime -->
-        <div class="app-bg pt-3 px-5 pb-2 text-white flex justify-between items-center text-xs font-semibold">
-            <span id="clock" class="font-mono">12:48:00</span>
-            <span id="date" class="text-[11px] opacity-90">22/10/2026</span>
-            <div class="flex items-center space-x-1">
-                <i class="fa-solid fa-signal text-[10px]"></i>
-                <span class="text-[10px] bg-white/20 px-1 rounded">5G</span>
-                <i class="fa-solid fa-battery-full text-sm"></i>
-            </div>
-        </div>
+  <section class="card">
+    <div class="row">
+      <span>✨ Tổng tài sản</span>
+      <button class="eye" onclick="toggleBalance()">◉</button>
+    </div>
+    <div class="balance" id="balance">$24,680.50</div>
+    <div class="green">▲ +5.29% hôm nay</div>
+    <p class="muted" style="color:#e2e6ff">Số dư ước tính · USD</p>
+  </section>
 
-        <div class="flex-1 overflow-y-auto hide-scroll pb-24 app-bg">
-            <!-- Top Bar -->
-            <div class="px-4 py-2 flex justify-between items-center text-white">
-                <button onclick="pop('Quét Mã QR', 'Mở Camera quét mã QR thanh toán hoặc kết nối DApp.')" class="p-2 cursor-pointer"><i class="fa-solid fa-qrcode text-xl"></i></button>
-                <div class="bg-black/20 p-1 rounded-full flex text-xs">
-                    <button onclick="pop('Chế Độ App', 'Đã chuyển sang trình duyệt ứng dụng DApp.')" class="px-3 py-1 text-gray-200 cursor-pointer">App</button>
-                    <button onclick="pop('Ví Bảo Pi', 'Đang ở màn hình chính Bảo pi Wallet.')" class="px-3 py-1 bg-white text-indigo-900 rounded-full font-bold shadow-sm cursor-pointer">Wallet</button>
-                </div>
-                <button onclick="pop('Cài Đặt', 'Cài đặt bảo mật, mật khẩu và khóa riêng tư.')" class="p-2 cursor-pointer"><i class="fa-solid fa-gear text-xl"></i></button>
-            </div>
+  <section class="actions">
+    <button class="action" onclick="openModal('Nạp tiền')"><b>↓</b>Nạp</button>
+    <button class="action" onclick="openModal('Rút tiền')"><b>↑</b>Rút</button>
+    <button class="action" onclick="openModal('Gửi crypto')"><b>➤</b>Gửi</button>
+    <button class="action" onclick="openModal('Nhận crypto')"><b>▣</b>Nhận</button>
+  </section>
 
-            <!-- Wallet Header & Connect Button -->
-            <div class="px-5 mt-2 flex justify-between items-center text-white">
-                <div onclick="pop('Ví Bảo Pi', 'Tài khoản chính #1\nĐịa chỉ: 0xf96f...d513\nMạng lưới: Multi-chain EVM & Pi Mainnet')" class="flex items-center space-x-2 cursor-pointer">
-                    <div class="w-9 h-9 rounded-full bg-emerald-500 flex items-center justify-center font-bold"><i class="fa-solid fa-shield-cat"></i></div>
-                    <div>
-                        <div class="font-bold text-sm flex items-center space-x-1">
-                            <span>Bảo pi Wallet</span>
-                            <i class="fa-solid fa-chevron-down text-xs opacity-70"></i>
-                        </div>
-                        <div class="text-xs text-indigo-100 font-mono">0xf96f...d513</div>
-                    </div>
-                </div>
-                <button onclick="pop('Trạng Thái Kết Nối', 'Ví Bảo pi Wallet đã kết nối an toàn với mạng Web3 chính thức!')" class="px-3 py-1.5 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs flex items-center space-x-1 cursor-pointer shadow">
-                    <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
-                    <span>Kết nối ví</span>
-                </button>
-            </div>
+  <div class="row"><h3>Tài sản của tôi</h3><span class="muted">3 coin</span></div>
+  <div class="panel" id="portfolio"></div>
 
-            <!-- Total Balance (89.750 USDT) -->
-            <div onclick="pop('Chi Tiết Số Dư', 'Tổng số dư ví Bảo pi Wallet:\n89.750,00 USDT ($89,750.00 USD)')" class="px-5 mt-5 text-center text-white cursor-pointer">
-                <div class="text-xs uppercase opacity-80 font-medium">Tổng số dư ước tính</div>
-                <div class="text-3xl font-black mt-1 tracking-tight">89.750,00 <span class="text-emerald-300 text-lg font-bold">USDT</span></div>
-                <div class="text-xs text-emerald-300 mt-1 font-medium">+2.45% (+$2,148.50 hôm nay)</div>
-            </div>
+  <div class="row">
+    <h3>Thị trường</h3>
+    <button onclick="loadPrices()" style="background:none;color:#a5b7ff;border:0">↻ Làm mới</button>
+  </div>
+  <div id="market"></div>
+  <p class="note" id="status">Giá hiện tại đang dùng số liệu minh họa. Nhấn Làm mới để thử tải giá trực tuyến.</p>
+</div>
 
-            <!-- Main Action Buttons -->
-            <div class="px-4 mt-6 grid grid-cols-5 gap-2 text-center text-white">
-                <button onclick="pop('Gửi Tiền (Send)', 'Nhập địa chỉ ví nhận và số lượng USDT/Coin cần chuyển.')" class="flex flex-col items-center cursor-pointer">
-                    <div class="w-11 h-11 rounded-full bg-white text-gray-800 flex items-center justify-center text-base shadow"><i class="fa-solid fa-arrow-up"></i></div>
-                    <span class="text-xs mt-1">Gửi</span>
-                </button>
-                <button onclick="pop('Nhận Tiền (Receive)', 'Địa chỉ ví của bạn:\n0xf96f30a911a8c982d513\n\nQuét mã QR hoặc sao chép địa chỉ để nhận tài sản.')" class="flex flex-col items-center cursor-pointer">
-                    <div class="w-11 h-11 rounded-full bg-white text-gray-800 flex items-center justify-center text-base shadow"><i class="fa-solid fa-arrow-down"></i></div>
-                    <span class="text-xs mt-1">Nhận</span>
-                </button>
-                <button onclick="pop('Livestream Crypto', 'Xem truyền hình trực tiếp phân tích kỹ thuật và xu hướng thị trường.')" class="flex flex-col items-center cursor-pointer">
-                    <div class="w-11 h-11 rounded-full bg-white text-gray-800 flex items-center justify-center text-base shadow"><i class="fa-solid fa-play"></i></div>
-                    <span class="text-xs mt-1">Livestream</span>
-                </button>
-                <button onclick="pop('Staking Lợi Nhuận', 'Gửi tiết kiệm USDT nhận lãi suất tích lũy 14.2%/năm.')" class="flex flex-col items-center cursor-pointer">
-                    <div class="w-11 h-11 rounded-full bg-white text-gray-800 flex items-center justify-center text-base shadow"><i class="fa-solid fa-layer-group"></i></div>
-                    <span class="text-xs mt-1">Stake</span>
-                </button>
-                <button onclick="pop('Tiện Ích Khác', 'Khám phá Cầu nối chuỗi (Bridge), DApp và NFT Marketplace.')" class="flex flex-col items-center cursor-pointer">
-                    <div class="w-11 h-11 rounded-full bg-white text-gray-800 flex items-center justify-center text-base shadow"><i class="fa-solid fa-border-all"></i></div>
-                    <span class="text-xs mt-1">Thêm</span>
-                </button>
-            </div>
+<nav class="nav">
+  <button class="active" onclick="go('Trang chủ')"><span>⌂</span>Trang chủ</button>
+  <button onclick="go('Thị trường')"><span>▥</span>Thị trường</button>
+  <button onclick="openModal('Giao dịch')"><span>⇄</span>Giao dịch</button>
+  <button onclick="openModal('Tài sản')"><span>▤</span>Tài sản</button>
+  <button onclick="openModal('Cài đặt')"><span>⚙</span>Cài đặt</button>
+</nav>
 
-            <!-- Visa Card Banner -->
-            <div class="px-4 mt-5">
-                <div class="bg-slate-900 rounded-2xl p-4 text-white flex justify-between items-center border border-white/10 shadow-lg">
-                    <div>
-                        <div class="font-bold text-sm">Get your Visa Card</div>
-                        <div class="text-xs text-gray-300">Bảo pi Virtual Visa Card</div>
-                        <button onclick="pop('Đăng Ký Thẻ Visa', 'Đăng ký thẻ Visa thanh toán quốc tế liên kết trực tiếp số dư USDT.')" class="mt-2 bg-white text-gray-900 font-bold text-xs px-3 py-1 rounded-full cursor-pointer shadow">Explore Now</button>
-                    </div>
-                    <i class="fa-solid fa-credit-card text-5xl text-indigo-400 opacity-80"></i>
-                </div>
-            </div>
+<div class="overlay" id="overlay" onclick="backdropClose(event)">
+  <section class="modal">
+    <div class="row">
+      <h3 id="modalTitle" style="margin:0 0 12px">Chức năng</h3>
+      <button class="close" onclick="closeModal()">✕</button>
+    </div>
+    <div id="modalBody"></div>
+  </section>
+</div>
+<div class="toast" id="toast"></div>
 
-            <!-- Full Coin List (Tất cả các đồng coin trên thị trường) -->
-            <div class="mt-5 bg-white rounded-t-3xl p-4 text-gray-800 shadow-xl min-h-[500px]">
-                <div class="flex justify-around border-b pb-2 mb-3 text-sm font-bold">
-                    <span class="text-indigo-600 border-b-2 border-indigo-600 pb-1 cursor-pointer">Token</span>
-                    <span onclick="pop('Bộ Sưu Tập NFT', 'Hiện tại ví chưa lưu trữ NFT nào.')" class="text-gray-400 cursor-pointer">NFT</span>
-                    <span onclick="pop('Lịch Sử Giao Dịch', 'Giao dịch gần nhất:\n+ 89.750,00 USDT (Nạp tiền thành công)')" class="text-gray-400 cursor-pointer">Lịch sử</span>
-                </div>
+<script>
+const coins=[
+ {name:"Bitcoin",symbol:"BTC",icon:"₿",color:"#f7931a",price:67420,change:2.4,amount:0.25},
+ {name:"Ethereum",symbol:"ETH",icon:"◆",color:"#627eea",price:3520,change:1.8,amount:2.4},
+ {name:"Tether",symbol:"USDT",icon:"₮",color:"#26a17b",price:1,change:0.1,amount:850}
+];
+let balanceVisible=true;
 
-                <!-- Danh sách các đồng Coin thịnh hành -->
-                <div class="space-y-1">
-                    
-                    <!-- USDT -->
-                    <div onclick="pop('Tether USD (USDT)', 'Số dư: 89.750,00 USDT\nGiá: $1.00 USD\nMạng: ERC-20 / TRC-20')" class="flex justify-between items-center p-2.5 rounded-xl hover:bg-gray-100 cursor-pointer">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-9 h-9 rounded-full bg-[#26A17B] text-white font-bold flex items-center justify-center text-sm shadow-sm">T</div>
-                            <div><div class="font-bold text-sm">Tether USD</div><div class="text-xs text-gray-400">USDT</div></div>
-                        </div>
-                        <div class="text-right"><div class="font-bold text-sm text-emerald-600">89.750,00 USDT</div><div class="text-xs text-gray-400">$89,750.00</div></div>
-                    </div>
-
-                    <!-- BTC -->
-                    <div onclick="pop('Bitcoin (BTC)', 'Số dư: 0.45 BTC\nGiá: $65,000.00 USD')" class="flex justify-between items-center p-2.5 rounded-xl hover:bg-gray-100 cursor-pointer">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-9 h-9 rounded-full bg-[#F7931A] text-white font-bold flex items-center justify-center text-sm shadow-sm">₿</div>
-                            <div><div class="font-bold text-sm">Bitcoin</div><div class="text-xs text-gray-400">BTC</div></div>
-                        </div>
-                        <div class="text-right"><div class="font-bold text-sm">0.45 BTC</div><div class="text-xs text-gray-400">$29,250.00</div></div>
-                    </div>
-
-                    <!-- ETH -->
-                    <div onclick="pop('Ethereum (ETH)', 'Số dư: 2.15 ETH\nGiá: $2,600.00 USD')" class="flex justify-between items-center p-2.5 rounded-xl hover:bg-slate-100 cursor-pointer">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-9 h-9 rounded-full bg-[#627EEA] text-white font-bold flex items-center justify-center text-sm shadow-sm"><i class="fa-brands fa-ethereum"></i></div>
-                            <div><div class="font-bold text-sm">Ethereum</div><div class="text-xs text-gray-400">ETH</div></div>
-                        </div>
-                        <div class="text-right"><div class="font-bold text-sm">2.15 ETH</div><div class="text-xs text-gray-400">$5,590.00</div></div>
-                    </div>
-
-                    <!-- PI -->
-                    <div onclick="pop('Pi Network (PI)', 'Số dư: 1,500.00 PI\nĐã di chuyển Mainnet thành công.')" class="flex justify-between items-center p-2.5 rounded-xl hover:bg-slate-100 cursor-pointer">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-9 h-9 rounded-full bg-[#800080] text-white font-bold flex items-center justify-center text-sm shadow-sm">Π</div>
-                            <div><div class="font-bold text-sm">Pi Network</div><div class="text-xs text-gray-400">PI</div></div>
-                        </div>
-                        <div class="text-right"><div class="font-bold text-sm">1,500.00 PI
+function money(n){
+ return n.toLocaleString("en-US",{style:"currency",currency:"USD",maximumFractionDigits:2});
+}
+function toggleBalance(){
+ balanceVisible=!balanceVisible;
+ document.getElementById("balance").textContent=balanceVisible?"$24,680.50":"••••••••";
+}
+function coinRow(c){
+ return `<div class="coin">
+ <div class="icon" style="background:${c.color}22;color:${c.color}">${c.icon}</div>
+ <div class="info"><div class="name">${c.name}</div><div class="muted">${c.symbol}</div></div>
+ <div class="price">${money(c.price)}<div class="${c.change<0?'down':'up'}">${c.change>=0?'+':''}${c.change}%</div></div>
+ </div>`;
+}
+function render(){
+ document.getElementById("portfolio").innerHTML=coins.map(c=>
+ `<div class="coin">
+ <div class="icon" style="background:${c.color}22;color:${c.color}">${c.icon}</div>
+ <div class="info"><div class="name">${c.symbol}</div><div class="muted">${c.amount} ${c.symbol}</div></div>
+ <div class="price">${money(c.amount*c.price)}</div>
+ </div>`).join("");
+ document.getElementById("market").innerHTML=coins.map(coinRow).join("");
+}
+function openModal(title){
+ document.getElementById("modalTitle").textContent=title;
+ const body=document.getElementById("modalBody");
+ if(title==="Cài đặt"){
+ body.innerHTML=`<p>Giao diện CryptoWallet</p><button class="primary" onclick="showToast('Bạn đang dùng bản demo')">Thông tin ứng dụng</button>`;
+ }else if(title==="Nhận crypto"){
+ body.innerHTML=`<p>Địa chỉ ví demo của bạn:</p><input id="address" readonly value="0xDEMO123456789ABCDEF"><button class="primary" onclick="copyAddress()">Sao chép địa chỉ</button><p class="note">Đây là địa chỉ minh họa, không gửi tiền thật vào địa chỉ này.</p>`;
+ }else{
+ body.innerHTML=`<label>Loại tài sản</label>
+ <select id="asset">${coins.map(c=>`<option value="${c.symbol}">${c.name} (${c.symbol})</option>`).join("")}</select>
+ <label>Số lượng</label><input id="amount" type="number" min="0" step="any" placeholder="Nhập số lượng">
+ <label>Địa chỉ ví / ghi chú</label><input id="destination" placeholder="Nhập thông tin (nếu cần)">
+ <button class="primary" onclick="submitDemo('${title.replace(/'/g,"")}')">Xác nhận</button>
+ <p class="note">Chức năng mô phỏng. Ứng dụng chưa kết nối blockchain và không thực hiện giao dịch thật.</p>`;
+ }
+ document.getElementById("overlay").classList.add("show");
+}
+function closeModal(){document.getElementById("overlay").classList.remove("show")}
+function backdropClose(e){if(e.target.id==="overlay")closeModal()}
+function submitDemo(title){
+ const amount=Number(document.getElementById("amount")?.value||0);
+ if(amount<=0){showToast("Vui lòng nhập số lượng hợp lệ");return}
+ closeModal();showToast(title+" demo đã được ghi nhận trên giao diện");
+}
+function copyAddress(){
+ const input=document.getElementById("address");
+ input.select();
+ try{document.execCommand("copy");showToast("Đã sao chép địa chỉ demo")}
+ catch(e){showToast("Hãy sao chép địa chỉ bằng cách chọn văn bản")}
+}
+function showToast(msg){
+ const el=document.getElementById("toast");
+ el.textContent=msg;el.style.display="block";
+ setTimeout(()=>el.style.display="none",2500);
+}
+function go(name){
+ if(name==="Thị trường"){
+ document.getElementById("market").scrollIntoView({behavior:"smooth"});
+ }else{
+ window.scrollTo({top:0,behavior:"smooth"});
+ }
+}
+async function loadPrices(){
+ const status=document.getElementById("status");
+ status.textContent="Đang tải giá coin...";
+ try{
+ const response=await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,tether&vs_currencies=usd&include_24hr_change=true");
+ if(!response.ok)throw new Error("Không tải được giá");
+ const data=await response.json();
+ const mapping={BTC:"bitcoin",ETH:"ethereum",USDT:"tether"};
+ coins.forEach(c=>{
+ const item=data[mapping[c.symbol]];
+ if(item&&item.usd){c.price=item.usd;c.change=item.usd_24h_change||0}
+ });
+ render();
+ status.textContent="Đã cập nhật giá trực tuyến. Giá có thể thay đổi liên tục.";
+ }catch(e){
+ status.textContent="Không tải được giá trực tuyến. Đang giữ số liệu demo; hãy thử lại sau.";
+ }
+}
+render();
+</script>
+</body>
+</html>
