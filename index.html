@@ -52,7 +52,7 @@
                 <button id="btn-back" onclick="goBack()" class="hidden text-white p-1 touch-action">
                     <i class="fa-solid fa-arrow-left text-xl"></i>
                 </button>
-                <h1 id="header-title" class="font-bold text-lg tracking-wide">Pi Ocean & Gold</h1>
+                <h1 id="header-title" class="font-bold text-lg tracking-wide">Pi Ocean & Gold Hub</h1>
             </div>
             <div class="flex items-center gap-2">
                 <button onclick="openFilterModal()" class="bg-oceanBlue-700 hover:bg-oceanBlue-900 text-xs px-2.5 py-1.5 rounded-none border border-goldAcc-400 text-goldAcc-400 font-bold touch-action shadow-sm">
@@ -69,19 +69,18 @@
     <!-- CONTAINER CHÍNH -->
     <main class="max-w-md mx-auto px-4 pt-3">
 
-        <!-- 1. MÀN HÌNH TRANG CHỦ & HỆ THỐNG ĐA THƯ MỤC KHUNG VUÔNG -->
+        <!-- 1. MÀN HÌNH TRANG CHỦ & HỆ THỐNG ĐA THƯ MỤC CHI TIẾT -->
         <section id="view-home" class="view-screen active">
-            <!-- Banner khung vuông phối màu Xanh dương, Vàng kim, Đỏ nhạt -->
             <div class="bg-gradient-to-r from-oceanBlue-600 via-oceanBlue-700 to-goldAcc-600 rounded-none p-4 text-white shadow-md mb-4 border-2 border-goldAcc-400">
                 <div class="flex items-center justify-between">
                     <span class="text-[10px] bg-softRed-500 text-white font-bold px-2 py-0.5 rounded-none shadow"><i class="fa-solid fa-crown"></i> Hệ sinh thái Pi VIP</span>
                     <span class="text-[10px] bg-white text-slate-900 font-bold px-2 py-0.5 rounded-none">Cloud Active</span>
                 </div>
                 <h2 class="text-xl font-bold mt-2">Chợ Giao Dịch Đa Tầng Pi Network</h2>
-                <p class="text-xs text-oceanBlue-100 mt-1">Mở cửa sổ thư mục nhỏ đa tầng - Chuẩn bảo mật Web3</p>
+                <p class="text-xs text-oceanBlue-100 mt-1">Hệ thống thư mục đa cấp & Quản lý ảnh linh hoạt</p>
             </div>
 
-            <!-- HỆ THỐNG THƯ MỤC CHÍNH (KHUNG VUÔNG SẮC SẢO) -->
+            <!-- HỆ THỐNG THƯ MỤC CHÍNH -->
             <div class="flex items-center justify-between mb-3">
                 <h3 class="font-bold text-slate-800 text-base border-l-4 border-softRed-500 pl-2">Thư mục tiện ích</h3>
                 <span class="text-xs text-goldAcc-600 font-bold cursor-pointer" onclick="openCategory('Tất cả danh mục', 'all')">Xem tất cả</span>
@@ -138,7 +137,7 @@
             <div id="category-listings-grid" class="grid grid-cols-2 gap-3"></div>
         </section>
 
-        <!-- 3. MÀN HÌNH CHI TIẾT (KHUNG VUÔNG) -->
+        <!-- 3. MÀN HÌNH CHI TIẾT -->
         <section id="view-detail" class="view-screen">
             <div class="bg-white rounded-none shadow-sm overflow-hidden border-2 border-slate-200 mb-4">
                 <div class="relative h-64 bg-slate-900 border-b-2 border-slate-200">
@@ -159,8 +158,8 @@
                     </div>
 
                     <div id="detail-specs" class="grid grid-cols-2 gap-2 p-2.5 bg-slate-50 rounded-none mb-3 text-xs border-2 border-slate-200 hidden">
-                        <div><span class="text-slate-500">Diện tích:</span> <strong id="spec-area" class="text-slate-800">--</strong></div>
-                        <div><span class="text-slate-500">Phòng/Loại:</span> <strong id="spec-rooms" class="text-slate-800">--</strong></div>
+                        <div><span class="text-slate-500">Thông số:</span> <strong id="spec-area" class="text-slate-800">--</strong></div>
+                        <div><span class="text-slate-500">Chi tiết:</span> <strong id="spec-rooms" class="text-slate-800">--</strong></div>
                     </div>
 
                     <div class="border-t border-slate-200 pt-3">
@@ -168,7 +167,7 @@
                         <p id="detail-desc" class="text-sm text-slate-600 leading-relaxed">...</p>
                     </div>
 
-                    <!-- THÔNG TIN NGƯỜI BÁN & AVATAR KHUNG VUÔNG -->
+                    <!-- THÔNG TIN NGƯỜI BÁN & AVATAR -->
                     <div class="border-t border-slate-200 pt-3 mt-3 cursor-pointer hover:bg-slate-50 p-2 rounded-none transition border-2 border-dashed border-goldAcc-400" onclick="openSellerProfile()">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-3">
@@ -182,7 +181,7 @@
                         </div>
                     </div>
 
-                    <!-- NÚT CHỈNH SỬA (CHỈ HIỆN KHI LÀ BÀI CỦA BẠN) -->
+                    <!-- NÚT CHỈNH SỬA BÀI ĐĂNG -->
                     <div id="owner-actions" class="mt-3 pt-3 border-t border-slate-200 hidden space-y-2">
                         <button onclick="openEditScreen()" class="w-full bg-goldAcc-500 hover:bg-goldAcc-600 text-slate-900 font-bold py-2 rounded-none text-xs flex items-center justify-center gap-1.5 touch-action shadow border border-goldAcc-600">
                             <i class="fa-solid fa-pen-to-square"></i> Chỉnh sửa bài đăng này
@@ -225,7 +224,7 @@
                         <input type="text" id="inp-title" required placeholder="Nhập tên..." class="w-full text-sm p-2.5 border-2 border-slate-300 rounded-none focus:outline-none focus:border-oceanBlue-600 bg-slate-50">
                     </div>
                     <div class="mb-3">
-                        <label class="block text-xs font-bold text-slate-700 mb-1">Chọn Danh mục</label>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Chọn Danh mục chính</label>
                         <select id="inp-category" class="w-full text-sm p-2.5 border-2 border-slate-300 rounded-none focus:outline-none focus:border-oceanBlue-600 bg-slate-50">
                             <option value="goods">Chợ Hàng Hóa</option>
                             <option value="realestate">Bất Động Sản</option>
@@ -253,10 +252,10 @@
             </div>
         </section>
 
-        <!-- 6. MÀN HÌNH CHỈNH SỬA BÀI ĐĂNG -->
+        <!-- 6. MÀN HÌNH CHỈNH SỬA BÀI ĐĂNG (CÓ HỖ TRỢ ĐỔI ẢNH MỚI) -->
         <section id="view-edit" class="view-screen">
             <div class="bg-white p-4 rounded-none shadow-sm border-2 border-slate-200">
-                <h2 class="text-lg font-bold text-slate-800 mb-4 border-l-4 border-goldAcc-500 pl-2">Chỉnh sửa bài đăng</h2>
+                <h2 class="text-lg font-bold text-slate-800 mb-4 border-l-4 border-goldAcc-500 pl-2">Chỉnh sửa bài đăng & Đổi ảnh</h2>
                 <form id="form-edit" onsubmit="submitEditListing(event)">
                     <div class="mb-3">
                         <label class="block text-xs font-bold text-slate-700 mb-1">Tên bài đăng</label>
@@ -279,7 +278,7 @@
                         <input type="number" step="0.001" id="edit-price" required class="w-full text-sm p-2.5 border-2 border-slate-300 rounded-none bg-slate-50">
                     </div>
                     <div class="mb-3">
-                        <label class="block text-xs font-bold text-slate-700 mb-1">Cập nhật ảnh mới (Bỏ trống nếu giữ nguyên)</label>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Thay đổi / Chọn ảnh mới (Chọn file mới để thay thế ảnh cũ)</label>
                         <input type="file" id="edit-files" multiple accept="image/*" class="w-full text-xs p-2.5 border-2 border-slate-300 rounded-none bg-slate-50">
                     </div>
                     <div class="mb-4">
@@ -339,15 +338,15 @@
 
     </main>
 
-    <!-- CỬA SỔ NHỎ / MODAL HIỂN THỊ THƯ MỤC CON ĐA TẦNG -->
+    <!-- CỬA SỔ NHỎ (MODAL) HIỂN THỊ HỆ THỐNG THƯ MỤC CON CHI TIẾT -->
     <div id="modal-subfolder" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white w-full max-w-sm rounded-none border-2 border-goldAcc-500 shadow-2xl p-4 animate-scale">
             <div class="flex items-center justify-between mb-3 border-b-2 border-slate-200 pb-2">
                 <h3 id="modal-subfolder-title" class="font-bold text-slate-800 text-sm uppercase text-oceanBlue-600">Thư mục con</h3>
                 <button onclick="closeSubFolderModal()" class="text-slate-400 hover:text-slate-800 font-bold px-2 py-1"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
-            <div id="modal-subfolder-list" class="grid grid-cols-1 gap-2">
-                <!-- Danh sách thư mục con dạng khung vuông -->
+            <div id="modal-subfolder-list" class="grid grid-cols-1 gap-2 max-h-72 overflow-y-auto pr-1">
+                <!-- Danh sách thư mục con -->
             </div>
         </div>
     </div>
@@ -380,7 +379,7 @@
         </div>
     </div>
 
-    <!-- THANH ĐIỀU HƯỚNG DƯỚI CÙNG (BOTTOM BAR) -->
+    <!-- THANH ĐIỀU HƯỚNG DƯỚI CÙNG -->
     <nav class="fixed bottom-0 left-0 right-0 bg-white border-t-2 border-slate-300 z-40 shadow-lg">
         <div class="max-w-md mx-auto flex justify-around py-2">
             <button onclick="switchTab('home')" class="nav-btn text-oceanBlue-600 flex flex-col items-center touch-action" id="nav-home">
@@ -404,38 +403,51 @@
 
     <!-- JAVASCRIPT XỬ LÝ -->
     <script>
-        const SUPABASE_URL = ''; 
-        const SUPABASE_ANON_KEY = '';
-
-        let supabaseClient = null;
-        if (SUPABASE_URL && SUPABASE_ANON_KEY) {
-            supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        }
-
+        // HỆ THỐNG THƯ MỤC CON MỞ RỘNG PHONG PHÚ (XE CÔ, BĐS, HÀNG HÓA, ĐỐI TƯỢNG...)
         const subFoldersData = {
             goods: [
                 { key: 'phone', name: 'Điện thoại & Tablet', icon: 'fa-mobile-screen' },
-                { key: 'fashion', name: 'Thời trang & Phụ kiện', icon: 'fa-shirt' }
+                { key: 'laptop', name: 'Laptop & Máy tính xách tay', icon: 'fa-laptop' },
+                { key: 'fashion', name: 'Thời trang nam/nữ & Phụ kiện', icon: 'fa-shirt' },
+                { key: 'home_appliances', name: 'Đồ gia dụng thông minh', icon: 'fa-blender' },
+                { key: 'electronics', name: 'Thiết bị điện tử gia đình', icon: 'fa-tv' }
             ],
             realestate: [
-                { key: 'house', name: 'Nhà phố & Biệt thự', icon: 'fa-house' },
-                { key: 'land', name: 'Đất nền thổ cư', icon: 'fa-map' }
+                { key: 'house', name: 'Nhà phố & Biệt thự liền kề', icon: 'fa-house' },
+                { key: 'land', name: 'Đất nền thổ cư & Dự án', icon: 'fa-map' },
+                { key: 'apartment', name: 'Căn hộ chung cư cao cấp', icon: 'fa-building' },
+                { key: 'rental', name: 'Phòng trọ & Mặt bằng kinh doanh', icon: 'fa-store' }
             ],
             vehicles: [
-                { key: 'car', name: 'Ô tô các loại', icon: 'fa-car' },
-                { key: 'motorbike', name: 'Xe máy chính chủ', icon: 'fa-motorcycle' }
+                { key: 'car_sedan', name: 'Ô tô Sedan & Hatchback', icon: 'fa-car' },
+                { key: 'car_suv', name: 'Ô tô SUV & Bán tải', icon: 'fa-truck-pickup' },
+                { key: 'motorbike', name: 'Xe máy tay ga & Số tay', icon: 'fa-motorcycle' },
+                { key: 'electric_bike', name: 'Xe đạp điện & Xe máy điện', icon: 'fa-bolt' },
+                { key: 'vehicle_parts', name: 'Phụ tùng & Đồ chơi xe', icon: 'fa-gears' }
             ],
             services: [
-                { key: 'it_service', name: 'Lập trình & Web3 DApp', icon: 'fa-laptop-code' }
+                { key: 'it_service', name: 'Lập trình Web3 & DApp App', icon: 'fa-laptop-code' },
+                { key: 'marketing', name: 'Marketing & Truyền thông số', icon: 'fa-bullhorn' },
+                { key: 'design', name: 'Thiết kế đồ họa & Nhận diện', icon: 'fa-pen-nib' },
+                { key: 'consulting', name: 'Tư vấn đầu tư & Pháp lý', icon: 'fa-scale-balanced' }
             ],
-            auction: [{ key: 'rare_item', name: 'Vật phẩm độc quyền', icon: 'fa-gavel' }],
-            forum: [{ key: 'pioneer_news', name: 'Tin tức cộng đồng', icon: 'fa-newspaper' }],
-            antiques: [{ key: 'ceramic', name: 'Gốm sứ & Đồ cổ', icon: 'fa-gem' }]
+            auction: [
+                { key: 'rare_item', name: 'Vật phẩm độc quyền Pi Network', icon: 'fa-gavel' },
+                { key: 'crypto_art', name: 'Tác phẩm nghệ thuật số NFT', icon: 'fa-palette' }
+            ],
+            forum: [
+                { key: 'pioneer_news', name: 'Tin tức & Thông báo cộng đồng', icon: 'fa-newspaper' },
+                { key: 'tech_discussion', name: 'Thảo luận kỹ thuật & SDK', icon: 'fa-comments' }
+            ],
+            antiques: [
+                { key: 'ceramic', name: 'Gốm sứ cổ & Đồ gốm mỹ nghệ', icon: 'fa-gem' },
+                { key: 'bronze', name: 'Đồ đồng xưa & Cổ vật phong thủy', icon: 'fa-chess-rook' }
+            ]
         };
 
         const sampleListings = [
             { id: 901, title: 'Biệt thự cao cấp view sông Cần Thơ', price: 350, category: 'house', categoryName: 'Nhà phố & Biệt thự', area: '300m2', rooms: '5 Phòng', location: 'Cần Thơ', seller: 'Bảo Pi Land', sellerWallet: 'GBCX7Y2Z3A4B5C6D7E8F9G0H1I2J3K4L5M6N7O8P9Q0R1S2T3U4V5W6', rating: '5.0', imgs: ['https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=500'], desc: 'Sổ hồng pháp lý rõ ràng, giao dịch trực tiếp.' },
-            { id: 902, title: 'Ô tô Mazda CX-5 2023 lướt đẹp', price: 82, category: 'car', categoryName: 'Ô tô các loại', location: 'TP.HCM', seller: 'Auto Pi Saigon', sellerWallet: 'GBCX7Y2Z3A4B5C6D7E8F9G0H1I2J3K4L5M6N7O8P9Q0R1S2T3U4V5W6', rating: '4.9', imgs: ['https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=500'], desc: 'Xe gia đình đi giữ gìn cẩn thận.' }
+            { id: 902, title: 'Ô tô Mazda CX-5 2023 lướt đẹp', price: 82, category: 'car_suv', categoryName: 'Ô tô SUV & Bán tải', location: 'TP.HCM', seller: 'Auto Pi Saigon', sellerWallet: 'GBCX7Y2Z3A4B5C6D7E8F9G0H1I2J3K4L5M6N7O8P9Q0R1S2T3U4V5W6', rating: '4.9', imgs: ['https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=500'], desc: 'Xe gia đình đi giữ gìn cẩn thận.' }
         ];
 
         let allListingsCache = [];
@@ -444,7 +456,7 @@
 
         async function loadListingsData() {
             let data = [...sampleListings];
-            const localStored = JSON.parse(localStorage.getItem('pi_ocean_gold_v4') || '[]');
+            const localStored = JSON.parse(localStorage.getItem('pi_ocean_gold_v5') || '[]');
             allListingsCache = [...localStored, ...data];
             renderHomeListings();
             renderOrdersList();
@@ -467,7 +479,7 @@
                     closeSubFolderModal();
                     openCategory(sub.name, sub.key);
                 };
-                btn.innerHTML = `<div class="flex items-center gap-2"><i class="fa-solid ${sub.icon} text-softRed-500 text-base"></i><span class="text-xs font-bold text-slate-800">${sub.name}</span></div><i class="fa-solid fa-chevron-right text-xs text-slate-400"></i>`;
+                btn.innerHTML = `<div class="flex items-center gap-2.5"><i class="fa-solid ${sub.icon} text-softRed-500 text-base"></i><span class="text-xs font-bold text-slate-800">${sub.name}</span></div><i class="fa-solid fa-chevron-right text-xs text-slate-400"></i>`;
                 listEl.appendChild(btn);
             });
             modal.classList.remove('hidden');
@@ -529,10 +541,10 @@
             document.getElementById('detail-desc').innerText = found.desc;
 
             const specsEl = document.getElementById('detail-specs');
-            if (found.area) {
+            if (found.area || found.rooms) {
                 specsEl.classList.remove('hidden');
-                document.getElementById('spec-area').innerText = found.area;
-                document.getElementById('spec-rooms').innerText = found.rooms || 'Tiêu chuẩn';
+                document.getElementById('spec-area').innerText = found.area || 'Tiêu chuẩn';
+                document.getElementById('spec-rooms').innerText = found.rooms || 'Chi tiết';
             } else {
                 specsEl.classList.add('hidden');
             }
@@ -646,12 +658,14 @@
                     seller: 'Tôi (Pioneer)',
                     sellerWallet: myWallet,
                     rating: '5.0',
-                    location: 'Cần Thơ'
+                    location: 'Cần Thơ',
+                    area: 'Tiêu chuẩn',
+                    rooms: 'Mới'
                 };
 
-                const existing = JSON.parse(localStorage.getItem('pi_ocean_gold_v4') || '[]');
+                const existing = JSON.parse(localStorage.getItem('pi_ocean_gold_v5') || '[]');
                 existing.unshift(newListing);
-                localStorage.setItem('pi_ocean_gold_v4', JSON.stringify(existing));
+                localStorage.setItem('pi_ocean_gold_v5', JSON.stringify(existing));
 
                 alert('Đăng tin thành công!');
                 document.getElementById('form-create').reset();
@@ -698,14 +712,16 @@
                 currentDetailListing.category = catSelect.value;
                 currentDetailListing.categoryName = catSelect.options[catSelect.selectedIndex].text;
                 currentDetailListing.price = parseFloat(document.getElementById('edit-price').value);
-                if (imageArray) currentDetailListing.imgs = imageArray;
+                if (imageArray) {
+                    currentDetailListing.imgs = imageArray; // Cập nhật ảnh mới hoàn toàn
+                }
                 currentDetailListing.desc = document.getElementById('edit-desc').value;
 
-                let existing = JSON.parse(localStorage.getItem('pi_ocean_gold_v4') || '[]');
+                let existing = JSON.parse(localStorage.getItem('pi_ocean_gold_v5') || '[]');
                 existing = existing.map(item => item.id === currentDetailListing.id ? currentDetailListing : item);
-                localStorage.setItem('pi_ocean_gold_v4', JSON.stringify(existing));
+                localStorage.setItem('pi_ocean_gold_v5', JSON.stringify(existing));
 
-                alert('Cập nhật bài đăng thành công!');
+                alert('Cập nhật bài đăng và thay đổi ảnh thành công!');
                 loadListingsData();
                 openDetail(currentDetailListing.id);
             };
@@ -722,7 +738,7 @@
                 });
                 Promise.all(readers).then(() => updateData(results));
             } else {
-                updateData(null);
+                updateData(null); // Giữ nguyên ảnh cũ nếu không chọn ảnh mới
             }
         }
 
