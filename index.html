@@ -38,7 +38,7 @@
 </head>
 <body class="bg-slate-50 text-slate-800 pb-20">
 
-    <!-- HEADER / THANH TIÊU ĐỀ CHUẨN STUDIO -->
+    <!-- HEADER / THANH TIÊU ĐỀ -->
     <header class="sticky top-0 z-40 bg-studio-600 text-white shadow-md">
         <div class="max-w-md mx-auto px-4 py-3 flex items-center justify-between">
             <div class="flex items-center gap-2">
@@ -60,16 +60,14 @@
     <!-- CONTAINER CHÍNH -->
     <main class="max-w-md mx-auto px-4 pt-3">
 
-        <!-- 1. MÀN HÌNH TRANG CHỦ & HỆ THỐNG TIỆN ÍCH ĐẦY ĐỦ -->
+        <!-- 1. MÀN HÌNH TRANG CHỦ & HỆ THỐNG TIỆN ÍCH -->
         <section id="view-home" class="view-screen active">
-            <!-- Banner chào mừng chuyên nghiệp -->
             <div class="bg-gradient-to-r from-studio-600 via-emerald-600 to-teal-700 rounded-2xl p-4 text-white shadow-lg mb-4">
                 <p class="text-xs text-studio-100 font-medium">Hệ sinh thái chuẩn Pi App Studio</p>
                 <h2 class="text-xl font-bold mt-0.5">Siêu Ứng Dụng Tiện Ích Web3</h2>
-                <p class="text-xs text-studio-100 mt-2 opacity-95"><i class="fa-solid fa-cloud-arrow-up"></i> Dữ liệu đám mây thời gian thực - Mượt mà tuyệt đối</p>
+                <p class="text-xs text-studio-100 mt-2 opacity-95"><i class="fa-solid fa-cloud-arrow-up"></i> Tải ảnh trực tiếp từ thiết bị - Mượt mà</p>
             </div>
 
-            <!-- HỆ THỐNG DANH MỤC TIỆN ÍCH (ĐÃ CÂN ĐỐI KHÔNG TRÀN KHUNG) -->
             <div class="flex items-center justify-between mb-3">
                 <h3 class="font-bold text-slate-800 text-base">Danh mục tiện ích</h3>
                 <span class="text-xs text-studio-600 font-semibold cursor-pointer" onclick="openCategory('Tất cả tiện ích', 'all')">Xem tất cả</span>
@@ -110,7 +108,6 @@
                 </button>
             </div>
 
-            <!-- DANH SÁCH SẢN PHẨM NỔI BẬT -->
             <div class="flex items-center justify-between mb-3">
                 <h3 class="font-bold text-slate-800 text-base">Sản phẩm nổi bật</h3>
                 <button onclick="loadListingsData()" class="text-xs text-studio-600 font-semibold"><i class="fa-solid fa-rotate"></i> Làm mới</button>
@@ -166,7 +163,7 @@
             </div>
         </section>
 
-        <!-- 4. MÀN HÌNH ĐĂNG TIN -->
+        <!-- 4. MÀN HÌNH ĐĂNG TIN (CHỌN ẢNH TỪ THIẾT BỊ) -->
         <section id="view-create" class="view-screen">
             <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
                 <h2 class="text-lg font-bold text-slate-800 mb-4">Đăng sản phẩm mới</h2>
@@ -192,8 +189,8 @@
                         <input type="number" step="0.001" id="inp-price" required placeholder="Số Pi" class="w-full text-sm p-2.5 border border-slate-200 rounded-xl focus:outline-none focus:border-studio-500">
                     </div>
                     <div class="mb-3">
-                        <label class="block text-xs font-bold text-slate-600 mb-1">Đường dẫn ảnh (Tự động gán nếu trống)</label>
-                        <input type="url" id="inp-img" placeholder="https://..." class="w-full text-sm p-2.5 border border-slate-200 rounded-xl focus:outline-none focus:border-studio-500">
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Chọn ảnh từ thiết bị</label>
+                        <input type="file" id="inp-file" accept="image/*" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl bg-slate-50 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-studio-50 file:text-studio-700 hover:file:bg-studio-100">
                     </div>
                     <div class="mb-4">
                         <label class="block text-xs font-bold text-slate-600 mb-1">Mô tả thông tin chi tiết</label>
@@ -241,14 +238,10 @@
         </div>
     </nav>
 
-    <!-- JAVASCRIPT XỬ LÝ DỮ LIỆU ĐỘNG -->
+    <!-- JAVASCRIPT XỬ LÝ -->
     <script>
-        // ==========================================
-        // CẤU HÌNH SUPABASE (DỮ LIỆU ĐÁM MÂY THẬT)
-        // Nếu để trống, app sẽ tự động chạy chế độ thông minh kết hợp dữ liệu mẫu đầy đủ.
         const SUPABASE_URL = ''; 
         const SUPABASE_ANON_KEY = '';
-        // ==========================================
 
         let supabaseClient = null;
         if (SUPABASE_URL && SUPABASE_ANON_KEY) {
@@ -355,7 +348,8 @@
             allListingsCache.slice(0, 6).forEach(item => grid.appendChild(createCard(item)));
         }
 
-        async function submitNewListing(e) {
+        // HÀM ĐĂNG TIN VÀ XỬ LÝ ẢNH CHỌN TỪ THIẾT BỊ
+        function submitNewListing(e) {
             e.preventDefault();
             const myWallet = localStorage.getItem('user_pi_wallet');
             if (!myWallet) {
@@ -363,31 +357,47 @@
                 switchTab('profile');
                 return;
             }
-            const imgUrl = document.getElementById('inp-img').value.trim() || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500';
+
+            const fileInput = document.getElementById('inp-file');
             const catSelect = document.getElementById('inp-category');
-            const newListing = {
-                id: Date.now(),
-                title: document.getElementById('inp-title').value,
-                category: catSelect.value,
-                categoryName: catSelect.options[catSelect.selectedIndex].text,
-                price: parseFloat(document.getElementById('inp-price').value),
-                img: imgUrl,
-                desc: document.getElementById('inp-desc').value,
-                wallet: myWallet
+            
+            const processAndSave = (imgResult) => {
+                const newListing = {
+                    id: Date.now(),
+                    title: document.getElementById('inp-title').value,
+                    category: catSelect.value,
+                    categoryName: catSelect.options[catSelect.selectedIndex].text,
+                    price: parseFloat(document.getElementById('inp-price').value),
+                    img: imgResult,
+                    desc: document.getElementById('inp-desc').value,
+                    wallet: myWallet
+                };
+
+                const existing = JSON.parse(localStorage.getItem('pi_studio_db') || '[]');
+                existing.unshift(newListing);
+                localStorage.setItem('pi_studio_db', JSON.stringify(existing));
+
+                if (supabaseClient) {
+                    supabaseClient.from('listings').insert([newListing]).then(() => {});
+                }
+
+                alert('Đăng tin thành công lên hệ thống!');
+                document.getElementById('form-create').reset();
+                loadListingsData();
+                switchTab('home');
             };
 
-            const existing = JSON.parse(localStorage.getItem('pi_studio_db') || '[]');
-            existing.unshift(newListing);
-            localStorage.setItem('pi_studio_db', JSON.stringify(existing));
-
-            if (supabaseClient) {
-                try { await supabaseClient.from('listings').insert([newListing]); } catch(e){}
+            // Kiểm tra nếu người dùng chọn file ảnh từ máy
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(uploadEvent) {
+                    processAndSave(uploadEvent.target.result);
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                // Ảnh mặc định nếu không chọn file
+                processAndSave('https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500');
             }
-
-            alert('Đăng tin thành công lên hệ thống!');
-            document.getElementById('form-create').reset();
-            loadListingsData();
-            switchTab('home');
         }
 
         function saveUserWallet() {
