@@ -17,7 +17,7 @@
                             50: '#f0fdf4',
                             100: '#dcfce7',
                             500: '#22c55e',
-                    600: '#16a34a',
+                            600: '#16a34a',
                             700: '#15803d',
                             900: '#14532d'
                         }
@@ -60,12 +60,12 @@
     <!-- CONTAINER CHÍNH -->
     <main class="max-w-md mx-auto px-4 pt-3">
 
-        <!-- 1. MÀN HÌNH TRANG CHỦ & HỆ THỐNG THƯ MỤC CHÍNH -->
+        <!-- 1. MÀN HÌNH TRANG CHỦ & THƯ MỤC -->
         <section id="view-home" class="view-screen active">
             <div class="bg-gradient-to-r from-studio-600 via-emerald-600 to-teal-700 rounded-2xl p-4 text-white shadow-lg mb-4">
                 <p class="text-xs text-studio-100 font-medium">Hệ thống Đa thư mục & Web Động</p>
                 <h2 class="text-xl font-bold mt-0.5">Siêu Ứng Dụng Tiện Ích Web3</h2>
-                <p class="text-xs text-studio-100 mt-2 opacity-95"><i class="fa-solid fa-folder-tree"></i> Mở rộng nhiều thư mục con - Tải nhiều ảnh linh hoạt</p>
+                <p class="text-xs text-studio-100 mt-2 opacity-95"><i class="fa-solid fa-folder-tree"></i> Đăng tin, Chỉnh sửa & Tải nhiều ảnh linh hoạt</p>
             </div>
 
             <div class="flex items-center justify-between mb-3">
@@ -73,7 +73,6 @@
                 <span class="text-xs text-studio-600 font-semibold cursor-pointer" onclick="openAllCategories()">Xem tất cả</span>
             </div>
             
-            <!-- CÁC THƯ MỤC CHÍNH (BẤM VÀO SẼ MỞ RA CÁC THƯ MỤC CON) -->
             <div class="grid grid-cols-4 gap-2 mb-5">
                 <button onclick="openSubFolder('vehicles', 'Thư mục: Xe cộ')" class="bg-white p-2.5 rounded-xl shadow-sm border border-slate-100 flex flex-col items-center justify-center hover:border-studio-400 transition touch-action">
                     <div class="w-10 h-10 bg-amber-50 text-amber-600 rounded-lg flex items-center justify-center text-base mb-1"><i class="fa-solid fa-car-side"></i></div>
@@ -93,15 +92,13 @@
                 </button>
             </div>
 
-            <!-- MÀN HÌNH CHỌN THƯ MỤC CON (HIỂN THỊ KHI BẤM THƯ MỤC CHÍNH) -->
+            <!-- MÀN HÌNH CHỌN THƯ MỤC CON -->
             <div id="subfolder-container" class="mb-5 hidden bg-white p-3 rounded-2xl border border-slate-100 shadow-sm">
                 <div class="flex items-center justify-between mb-2">
                     <h4 id="subfolder-title" class="font-bold text-xs text-studio-700 uppercase">Chọn thư mục con</h4>
                     <button onclick="closeSubFolder()" class="text-xs text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-sm"></i> Đóng</button>
                 </div>
-                <div id="subfolder-list" class="grid grid-cols-2 gap-2">
-                    <!-- Danh sách thư mục con được chèn bằng JS -->
-                </div>
+                <div id="subfolder-list" class="grid grid-cols-2 gap-2"></div>
             </div>
 
             <div class="flex items-center justify-between mb-3">
@@ -111,7 +108,7 @@
             <div id="home-listings-grid" class="grid grid-cols-2 gap-3 mb-6"></div>
         </section>
 
-        <!-- 2. MÀN HÌNH DANH SÁCH SẢN PHẨM TRONG THƯ MỤC -->
+        <!-- 2. MÀN HÌNH DANH SÁCH SẢN PHẨM -->
         <section id="view-list" class="view-screen">
             <div class="flex items-center justify-between mb-3">
                 <h3 id="category-title" class="font-bold text-slate-800 text-lg">Danh sách</h3>
@@ -120,13 +117,12 @@
             <div id="category-listings-grid" class="grid grid-cols-2 gap-3"></div>
         </section>
 
-        <!-- 3. MÀN HÌNH CHI TIẾT (HỖ TRỢ HIỂN THỊ NHIỀU ẢNH) -->
+        <!-- 3. MÀN HÌNH CHI TIẾT SẢN PHẨM -->
         <section id="view-detail" class="view-screen">
             <div class="bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-100 mb-4">
                 <div class="relative h-60 bg-slate-200">
                     <img id="detail-img" src="" class="w-full h-full object-cover" alt="Sản phẩm chính">
                 </div>
-                <!-- Khung hiển thị danh sách ảnh phụ (nếu có nhiều ảnh) -->
                 <div id="detail-gallery" class="flex gap-2 p-2 overflow-x-auto no-scrollbar bg-slate-50 border-t border-slate-100"></div>
                 
                 <div class="p-4">
@@ -150,6 +146,12 @@
                             <button onclick="copySellerWallet()" class="text-xs bg-white text-studio-600 border border-studio-200 px-2.5 py-1 rounded">Copy</button>
                         </div>
                     </div>
+                    <!-- NÚT CHỈNH SỬA (CHỈ HIỆN KHI LÀ BÀI CỦA CHÍNH BẠN) -->
+                    <div id="owner-actions" class="mt-4 pt-3 border-t border-slate-100 hidden">
+                        <button onclick="openEditScreen()" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-2.5 rounded-xl shadow text-xs flex items-center justify-center gap-1.5 touch-action">
+                            <i class="fa-solid fa-pen-to-square"></i> Chỉnh sửa bài đăng này
+                        </button>
+                    </div>
                 </div>
             </div>
             <div class="flex gap-2">
@@ -162,7 +164,7 @@
             </div>
         </section>
 
-        <!-- 4. MÀN HÌNH ĐĂNG TIN (TÍCH HỢP TẢI NHIỀU ẢNH TRỰC TIẾP) -->
+        <!-- 4. MÀN HÌNH ĐĂNG TIN MỚI -->
         <section id="view-create" class="view-screen">
             <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
                 <h2 class="text-lg font-bold text-slate-800 mb-4">Đăng sản phẩm mới</h2>
@@ -172,7 +174,7 @@
                         <input type="text" id="inp-title" required placeholder="Nhập tên..." class="w-full text-sm p-2.5 border border-slate-200 rounded-xl focus:outline-none focus:border-studio-500">
                     </div>
                     <div class="mb-3">
-                        <label class="block text-xs font-bold text-slate-600 mb-1">Chọn Thư mục / Thư mục con</label>
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Chọn Thư mục</label>
                         <select id="inp-category" class="w-full text-sm p-2.5 border border-slate-200 rounded-xl focus:outline-none focus:border-studio-500">
                             <optgroup label="Xe cộ">
                                 <option value="car">Ô tô</option>
@@ -197,9 +199,8 @@
                         <label class="block text-xs font-bold text-slate-600 mb-1">Giá bán (Pi)</label>
                         <input type="number" step="0.001" id="inp-price" required placeholder="Số Pi" class="w-full text-sm p-2.5 border border-slate-200 rounded-xl focus:outline-none focus:border-studio-500">
                     </div>
-                    <!-- Ô ĐĂNG TẢI NHIỀU ẢNH (HỖ TRỢ MULTIPLE) -->
                     <div class="mb-3">
-                        <label class="block text-xs font-bold text-slate-600 mb-1">Chọn nhiều ảnh từ thiết bị (Có thể chọn nhiều tấm)</label>
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Chọn nhiều ảnh từ thiết bị</label>
                         <input type="file" id="inp-files" multiple accept="image/*" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl bg-slate-50 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-studio-50 file:text-studio-700 hover:file:bg-studio-100">
                     </div>
                     <div class="mb-4">
@@ -211,7 +212,58 @@
             </div>
         </section>
 
-        <!-- 5. MÀN HÌNH CÁ NHÂN -->
+        <!-- 5. MÀN HÌNH CHỈNH SỬA BÀI ĐĂNG -->
+        <section id="view-edit" class="view-screen">
+            <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
+                <h2 class="text-lg font-bold text-slate-800 mb-4">Chỉnh sửa bài đăng</h2>
+                <form id="form-edit" onsubmit="submitEditListing(event)">
+                    <div class="mb-3">
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Tên sản phẩm / dịch vụ</label>
+                        <input type="text" id="edit-title" required class="w-full text-sm p-2.5 border border-slate-200 rounded-xl focus:outline-none focus:border-studio-500">
+                    </div>
+                    <div class="mb-3">
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Chọn Thư mục</label>
+                        <select id="edit-category" class="w-full text-sm p-2.5 border border-slate-200 rounded-xl focus:outline-none focus:border-studio-500">
+                            <optgroup label="Xe cộ">
+                                <option value="car">Ô tô</option>
+                                <option value="motorbike">Xe máy</option>
+                                <option value="electric_bike">Xe điện</option>
+                            </optgroup>
+                            <optgroup label="Bất động sản">
+                                <option value="house">Nhà phố / Biệt thự</option>
+                                <option value="land">Đất nền / Thổ cư</option>
+                            </optgroup>
+                            <optgroup label="Thương mại">
+                                <option value="phone">Điện thoại & Phụ kiện</option>
+                                <option value="fashion">Thời trang</option>
+                            </optgroup>
+                            <optgroup label="Công nghệ & Khác">
+                                <option value="computer">Laptop & PC</option>
+                                <option value="service">Dịch vụ số</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Giá bán (Pi)</label>
+                        <input type="number" step="0.001" id="edit-price" required class="w-full text-sm p-2.5 border border-slate-200 rounded-xl focus:outline-none focus:border-studio-500">
+                    </div>
+                    <div class="mb-3">
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Cập nhật ảnh mới (Không chọn nếu giữ nguyên ảnh cũ)</label>
+                        <input type="file" id="edit-files" multiple accept="image/*" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl bg-slate-50 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-studio-50 file:text-studio-700 hover:file:bg-studio-100">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Mô tả thông tin chi tiết</label>
+                        <textarea id="edit-desc" rows="3" required class="w-full text-sm p-2.5 border border-slate-200 rounded-xl focus:outline-none focus:border-studio-500"></textarea>
+                    </div>
+                    <div class="flex gap-2">
+                        <button type="submit" class="flex-1 bg-studio-600 hover:bg-studio-700 text-white font-bold py-3 rounded-xl shadow-md touch-action">Lưu thay đổi</button>
+                        <button type="button" onclick="goBack()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-4 py-3 rounded-xl touch-action">Hủy</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- 6. MÀN HÌNH CÁ NHÂN -->
         <section id="view-profile" class="view-screen">
             <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 mb-4 text-center">
                 <div class="w-16 h-16 bg-studio-100 text-studio-600 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-2">
@@ -248,7 +300,7 @@
         </div>
     </nav>
 
-    <!-- JAVASCRIPT XỬ LÝ ĐA THƯ MỤC & NHIỀU ẢNH -->
+    <!-- SCRIPT XỬ LÝ -->
     <script>
         const SUPABASE_URL = ''; 
         const SUPABASE_ANON_KEY = '';
@@ -260,7 +312,6 @@
             document.getElementById('cloud-status').className = 'text-[10px] bg-emerald-500 text-white font-bold px-2 py-0.5 rounded-full';
         }
 
-        // Cấu trúc thư mục con chi tiết
         const subFoldersData = {
             vehicles: [
                 { key: 'car', name: 'Ô tô', icon: 'fa-car' },
@@ -304,7 +355,6 @@
             renderHomeListings();
         }
 
-        // HÀM MỞ THƯ MỤC CON KHI BẤM THƯ MỤC CHÍNH
         function openSubFolder(folderKey, folderTitle) {
             const container = document.getElementById('subfolder-container');
             const titleEl = document.getElementById('subfolder-title');
@@ -385,7 +435,15 @@
             document.getElementById('detail-desc').innerText = found.desc;
             document.getElementById('detail-wallet').innerText = found.wallet || 'G...';
 
-            // Hiển thị danh sách ảnh nhỏ ở dưới
+            // Kiểm tra quyền sở hữu bài đăng để hiện nút chỉnh sửa
+            const myWallet = localStorage.getItem('user_pi_wallet');
+            const ownerActions = document.getElementById('owner-actions');
+            if (myWallet && found.wallet === myWallet) {
+                ownerActions.classList.remove('hidden');
+            } else {
+                ownerActions.classList.add('hidden');
+            }
+
             const gallery = document.getElementById('detail-gallery');
             gallery.innerHTML = '';
             imgList.forEach(url => {
@@ -421,7 +479,7 @@
             allListingsCache.slice(0, 6).forEach(item => grid.appendChild(createCard(item)));
         }
 
-        // HÀM ĐĂNG TIN VÀ XỬ LÝ NHIỀU ẢNH TỪ THIẾT BỊ
+        // ĐĂNG TIN MỚI
         function submitNewListing(e) {
             e.preventDefault();
             const myWallet = localStorage.getItem('user_pi_wallet');
@@ -473,12 +531,70 @@
                         reader.readAsDataURL(file);
                     }));
                 });
-
-                Promise.all(readers).then(() => {
-                    saveNewData(results);
-                });
+                Promise.all(readers).then(() => saveNewData(results));
             } else {
                 saveNewData(['https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500']);
+            }
+        }
+
+        // MỞ MÀN HÌNH CHỈNH SỬA
+        function openEditScreen() {
+            if (!currentDetailListing) return;
+            historyStack.push('edit');
+            showScreen('view-edit');
+
+            document.getElementById('edit-title').value = currentDetailListing.title;
+            document.getElementById('edit-category').value = currentDetailListing.category;
+            document.getElementById('edit-price').value = currentDetailListing.price;
+            document.getElementById('edit-desc').value = currentDetailListing.desc;
+        }
+
+        // LƯU THAY ĐỔI CHỈNH SỬA
+        function submitEditListing(e) {
+            e.preventDefault();
+            if (!currentDetailListing) return;
+
+            const fileInput = document.getElementById('edit-files');
+            const catSelect = document.getElementById('edit-category');
+
+            const updateData = (imageArray) => {
+                currentDetailListing.title = document.getElementById('edit-title').value;
+                currentDetailListing.category = catSelect.value;
+                currentDetailListing.categoryName = catSelect.options[catSelect.selectedIndex].text;
+                currentDetailListing.price = parseFloat(document.getElementById('edit-price').value);
+                if (imageArray) currentDetailListing.imgs = imageArray;
+                currentDetailListing.desc = document.getElementById('edit-desc').value;
+
+                // Cập nhật localStorage
+                let existing = JSON.parse(localStorage.getItem('pi_multifolder_db') || '[]');
+                existing = existing.map(item => item.id === currentDetailListing.id ? currentDetailListing : item);
+                localStorage.setItem('pi_multifolder_db', JSON.stringify(existing));
+
+                if (supabaseClient) {
+                    supabaseClient.from('listings').update(currentDetailListing).eq('id', currentDetailListing.id).then(() => {});
+                }
+
+                alert('Cập nhật bài đăng thành công!');
+                loadListingsData();
+                openDetail(currentDetailListing.id);
+            };
+
+            if (fileInput.files && fileInput.files.length > 0) {
+                let readers = [];
+                let results = [];
+                Array.from(fileInput.files).forEach((file, index) => {
+                    let reader = new FileReader();
+                    readers.push(new Promise((resolve) => {
+                        reader.onload = function(e) {
+                            results[index] = e.target.result;
+                            resolve();
+                        };
+                        reader.readAsDataURL(file);
+                    }));
+                });
+                Promise.all(readers).then(() => updateData(results));
+            } else {
+                updateData(null);
             }
         }
 
