@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Pi Multi-Service Ecosystem - Super App</title>
+    <title>Pi Emerald Ecosystem - Super App</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Supabase SDK cho Web Động -->
@@ -14,12 +14,12 @@
                 extend: {
                     colors: {
                         theme: {
-                            50: '#f5f3ff',
-                            100: '#ede9fe',
-                            500: '#8b5cf6',
-                            600: '#7c3aed',
-                            700: '#6d28d9',
-                            900: '#4c1d95'
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            900: '#065f46'
                         }
                     }
                 }
@@ -38,18 +38,18 @@
 </head>
 <body class="bg-slate-50 text-slate-800 pb-20">
 
-    <!-- HEADER / THANH TIÊU ĐỀ SÁNG SỦA -->
+    <!-- HEADER / THANH TIÊU ĐỀ XANH NGỌC SÁNG SỦA -->
     <header class="sticky top-0 z-40 bg-theme-600 text-white shadow-md">
         <div class="max-w-md mx-auto px-4 py-3 flex items-center justify-between">
             <div class="flex items-center gap-2">
                 <button id="btn-back" onclick="goBack()" class="hidden text-white p-1 touch-action">
                     <i class="fa-solid fa-arrow-left text-xl"></i>
                 </button>
-                <h1 id="app-title" class="font-bold text-lg tracking-wide">Pi Global Hub</h1>
+                <h1 id="app-title" class="font-bold text-lg tracking-wide">Pi Emerald Hub</h1>
             </div>
             <div class="flex items-center gap-2">
-                <span id="cloud-status" class="text-[10px] bg-amber-300 text-slate-900 font-bold px-2 py-0.5 rounded-full">Local Mode</span>
-                <button onclick="openWalletModal()" class="bg-theme-700 hover:bg-theme-900 text-xs px-2.5 py-1.5 rounded-full flex items-center gap-1 border border-theme-500 touch-action">
+                <span id="cloud-status" class="text-[10px] bg-amber-300 text-slate-900 font-bold px-2 py-0.5 rounded-full">Cloud Ready</span>
+                <button onclick="switchTab('profile')" class="bg-theme-700 hover:bg-theme-900 text-xs px-2.5 py-1.5 rounded-full flex items-center gap-1 border border-theme-500 touch-action">
                     <i class="fa-solid fa-wallet text-amber-300"></i>
                     <span id="wallet-status">Nối ví</span>
                 </button>
@@ -60,10 +60,24 @@
     <!-- CONTAINER CHÍNH -->
     <main class="max-w-md mx-auto px-4 pt-3">
 
-        <!-- 1. MÀN HÌNH TRANG CHỦ & DANH MỤC ĐA SẮC MÀU SÁNG SỦA -->
+        <!-- 1. MÀN HÌNH TRANG CHỦ & DANH MỤC ĐẦY ĐỦ -->
         <section id="view-home" class="view-screen active">
             <!-- Banner chào mừng tươi sáng -->
-            <div class="bg-gradient-to-r from-theme-600 via-purple-600 to-pink-600 rounded-2xl p-4 text-white shadow-lg mb-4">
+            <div class="bg-gradient-to-r from-theme-600 via-emerald-600 to-teal-700 rounded-2xl p-4 text-white shadow-lg mb-4">
                 <p class="text-xs text-theme-100 font-medium">Hệ sinh thái Đa dịch vụ Web3</p>
-                <h2 class="text-xl font-bold mt-0.5">Mạng lưới Trao đổi Pi</h2>
-                <p class
+                <h2 class="text-xl font-bold mt-0.5">Chợ Giao Dịch Pi Network</h2>
+                <p class="text-xs text-theme-100 mt-2 opacity-90"><i class="fa-solid fa-shield-halved"></i> Đồng bộ đám mây - Giao dịch an toàn</p>
+            </div>
+
+            <!-- HỆ THỐNG DANH MỤC MỞ RỘNG -->
+            <div class="flex items-center justify-between mb-3">
+                <h3 class="font-bold text-slate-800 text-base">Danh mục tiện ích</h3>
+                <span class="text-xs text-theme-600 font-semibold cursor-pointer" onclick="openCategory('Tất cả danh mục', 'all')">Xem tất cả</span>
+            </div>
+            <div class="grid grid-cols-4 gap-2.5 mb-5">
+                <button onclick="openCategory('Thương mại điện tử', 'ecommerce')" class="bg-white p-2.5 rounded-xl shadow-sm border border-slate-100 flex flex-col items-center justify-center hover:border-emerald-400 transition touch-action">
+                    <div class="w-11 h-11 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-lg mb-1 shadow-inner"><i class="fa-solid fa-bag-shopping"></i></div>
+                    <span class="text-[11px] font-semibold text-slate-700 text-center">Thương mại</span>
+                </button>
+                <button onclick="openCategory('Công nghệ & Thiết bị', 'tech')" class="bg-white p-2.5 rounded-xl shadow-sm border border-slate-100 flex flex-col items-center justify-center hover:border-cyan-400 transition touch-action">
+                    <div class="w-11
